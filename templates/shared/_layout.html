@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}Breach Avoidance{% endblock %}</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- Material Kit CSS -->
+    <link href="/static/css/material-kit.css" rel="stylesheet"/>
+    {% block additional_css %}{% endblock %}
+</head>
+
+<body>
+    <nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100"
+         id="sectionsNav">
+        <div class="container">
+            <div class="navbar-translate">
+                <a class="navbar-brand" href="/">
+                    Breach Avoidance </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">
+                            <i class="material-icons">login</i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">
+                            <i class="material-icons">how_to_reg</i> Register
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" rel="tooltip" title="" data-placement="bottom"
+                           href="https://twitter.com/" target="_blank" data-original-title="Follow us on Twitter"
+                           rel="nofollow">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" rel="tooltip" title="" data-placement="bottom"
+                           href="https://www.linkedin.com/" target="_blank"
+                           data-original-title="Find us on LinkedIn" rel="nofollow">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" rel="tooltip" title="" data-placement="bottom"
+                           href="https://www.medium.com/" target="_blank"
+                           data-original-title="Follow us on Medium" rel="nofollow">
+                            <i class="fa fa-medium"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% block header %}{% endblock %}
+
+{% block main_content %}{% endblock %}
+
+{% block footer %}
+<footer class="footer" data-background-color="black">
+    <div class="container">
+        <nav class="float-left">
+            <ul>
+                <li>
+                    <a href="#">
+                        Our Team
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        About Us
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <div class="copyright float-right">
+            &copy;
+            <script>
+                document.write(new Date().getFullYear())
+            </script>
+            , made by
+            <a href="#" target="_blank">Breach Avoidance</a> for a secure tomorrow.
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
+{% block additional_js %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "shared/_dashboard.html" %}
+{% block title %} Vendor Index {% endblock %}
+
+{% block main_content %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="section text-center">
+                    <h2 class="title">Vendors</h2>
+                    <div class="team">
+                        <div class="row">
+                        {% for vendor in vendors|sort(attribute='name') %}
+
+                            <div class="col-md-4">
+                                <div class="card card-profile">
+{#                                    <div class="avatar">#}
+{#                                        <img class="rounded-circle img-fluid" src="/static/img/products/{{ vendor.name.lower() }}_logo.png" alt="{{ vendor.name }} icon" />#}
+{#                                    </div>#}
+                                    <div class="card-body">
+                                        <h6 class="card-category text-gray"></h6>
+                                        <h4 class="card-title">{{ vendor.name }}</h4>
+                                        <p class="card-description"></p>
+                                        <a href="{{ vendor.homepage }}" class="btn btn-warning btn-round">Homepage</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_js %}
+{% endblock %}

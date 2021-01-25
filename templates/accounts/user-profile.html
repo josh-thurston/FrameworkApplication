@@ -1,0 +1,207 @@
+{% extends "shared/_dashboard.html" %}
+{% block title %} User Profile {% endblock %}
+{% block main_content %}
+    <div class="content">
+        <div class="container">
+            <div id="nav-tabs">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card card-nav-tabs">
+                            <div class="card-header card-header-warning">
+                                <div class="nav-tabs-navigation">
+                                    <div class="nav-tabs-wrapper">
+                                        <ul class="nav nav-tabs" data-tabs="tabs">
+                                            <li class="nav-item">
+                                                <a class="nav-link active show" href="#user_profile" data-toggle="tab" aria-selected="true">
+                                                    <i class="material-icons">account_box</i>
+                                                    User Profile
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link " href="#company_info" data-toggle="tab" aria-selected="true">
+                                                    <i class="material-icons">domain</i>
+                                                    Company Info
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div id="user_profile" class="tab-pane active show">
+                                        <form class="form" method="POST" action="">
+                                            {% for user in user_profile %}
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"><strong>Full Name:&nbsp &nbsp</strong>{{ user.name }}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"><strong>Email:&nbsp &nbsp</strong>{{ user.email }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"><strong>Last Logon:&nbsp &nbsp</strong>{{ user.last_logon }}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"><strong>Member Since:&nbsp &nbsp</strong>{{ user.created_on }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"><strong>Account Type:&nbsp &nbsp</strong>{{ user.role }}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {% if user.title %}
+                                                                <label class="bmd-label-floating"><strong>Job Title:&nbsp &nbsp</strong>{{ user.title }}</label>
+                                                            {% else %}
+                                                                <label class="bmd-label-floating">Title</label>
+                                                                <input name="title" type="text" class="form-control"
+                                                                       value="{{ title }}">
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-warning pull-right">Update Profile</button>
+                                                <div class="clearfix"></div>
+                                            {% endfor %}
+                                        </form>
+                                    </div> {# End of User Profile #}
+                                    <div id="company_info" class="tab-pane">
+                                        <form class="form" method="POST" action="">
+                                            {% for company in company_info %}
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"><strong>Company Name:&nbsp &nbsp</strong>{{ company.name }}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {% if company.website %}
+                                                                <label class="bmd-label-floating"><strong>Website / URL:&nbsp &nbsp</strong>{{ company.website }}</label>
+                                                            {% else %}
+                                                                <label class="bmd-label-floating">Website / URL</label>
+                                                                <input name="website" type="text" class="form-control"
+                                                                       value="{{ website }}">
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"><strong>Member Since:&nbsp &nbsp</strong>{{ company.created_on }}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"><strong>Subscription Type:&nbsp &nbsp</strong>{{ company.subscription_type }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"><strong>Subscription Start:&nbsp &nbsp</strong>{{ company.start_date }}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"><strong>Subscription Expire:&nbsp &nbsp</strong>{{ company.expiration_date }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"><strong>Account Status:&nbsp &nbsp</strong>{{ company.status }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {% if company.industry %}
+                                                                <label class="bmd-label-floating"><strong>Industry:&nbsp &nbsp</strong>{{ company.industry }}</label>
+                                                            {% else %}
+                                                                <label class="bmd-label-floating">Industry</label>
+                                                                <input name="industry" type="text" class="form-control"
+                                                                       value="{{ industry }}">
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            {% if company.city %}
+                                                                <label class="bmd-label-floating"><strong>City:&nbsp &nbsp</strong>{{ company.city }}</label>
+                                                            {% else %}
+                                                                <label class="bmd-label-floating">City</label>
+                                                                <input name="city" type="text" class="form-control"
+                                                                       value="{{ city }}">
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            {% if company.state %}
+                                                                <label class="bmd-label-floating"><strong>State:&nbsp &nbsp</strong>{{ company.state }}</label>
+                                                            {% else %}
+                                                                <label class="bmd-label-floating">State</label>
+                                                                <input name="state" type="text" class="form-control"
+                                                                       value="{{ state }}">
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            {% if company.country %}
+                                                                <label class="bmd-label-floating"><strong>Country:&nbsp &nbsp</strong>{{ company.country }}</label>
+                                                            {% else %}
+                                                                <label class="bmd-label-floating">Country</label>
+                                                                <input name="country" type="text" class="form-control"
+                                                                       value="{{ country }}">
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            {% if company.postal %}
+                                                                <label class="bmd-label-floating"><strong>Postal:&nbsp &nbsp</strong>{{ company.postal }}</label>
+                                                            {% else %}
+                                                                <label class="bmd-label-floating">Postal Code</label>
+                                                                <input name="postal" type="text" class="form-control"
+                                                                       value="{{ postal }}">
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-warning pull-right">Update Info</button>
+                                                <div class="clearfix"></div>
+                                            {% endfor %}
+                                        </form>
+                                    </div> {# End of Company Info #}
+                                </div> {# End of Tab Content #}
+                            </div> {# End of Card Body #}
+                        </div> {# End of Card Card-Nav-Tabs #}
+                    </div> {# End of col-md-8 #}
+                </div> {# End of row #}
+            </div> {# End of Nav-tabs #}
+        </div> {# End of Container #}
+    </div> {# End of Content #}
+{% endblock %}
+{% block additional_js %}{% endblock %}

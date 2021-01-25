@@ -1,0 +1,388 @@
+{% extends "shared/_dashboard.html" %}
+{% block title %} Product Index {% endblock %}
+
+{% block main_content %}
+    <div class="content">
+        <div class="container">
+            <div id="nav-tabs">
+                <h3>Frameworks</h3>
+                <div class="row">
+                    <div class="col-lg-12 col-md-8">
+                        <div class="card card-nav-tabs">
+                            <div class="card-header card-header-warning">
+                                <div class="nav-tabs-navigation">
+                                    <div class="nav-tabs-wrapper">
+                                        <ul class="nav nav-tabs" data-tabs="tabs">
+                                            {% for framework in frame %}
+                                                <li class="nav-item ">
+                                                {% if framework.name == 'Cyber Defense Matrix' %}
+                                                    <a class="nav-link active show" href="#{{ framework.name }}" data-toggle="tab" aria-selected="true">
+                                                        <i class="material-icons">dashboard</i>
+                                                        {{ framework.name }}
+                                                    </a>
+                                                {% else %}
+                                                    <a class="nav-link" href="#{{ framework.name }}" data-toggle="tab" aria-selected="true">
+                                                        <i class="material-icons">dashboard</i>
+                                                        {{ framework.name }}
+                                                    </a>
+                                                {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div id="Cyber Defense Matrix" class="tab-pane active show">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons">fingerprint</i>
+                                                        </div>
+                                                        <h4>Identify</h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons">security</i>
+                                                        </div>
+                                                        <h4>Protect</h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons">report</i>
+                                                        </div>
+                                                        <h4>Detect</h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons">engineering</i>
+                                                        </div>
+                                                        <h4>Respond</h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons">healing</i>
+                                                        </div>
+                                                        <h4>Recover</h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons">devices</i>
+                                                        </div>
+                                                        <h4>Devices</h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons">apps</i>
+                                                        </div>
+                                                        <h4>Applications</h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons">device_hub</i>
+                                                        </div>
+                                                        <h4>Networks</h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons">folder_open</i>
+                                                        </div>
+                                                        <h4>Data</h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-bottom: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons">people</i>
+                                                        </div>
+                                                        <h4>Users</h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2" style="border-right: 1px solid darkgray">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="info">
+                                                        <div class="icon">
+                                                            <i class="material-icons"></i>
+                                                        </div>
+                                                        <h4></h4>
+                                                        <p></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_js %}
+{% endblock %}
