@@ -1,0 +1,237 @@
+{% extends "shared/_dashboard.html" %}
+{% block title %} User Profile {% endblock %}
+{% block main_content %}
+    <div class="content">
+        <div class="container">
+            <div id="nav-tabs">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card card-nav-tabs">
+                            <div class="card-header card-header-warning">
+                                <div class="nav-tabs-navigation">
+                                    <div class="nav-tabs-wrapper">
+                                        <ul class="nav nav-tabs" data-tabs="tabs">
+                                            <li class="nav-item">
+                                                <a class="nav-link active show" href="#user_profile" data-toggle="tab" aria-selected="true">
+                                                    <i class="material-icons">account_box</i>
+                                                    {% for user in user_info %}
+                                                        {{ user.name }}
+                                                    {% endfor %}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div> {# Close nav-tabs-wrapper #}
+                                </div> {# Close nav-tabs-navigation #}
+                            </div> {# Close card-header card-header-warning #}
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div id="user_profile" class="tab-pane active show">
+                                        <form class="form" method="POST" action="">
+                                            {% for user in user_info %}
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"><strong>Name:&nbsp &nbsp</strong>{{ user.name }}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"><strong>Email:&nbsp &nbsp</strong>{{ user.email }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"><strong>Last Logon:&nbsp &nbsp</strong>{{ user.last_logon }}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="bmd-label-floating"><strong>Member Since:&nbsp &nbsp</strong>{{ user.created_on }}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div id="checkRadios">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 col-sm-6">
+                                                            <div class="form-check">
+                                                                <div class="title">Role</div>
+                                                                <label class="form-check-label">
+                                                                    {% if user.role == 'Administrator' %}
+                                                                        <input class="form-check-input" type="radio" name="role" id="role" value="Administrator" checked>
+                                                                        Administrator
+                                                                        <span class="circle">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                    {% else %}
+                                                                        <input class="form-check-input" type="radio" name="role" id="role" value="Administrator">
+                                                                        Administrator
+                                                                        <span class="circle">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                    {% endif %}
+                                                                </label>
+                                                            </div> {# Close form-check #}
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    {% if user.role == 'User' %}
+                                                                        <input class="form-check-input" type="radio" name="role" id="role" value="User" checked>
+                                                                        User
+                                                                        <span class="circle">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                    {% else %}
+                                                                        <input class="form-check-input" type="radio" name="role" id="role" value="User">
+                                                                        User
+                                                                        <span class="circle">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                    {% endif %}
+                                                                </label>
+                                                            </div> {# Close form-check #}
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    {% if user.role == 'Pending' %}
+                                                                        <input class="form-check-input" type="radio" name="role" id="role" value="Pending" checked>
+                                                                        Pending
+                                                                        <span class="circle">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                    {% endif %}
+                                                                </label>
+                                                            </div> {# Close form-check #}
+                                                        </div> {# Close col-lg-3 col-md-4 col-sm-6 #}
+
+                                                        <div class="col-lg-3 col-md-4 col-sm-6">
+                                                            <div class="form-check">
+                                                                <div class="title">Permissions</div>
+                                                                <label class="form-check-label">
+                                                                    {% if user.permission == 'Editor' %}
+                                                                        <input class="form-check-input" type="radio" name="permission" id="permission" value="Editor" checked>
+                                                                            Editor
+                                                                        <span class="circle">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                    {% else %}
+                                                                        <input class="form-check-input" type="radio" name="permission" id="permission" value="Editor">
+                                                                            Editor
+                                                                            <span class="circle">
+                                                                                <span class="check"></span>
+                                                                            </span>
+                                                                    {% endif %}
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    {% if user.permission == 'Viewer' %}
+                                                                        <input class="form-check-input" type="radio" name="permission" id="permission" value="Viewer" checked>
+                                                                            Viewer
+                                                                        <span class="circle">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                    {% else %}
+                                                                        <input class="form-check-input" type="radio" name="permission" id="permission" value="Viewer">
+                                                                            Viewer
+                                                                        <span class="circle">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                    {% endif %}
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    {% if user.permission == 'Pending' %}
+                                                                        <input class="form-check-input" type="radio" name="permission" id="permission" value="Pending" checked>
+                                                                            Pending
+                                                                        <span class="circle">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                    {% endif %}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-4 col-sm-6">
+                                                            <div class="form-check">
+                                                                <div class="title">Status</div>
+                                                                <label class="form-check-label">
+                                                                    {% if user.status == 'Active' %}
+                                                                        <input class="form-check-input" type="radio" name="status" id="status" value="Active" checked>
+                                                                        Active
+                                                                        <span class="circle">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                    {% else %}
+                                                                        <input class="form-check-input" type="radio" name="status" id="status" value="Active">
+                                                                        Active
+                                                                        <span class="circle">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                    {% endif %}
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    {% if user.status == 'Disabled' %}
+                                                                        <input class="form-check-input" type="radio" name="status" id="status" value="Disabled" checked>
+                                                                        Disabled
+                                                                        <span class="circle">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                    {% else %}
+                                                                        <input class="form-check-input" type="radio" name="status" id="status" value="Disabled">
+                                                                        Disable
+                                                                        <span class="circle">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                    {% endif %}
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    {% if user.status == 'Pending' %}
+                                                                        <input class="form-check-input" type="radio" name="status" id="status" value="Pending" checked>
+                                                                        Pending
+                                                                        <span class="circle">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                    {% endif %}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div> {# Close row #}
+                                                </div> {# Close checkRadios #}
+                                                <div id="checkRadios">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-4 col-sm-6">
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    {% if user.role == 'Pending' %}
+                                                                        <input class="form-check-input" type="radio" name="denied" id="denied" value="denied">
+                                                                        Deny Access & Delete User
+                                                                        <span class="circle">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                                                                    {% endif %}
+                                                                </label>
+                                                            </div> {# Close form-check #}
+                                                        </div> {# Close col-lg-3 col-md-4 col-sm-6 #}
+                                                    </div> {# Close row #}
+                                                </div> {# Close checkRadios #}
+                                                <button type="submit" class="btn btn-warning pull-right">Update Profile</button>
+                                                <div class="clearfix"></div>
+                                                <p><a href="/admin/users">Back</a></p>
+                                            {% endfor %}
+                                        </form>
+                                    </div> {# End of User Profile #}
+                                </div> {# End of Tab Content #}
+                            </div> {# End of Card Body #}
+                        </div> {# Close Card Card-Nav-Tabs #}
+                    </div> {# Close col-md-8 #}
+                </div> {# Close row #}
+            </div> {# Close Nav-tabs #}
+        </div> {# Close Container #}
+    </div> {# Close Content #}
+{% endblock %}
+{% block additional_js %}{% endblock %}

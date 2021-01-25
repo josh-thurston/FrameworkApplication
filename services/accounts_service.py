@@ -77,47 +77,28 @@ def create_tenant(company, email):
     tenant.name = name
     tenant.created_on = datetime.now().strftime('%c')
     graph.create(tenant)
-    set_user_status_active(email)
-    set_user_permission_editor(email)
-    set_user_role_admin(email)
+    finalize_admin(email)
     set_admin_relationship(email, company)
     return tenant
 
 
-def set_user_status_active(email: str):
-    graph.run(f"MATCH (x:User) WHERE x.email='{email}' SET x.status='Active'")
-
-
-def set_user_status_disabled(email: str):
-    graph.run(f"MATCH (x:User) WHERE x.email='{email}' SET x.status='Disabled'")
-
-
-def set_user_permission_editor(email: str):
-    graph.run(f"MATCH (x:User) WHERE x.email='{email}' SET x.permission='Editor'")
-
-
-def set_user_permission_viewer(email: str):
-    graph.run(f"MATCH (x:User) WHERE x.email='{email}' SET x.permission='Viewer'")
-
-
-def set_user_role_admin(email: str):
-    graph.run(f"MATCH (x:User) WHERE x.email='{email}' SET x.role='Administrator'")
+def finalize_admin(email: str):
+    graph.run(f"MATCH (x:User) WHERE x.email='{email}' SET x.status='Active', x.permission='Editor', x.role='Administrator'")
 
 
 def set_admin_relationship(email: str, company: str):
     graph.run(f"MATCH (x:User), (y:Tenant) WHERE x.email='{email}' AND y.name='{company}' MERGE (y)-[r:Administrator]->(x)")
 
 
-def set_user_role_user(email: str):
-    graph.run(f"MATCH (x:User) WHERE x.email='{email}' SET x.role='User'")
-
-
-def set_user_relationship(email: str, company: str):
-    graph.run(f"MATCH (x:User), (y:Tenant) WHERE x.email='{email}' AND y.name='{company}' MERGE (y)-[r:User]->(x)")
-
-
 def login_user(email: str, password: str) -> Optional[User]:
     user = User.match(graph, f"{email}").first()
+    # check_status = graph.run(f"MATCH (x:User) WHERE x.email='{email}' return x.status as status").data()
+    # status = (check_status[0]['status'])
+
+    # if status != "Active":
+    #     print(f"Account Not Active")
+    #     return None
+
     now = datetime.now()
     login = now.strftime("%c")
 
@@ -132,6 +113,11 @@ def login_user(email: str, password: str) -> Optional[User]:
     current_logon = f"MATCH (x:User) WHERE x.email='{email}' SET x.current_logon='{login}'"
     graph.run(current_logon)
     return user
+
+
+def check_status(email: str):
+    status = graph.run(f"MATCH (x:User) WHERE x.email='{email}' return x.status as status").data()
+    return status
 
 
 def update_previous_logon(email: str) -> Optional[User]:

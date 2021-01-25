@@ -37,18 +37,29 @@ def get_user_info(encoded):
                           f"x.created_on as created_on, "
                           f"x.last_logon as last_logon, "
                           f"x.user_id as user_id, "
-                          f"x.status as status,"
-                          f"x.role as role,"
-                          f"x.permission as permission,"
+                          f"x.status as status, "
+                          f"x.role as role, "
+                          f"x.permission as permission, "
                           f"x.current_logon").data()
     return user_info
 
 
 def update_status(user_id: str, status: str):
+    if status == 'Disable':
+        drop_user_to_tenant(user_id)
+        create_lockout_password(user_id)
     graph.run(
-        f"MATCH (x:User) WHERE x.user_id='{user_id}' SET x.role='', x.status='{status}'")
+        f"MATCH (x:User) WHERE x.user_id='{user_id}' SET x.status='{status}'")
+
+
+def update_role(user_id: str, role: str, company: str):
     drop_user_to_tenant(user_id)
-    create_lockout_password(user_id)
+    graph.run(f"MATCH (x:User) WHERE x.user_id='{user_id}' SET x.role='{role}'")
+    update_user_to_tenant(user_id, role, company)
+
+
+def update_permission(user_id: str, permission: str):
+    graph.run(f"MATCH (x:User) WHERE x.user_id='{user_id}' SET x.permission='{permission}'")
 
 
 def create_lockout_password(user_id: str):
@@ -61,14 +72,7 @@ def create_lockout_password(user_id: str):
     randomize = random.sample(mixer, length)
     text = "".join(randomize)
     hashed_password = hash_text(text)
-    print(hashed_password)
     graph.run(f"MATCH (x:User) WHERE x.user_id='{user_id} SET x.hashed_password='{hashed_password}'")
-
-
-def update_role(user_id: str, role: str, company: str):
-    graph.run(f"MATCH (x:User) WHERE x.user_id='{user_id}' SET x.role='{role}', x.status='Active'")
-    drop_user_to_tenant(user_id)
-    update_user_to_tenant(user_id, role, company)
 
 
 def drop_user_to_tenant(user_id: str):
@@ -77,4 +81,16 @@ def drop_user_to_tenant(user_id: str):
 
 def update_user_to_tenant(user_id: str, role: str, company: str):
     graph.run(f"MATCH (x:User), (y:Tenant) WHERE x.user_id='{user_id}' AND y.name='{company}' Merge (y)-[r:{role}]->(x)")
+
+
+def delete_user(user_id: str):
+    graph.run(f"MATCH (x:User) WHERE x.user_id='{user_id}' delete x")
+
+
+def decline_access(user_id: str, denied: str):
+    if not denied:
+        return None
+    drop_user_to_tenant(user_id)
+    delete_user(user_id)
+
 

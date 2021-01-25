@@ -10,13 +10,17 @@
                             <div class="card-header card-header-warning">
                                 <div class="nav-tabs-navigation">
                                     <div class="nav-tabs-wrapper">
-                                        <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <ul class="nav nav-tabs">
                                             <li class="nav-item">
-                                                <a class="nav-link active show" href="#user_profile" data-toggle="tab" aria-selected="true">
+                                                <a class="nav-link" href="/admin/toolbox" aria-selected="true">
                                                     <i class="material-icons">account_box</i>
-                                                    {% for user in user_info %}
-                                                        {{ user.name }}
-                                                    {% endfor %}
+                                                    Toolbox Management
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active show" href="#users" aria-selected="true">
+                                                    <i class="material-icons">chat</i>
+                                                    User Management
                                                 </a>
                                             </li>
                                         </ul>
@@ -25,53 +29,30 @@
                             </div>
                             <div class="card-body">
                                 <div class="tab-content">
-                                    <div id="user_profile" class="tab-pane active show">
-                                        <form class="form" method="POST" action="">
-                                            {% for user in user_info %}
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating"><strong>Name:&nbsp &nbsp</strong>{{ user.name }}</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating"><strong>Email:&nbsp &nbsp</strong>{{ user.email }}</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating"><strong>Last Logon:&nbsp &nbsp</strong>{{ user.last_logon }}</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating"><strong>Member Since:&nbsp &nbsp</strong>{{ user.created_on }}</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating"><strong>Role:&nbsp &nbsp</strong>{{ user.role }}</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="bmd-label-floating"><strong>Status:&nbsp &nbsp</strong>{{ user.status }}</label>
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-                                                <button type="submit" class="btn btn-warning pull-right">Update Profile</button>
-                                                <div class="clearfix"></div>
-                                                <p><a href="/admin">Back</a></p>
+                                    <div id="users" class="tab-pane active show">
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Name</th>
+                                                <th>Role</th>
+                                                <th>Status</th>
+                                                <th>Last Logon</th>
+                                            </tr>
+{#                                            <form class="form" method="POST" action="">#}
+                                            {% for user in users %}
+                                                <tr>
+                                                    <td><a href="/admin/{{ user.user_id }}">Edit</a></td>
+                                                    <td>{{ user.name }}</td>
+                                                    <td>{{ user.role }} </td>
+                                                    <td>{{ user.status }}</td>
+                                                    <td>{{ user.last_logon }}</td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
                                             {% endfor %}
-                                        </form>
-                                    </div> {# End of User Profile #}
+{#                                            </form>#}
+                                        </table>
+                                    </div> {# End of Messages #}
                                 </div> {# End of Tab Content #}
                             </div> {# End of Card Body #}
                         </div> {# End of Card Card-Nav-Tabs #}

@@ -1,0 +1,46 @@
+{% extends "shared/_dashboard.html" %}
+{% block title %} Toolbox Manager {% endblock %}
+{% block main_content %}
+    <div class="content">
+        <div class="container">
+            <div id="nav-tabs">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card card-nav-tabs">
+                            <div class="card-header card-header-warning">
+                                <div class="nav-tabs-navigation">
+                                    <div class="nav-tabs-wrapper">
+                                        <ul class="nav nav-tabs" data-tabs="tabs">
+                                            <li class="nav-item">
+                                                <a class="nav-link active show" href="#toolbox" data-toggle="tab" aria-selected="true">
+                                                    <i class="material-icons">account_box</i>
+                                                    Toolbox Management
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/admin/users" aria-selected="true">
+                                                    <i class="material-icons">chat</i>
+                                                    User Management
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div> {# Close nav-tabs-wrapper #}
+                                </div> {# Close nav-tabs-navigation #}
+                            </div> {# Close card-header card-header-warning #}
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div id="toolbox" class="tab-pane active show">
+                                        <form class="form" method="POST" action="">
+                                            <p>Placeholder</p>
+                                        </form>
+                                    </div> {# Close tab-conent #}
+                                </div> {# Close Tab Content #}
+                            </div> {# Close Card Body #}
+                        </div> {# Close Card Card-Nav-Tabs #}
+                    </div> {# Close col-md-8 #}
+                </div> {# Close row #}
+            </div> {# Close Nav-tabs #}
+        </div> {# Close Container #}
+    </div> {# Close Content #}
+{% endblock %}
+{% block additional_js %}{% endblock %}

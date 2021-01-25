@@ -3,7 +3,7 @@ from infrastructure.view_modifiers import response
 from data.db_session import db_auth
 from services.accounts_service import create_user, login_user, get_profile, \
     update_title, update_industry, update_city, update_country, update_postal, \
-    create_tenant, get_company_info, update_state, update_website, get_company_name
+    create_tenant, get_company_info, update_state, update_website, get_company_name, check_status
 from services.admin_user_service import check_user_role
 
 blueprint = Blueprint('accounts', __name__, template_folder='templates')
@@ -62,7 +62,7 @@ def register_post():
             'name': name,
             'email': email,
             'company': company,
-            'info': f"An account for '{company}' already exists.  An email was sent to the account admin for access approval. You can still login with limited capabilities until the admin approves your account."
+            'info': f"An account for {company} already exists.  An email was sent to the account admin for approval."
         }
 
     usr = request.form["email"]
@@ -100,6 +100,11 @@ def login_post():
             'password': password,
             'error': "No account for that email address or the password is incorrect."
         }
+
+    get_status = check_status(email)
+    status = (get_status[0]['status'])
+    if status != "Active":
+        return {'info': f"Account {status} "}
 
     usr = request.form["email"]
     session["usr"] = usr
