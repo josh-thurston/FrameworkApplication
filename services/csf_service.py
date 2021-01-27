@@ -12,13 +12,23 @@ def get_csf_model():
         "a.fid as fid, "
         "b.name as category, "
         "b.catid as catid, "
-        "b.descroption as catdescroption, "
+        "b.description as catdescription, "
         "c.name as subcatname, "
         "c.description as subcatdescription, "
         "c.order as order").data()
     return full_csf
-#
-#
+
+
+def get_csf_functions():
+    functions = graph.run("MATCH (x:Function) return x.name as name, x.fid as fid, x.order as order ").data()
+    return functions
+
+
+def get_csf_categories():
+    categories = graph.run("MATCH (x:Category) return x.name as name, x.catid as catid, x.description as description, x.order as order").data()
+    return categories
+
+
 # def get_function_count() -> int:
 #     function_count = graph.run("MATCH (n:function)
 #     RETURN count(*) as count").data()

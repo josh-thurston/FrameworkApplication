@@ -4,6 +4,7 @@ from infrastructure.view_modifiers import response
 from services.csf_service import get_csf_model
 from services.frameworks_service import get_frameworks
 from services.admin_user_service import check_user_role
+from services.csf_service import get_csf_model, get_csf_categories
 
 
 blueprint = Blueprint('frameworks', __name__, template_folder='templates')
@@ -32,7 +33,14 @@ def map_landing():
         session["usr"] = usr
         accounts = check_user_role(usr)
         frame = get_frameworks()
+
+        # CSF section
+        csf = get_csf_model()
+        categories = get_csf_categories()
+
         return {'frame': frame,
+                'csf': csf,
+                'categories': categories,
                 'accounts': accounts}
     else:
         return redirect(url_for('accounts.login_get'))

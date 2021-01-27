@@ -1,5 +1,5 @@
 {% extends "shared/_dashboard.html" %}
-{% block title %} Product Index {% endblock %}
+{% block title %} Framework Mapping {% endblock %}
 
 {% block main_content %}
     <div class="content">
@@ -15,15 +15,15 @@
                                         <ul class="nav nav-tabs" data-tabs="tabs">
                                             {% for framework in frame %}
                                                 <li class="nav-item ">
-                                                {% if framework.name == 'Cyber Defense Matrix' %}
-                                                    <a class="nav-link active show" href="#{{ framework.name }}" data-toggle="tab" aria-selected="true">
-                                                        <i class="material-icons">dashboard</i>
-                                                        {{ framework.name }}
+                                                {% if framework.shortname == 'CDM' %}
+                                                    <a class="nav-link active show" href="#{{ framework.shortname }}" data-toggle="tab" aria-selected="true">
+                                                        <i class="material-icons">share</i>
+                                                        {{ framework.shortname }}
                                                     </a>
                                                 {% else %}
-                                                    <a class="nav-link" href="#{{ framework.name }}" data-toggle="tab" aria-selected="true">
-                                                        <i class="material-icons">dashboard</i>
-                                                        {{ framework.name }}
+                                                    <a class="nav-link" href="#{{ framework.shortname }}" data-toggle="tab" aria-selected="true">
+                                                        <i class="material-icons">share</i>
+                                                        {{ framework.shortname }}
                                                     </a>
                                                 {% endif %}
                                                 </li>
@@ -34,7 +34,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="tab-content">
-                                    <div id="Cyber Defense Matrix" class="tab-pane active show">
+                                    <div id="CDM" class="tab-pane active show">
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
@@ -371,6 +371,105 @@
                                                         <p></p>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="NIST 800-53" class="tab-pane">
+                                        <div class="container">
+                                            <div class="row">
+                                                <p>NIST 800-53</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div id="NIST CSF" class="tab-pane">
+                                        <div class="container">
+                                            <div id="navigation-pills">
+                                            <div class="title">
+                                            </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active" href="#identify" role="tab" data-toggle="tab">
+                                                                    <i class="material-icons">fingerprint</i>
+                                                                    Identify
+                                                                </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" href="#protect" role="tab" data-toggle="tab" aria-selected="true">
+                                                                    <i class="material-icons">security</i>
+                                                                    Protect
+                                                                </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" href="#detect" role="tab" data-toggle="tab" aria-selected="true">
+                                                                    <i class="material-icons">report</i>
+                                                                    Detect
+                                                                </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" href="#respond" role="tab" data-toggle="tab" aria-selected="true">
+                                                                    <i class="material-icons">engineering</i>
+                                                                    Respond
+                                                                </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" href="#recover" role="tab" data-toggle="tab" aria-selected="true">
+                                                                    <i class="material-icons">healing</i>
+                                                                    Recover
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="title">
+                                                            <h3></h3>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-12 col-md-12">
+                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                    {% for category in categories|sort(attribute='order') %}
+                                                                        {% if 'ID.' in category.catid %}
+                                                                            <li class="nav-item">
+                                                                                <a class="nav-link" href="#{{ category.name }}" role="tab" data-toggle="tab" aria-selected="true">
+                                                                                    <i class="material-icons"></i>
+                                                                                    {{ category.name }}
+                                                                                </a>
+                                                                            </li>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div id="ISO 27001" class="tab-pane">
+                                        <div class="container">
+                                            <div class="row">
+                                                <p>ISO 27001</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div id="Cobit 5" class="tab-pane">
+                                        <div class="container">
+                                            <div class="row">
+                                                <p>Cobit 5</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div id="CIS CSC" class="tab-pane">
+                                        <div class="container">
+                                            <div class="row">
+                                                <p>CIS CSC</p>
                                             </div>
                                         </div>
                                     </div>

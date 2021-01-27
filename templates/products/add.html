@@ -13,54 +13,55 @@
                             </div>
                             <div class="card-body">
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="material-icons">label</i>
-                                        </span>
-                                    </div>
+{#                                    <div class="input-group-prepend">#}
+{#                                        <span class="input-group-text">#}
+{#                                            <i class="material-icons">label</i>#}
+{#                                        </span>#}
+{#                                    </div>#}
                                     <input type="text" class="form-control" name="name" placeholder="Product Name" required value="{{ name }}">
                                 </div>
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="material-icons">business</i>
-                                        </span>
-                                    </div>
+{#                                    <div class="input-group-prepend">#}
+{#                                        <span class="input-group-text">#}
+{#                                            <i class="material-icons">business</i>#}
+{#                                        </span>#}
+{#                                    </div>#}
                                     <input name="vendor" type="text" class="form-control" placeholder="Vendor Name" required value="{{ vendor }}">
                                 </div>
 
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="material-icons">http</i>
-                                        </span>
-                                    </div>
+{#                                    <div class="input-group-prepend">#}
+{#                                        <span class="input-group-text">#}
+{#                                            <i class="material-icons">http</i>#}
+{#                                        </span>#}
+{#                                    </div>#}
                                     <input name="homepage" type="url" class="form-control" placeholder="Homepage / URL" required value="{{ homepage }}">
                                 </div>
 
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="material-icons">category</i>
-                                        </span>
-                                    </div>
+{#                                    <div class="input-group-prepend">#}
+{#                                        <span class="input-group-text">#}
+{#                                            <i class="material-icons">category</i>#}
+{#                                        </span>#}
+{#                                    </div>#}
                                     <input name="category" type="text" class="form-control" placeholder="Category" required value="{{ category }}">
                                 </div>
 
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="material-icons">description</i>
-                                        </span>
-                                    </div>
+{#                                    <div class="input-group-prepend">#}
+{#                                        <span class="input-group-text">#}
+{#                                            <i class="material-icons">description</i>#}
+{#                                        </span>#}
+{#                                    </div>#}
                                     <textarea rows="4" cols="35" name="description" class="form-control" placeholder="Description..."></textarea>
 {#                                    <input name="description" type="text" class="form-control" placeholder="Description"  required value="{{ description }}">#}
                                 </div>
                                 <br>
 
                             </div>
-                            <div class="footer text-center">
-                                <button type="submit" class="btn btn-outline-warning btn-sm">Submit</button>
+                            <div class="card-body">
+                                <button type="submit" class="btn btn-warning pull-right">Save</button>
+                                <div class="clearfix"></div>
                             </div>
                             <div style="clear: both;"></div>
                             {% if error %}
