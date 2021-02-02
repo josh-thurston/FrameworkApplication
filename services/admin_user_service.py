@@ -7,7 +7,7 @@ from typing import Optional
 from passlib.handlers.sha2_crypt import sha512_crypt as crypto
 from data.classes import User, Tenant
 from services.accounts_service import hash_text
-import string
+
 
 graph = db_auth()
 

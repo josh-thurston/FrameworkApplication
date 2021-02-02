@@ -24,9 +24,9 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                    </div>
-                                </div>
-                            </div>
+                                    </div> {# Close nav-tabs-wrapper #}
+                                </div> {# Close nav-tabs-navigation #}
+                            </div> {# Close card-header card-header-warning #}
                             <div class="card-body">
                                 <div class="tab-content">
                                     <div id="users" class="tab-pane active show">
@@ -38,19 +38,17 @@
                                                 <th>Status</th>
                                                 <th>Last Logon</th>
                                             </tr>
-{#                                            <form class="form" method="POST" action="">#}
-                                            {% for user in users %}
-                                                <tr>
-                                                    <td><a href="/admin/{{ user.user_id }}">Edit</a></td>
-                                                    <td>{{ user.name }}</td>
-                                                    <td>{{ user.role }} </td>
-                                                    <td>{{ user.status }}</td>
-                                                    <td>{{ user.last_logon }}</td>
-                                                    <td>
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-{#                                            </form>#}
+                                        {% for user in users %}
+                                            <tr>
+                                                <td><a href="/admin/{{ user.user_id }}">Edit</a></td>
+                                                <td>{{ user.name }}</td>
+                                                <td>{{ user.role }} </td>
+                                                <td>{{ user.status }}</td>
+                                                <td>{{ user.last_logon }}</td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
                                         </table>
                                     </div> {# End of Messages #}
                                 </div> {# End of Tab Content #}

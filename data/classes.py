@@ -100,6 +100,7 @@ class Framework(GraphObject):
     description = Property()
     homepage = Property()
     created_date = Property()
+    framework_id = Property()
 
     def __init__(self):
         self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')

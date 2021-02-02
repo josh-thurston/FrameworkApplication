@@ -1,0 +1,810 @@
+{% extends "shared/_dashboard.html" %}
+{% block title %} CSF Mapping {% endblock %}
+
+{% block main_content %}
+    <div class="content">
+        <div class="container">
+            <div id="nav-tabs">
+                <h3></h3>
+                <div class="row">
+                    <div class="col-lg-12 col-md-8">
+                        <div class="card card-nav-tabs">
+                            <div class="card-header card-header-warning">
+                                <div class="nav-tabs-navigation">
+                                    <div class="nav-tabs-wrapper">
+                                        <ul class="nav nav-tabs">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/frameworks/map" aria-selected="true">
+                                                    <i class="material-icons">share</i>
+                                                    CDM
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active show" href="#csf" aria-selected="true">
+                                                    <i class="material-icons">share</i>
+                                                    CSF
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/frameworks/csc" aria-selected="true">
+                                                    <i class="material-icons">share</i>
+                                                    CSC
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div id="csf" class="tab-pane active show">
+                                        <div class="container">
+                                            <div id="navigation-pills">
+                                                <div class="title"></div>
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                            {% for function in functions|sort(attribute="order") %}
+                                                                {% if function.name == 'Identify' %}
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link active show" href="#{{ function.name }}" role="tab" data-toggle="tab">
+                                                                            <i class="material-icons">fingerprint</i>
+                                                                            {{ function.name }}
+                                                                        </a>
+                                                                    </li>
+                                                                {% else %}
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" href="#{{ function.name }}" role="tab" data-toggle="tab">
+                                                                            <i class="material-icons">fingerprint</i>
+                                                                            {{ function.name }}
+                                                                        </a>
+                                                                    </li>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </ul>
+                                                        <div class="tab-content tab-space">
+                                                            <div id="Identify" class="tab-pane active">
+                                                                <div id="navigation-pills">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12 col-md-12">
+                                                                            <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                {% for category in categories|sort(attribute="order") %}
+                                                                                    {% if 'ID.' in category.catid %}
+                                                                                        {% if category.catid == 'ID.AM' %}
+                                                                                            <li class="nav-item">
+                                                                                                <a class="nav-link active show" href="#{{ category.catid }}" role="tab" data-toggle="tab">
+                                                                                                    {{ category.name }}
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        {% else %}
+                                                                                            <li class="nav-item">
+                                                                                                <a class="nav-link" href="#{{ category.catid }}" role="tab" data-toggle="tab">
+                                                                                                    {{ category.name }}
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        {% endif %}
+                                                                                    {% endif %}
+                                                                                {% endfor %}
+                                                                            </ul>
+                                                                            <div class="tab-content tab-space">
+                                                                                <div id="ID.AM" class="tab-pane active">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'ID.AM-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'ID.AM-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    <div id="ID.AM-1" class="tab-pane active">
+                                                                                                        <p>Content</p>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="ID.BE" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'ID.BE-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'ID.BE-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="ID.GV" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'ID.GV-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'ID.GV-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="ID.RA" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'ID.RA-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'ID.RA-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="ID.RM" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'ID.RM-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'ID.RM-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="ID.SC" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'ID.SC-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'ID.SC-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="Protect" class="tab-pane">
+                                                                <div id="navigation-pills">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12 col-md-12">
+                                                                            <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                {% for category in categories|sort(attribute="order") %}
+                                                                                    {% if 'PR.' in category.catid %}
+                                                                                        {% if category.catid == 'PR.AC' %}
+                                                                                            <li class="nav-item">
+                                                                                                <a class="nav-link active show" href="#{{ category.catid }}" role="tab" data-toggle="tab">
+                                                                                                    {{ category.name[0:19] }}
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        {% else %}
+                                                                                            {% if category.catid == 'PR.IP' %}
+                                                                                                <li class="nav-item">
+                                                                                                    <a class="nav-link" href="#{{ category.catid }}" role="tab" data-toggle="tab">
+                                                                                                        {{ category.name[0:22] }}
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                            {% else %}
+
+                                                                                                <li class="nav-item">
+                                                                                                    <a class="nav-link" href="#{{ category.catid }}" role="tab" data-toggle="tab">
+                                                                                                        {{ category.name }}
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                            {% endif %}
+                                                                                        {% endif %}
+                                                                                    {% endif %}
+                                                                                {% endfor %}
+                                                                            </ul>
+                                                                            <div class="tab-content tab-space">
+                                                                                <div id="PR.AC" class="tab-pane active">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'PR.AC-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'PR.AC-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="PR.AT" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'PR.AT-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'PR.AT-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="PR.DS" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'PR.DS-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'PR.DS-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="PR.IP" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'PR.IP-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'PR.IP-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="PR.MA" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'PR.MA-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'PR.MA-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="PR.PT" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'PR.PT-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'PR.PT-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="Detect" class="tab-pane">
+                                                                <div id="navigation-pills">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12 col-md-12">
+                                                                            <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                {% for category in categories|sort(attribute="order") %}
+                                                                                    {% if 'DE.' in category.catid %}
+                                                                                        {% if category.catid == 'DE.AE' %}
+                                                                                            <li class="nav-item">
+                                                                                                <a class="nav-link active show" href="#{{ category.catid }}" role="tab" data-toggle="tab">
+                                                                                                    {{ category.name }}
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        {% else %}
+                                                                                            <li class="nav-item">
+                                                                                                <a class="nav-link" href="#{{ category.catid }}" role="tab" data-toggle="tab">
+                                                                                                    {{ category.name }}
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        {% endif %}
+                                                                                    {% endif %}
+                                                                                {% endfor %}
+                                                                            </ul>
+                                                                            <div class="tab-content tab-space">
+                                                                                <div id="DE.AE" class="tab-pane active">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'DE.AE-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'DE.AE-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="DE.CM" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'DE.CM-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'DE.CM-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="DE.DP" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'DE.DP-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'DE.DP-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="Respond" class="tab-pane">
+                                                                <div id="navigation-pills">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12 col-md-12">
+                                                                            <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                {% for category in categories|sort(attribute="order") %}
+                                                                                    {% if 'RS.' in category.catid %}
+                                                                                        {% if category.catid == 'RS.RP' %}
+                                                                                            <li class="nav-item">
+                                                                                                <a class="nav-link active show" href="#{{ category.catid }}" role="tab" data-toggle="tab">
+                                                                                                    {{ category.name }}
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        {% else %}
+                                                                                            <li class="nav-item">
+                                                                                                <a class="nav-link" href="#{{ category.catid }}" role="tab" data-toggle="tab">
+                                                                                                    {{ category.name }}
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        {% endif %}
+                                                                                    {% endif %}
+                                                                                {% endfor %}
+                                                                            </ul>
+                                                                            <div class="tab-content tab-space">
+                                                                                <div id="RS.RP" class="tab-pane active">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'RS.RP-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'RS.RP-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="RS.AN" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'RS.AN-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'RS.AN-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="RS.MI" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'RS.MI-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'RS.MI-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="Recover" class="tab-pane">
+                                                                <div id="navigation-pills">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12 col-md-12">
+                                                                            <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                {% for category in categories|sort(attribute="order") %}
+                                                                                    {% if 'RC.' in category.catid %}
+                                                                                        {% if category.catid == 'RC.RP' %}
+                                                                                            <li class="nav-item">
+                                                                                                <a class="nav-link active show" href="#{{ category.catid }}" role="tab" data-toggle="tab">
+                                                                                                    {{ category.name }}
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        {% else %}
+                                                                                            <li class="nav-item">
+                                                                                                <a class="nav-link" href="#{{ category.catid }}" role="tab" data-toggle="tab">
+                                                                                                    {{ category.name }}
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        {% endif %}
+                                                                                    {% endif %}
+                                                                                {% endfor %}
+                                                                            </ul>
+                                                                            <div class="tab-content tab-space">
+                                                                                <div id="RC.RP" class="tab-pane active">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'RC.RP-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'RC.RP-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="RC.IM" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'RC.IM-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'RC.IM-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="RC.CO" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'RC.CO-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'RC.CO-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_js %}
+{% endblock %}

@@ -9,10 +9,9 @@ from data.classes import User, Tenant
 graph = db_auth()
 
 
-###############
-# Create User #
-###############
 """
+CREATE USER SECTION
+
 1. Check to see if the email address is already in use
 2. Create the user account status set to pending
 3. Setting up the Tenant is next
@@ -50,10 +49,9 @@ def verify_hash(hashed_text: str, plain_text: str) -> bool:
     return crypto.verify(plain_text, hashed_text)
 
 
-#################
-# Create Tenant #
-#################
 """
+CREATE TENANT SECTION
+
 1. Check to see if the Tenant name is already in use, if yes, process stops
 2. Create the new Tenant
 3. Set the user account (creating the tenant) to Active
