@@ -4341,6 +4341,7 @@ tbody.collapse.show {
 
 .tab-content>.tab-pane {
   display: none;
+  margin-top: 4px;
 }
 
 .tab-content>.active {
@@ -19698,4 +19699,9 @@ table, th, td {
 .card .card-header-success:not(.card-header-icon):not(.card-header-text),
 .card .card-header-success .card-text {
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(76, 175, 80, 0.4);
+}
+
+
+.card-content {
+  margin-top: 20px;
 }

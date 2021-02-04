@@ -112,9 +112,19 @@
                                                                                                     {% endfor %}
                                                                                                 </ul>
                                                                                                 <div class="tab-content tab-space">
-                                                                                                    <div id="ID.AM-1" class="tab-pane active">
-                                                                                                        <p>Content</p>
-                                                                                                    </div>
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'ID.AM-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'ID.AM-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -143,6 +153,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'ID.BE-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'ID.BE-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -170,6 +195,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'ID.GV-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'ID.GV-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -197,6 +237,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'ID.RA-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'ID.RA-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -224,6 +279,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'ID.RM-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'ID.RM-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -251,6 +321,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'ID.SC-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'ID.SC-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -316,6 +401,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'PR.AC-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'PR.AC-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -343,6 +443,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'PR.AT-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'PR.AT-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -370,6 +485,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'PR.DS-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'PR.DS-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -397,6 +527,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'PR.IP-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'PR.IP-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -424,6 +569,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'PR.MA-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'PR.MA-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -451,6 +611,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'PR.PT-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'PR.PT-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -507,6 +682,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'DE.AE-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'DE.AE-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -534,6 +724,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'DE.CM-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'DE.CM-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -561,6 +766,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'DE.DP-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'DE.DP-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -617,6 +837,63 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'RS.RP-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'RS.RP-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="RS.CO" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'RS.CO-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'RS.CO-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'RS.CO-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'RS.CO-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -644,6 +921,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'RS.AN-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'RS.AN-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -671,6 +963,63 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'RS.MI-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'RS.MI-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div id="RS.IM" class="tab-pane">
+                                                                                    <div id="navigation-pills">
+                                                                                        <div class="row">
+                                                                                            <div class="col-lg-12 col-md-12">
+                                                                                                <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist">
+                                                                                                    {% for subcategory in subcategories|sort(attribute="order") %}
+                                                                                                        {% if 'RS.IM-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'RS.IM-1' %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link active show" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% else %}
+                                                                                                                <li class="nav-item">
+                                                                                                                    <a class="nav-link" href="#{{ subcategory.subid }}" role="tab" data-toggle="tab">
+                                                                                                                        {{ subcategory.subid }}
+                                                                                                                    </a>
+                                                                                                                </li>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'RS.IM-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'RS.IM-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -727,6 +1076,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'RC.RP-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'RC.RP-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -754,6 +1118,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'RC.IM-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'RC.IM-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -781,6 +1160,21 @@
                                                                                                         {% endif %}
                                                                                                     {% endfor %}
                                                                                                 </ul>
+                                                                                                <div class="tab-content tab-space">
+                                                                                                    {% for subcategory in subcategories %}
+                                                                                                        {% if 'RC.CO-' in subcategory.subid %}
+                                                                                                            {% if subcategory.subid == 'RC.CO-1' %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane active">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% else %}
+                                                                                                                <div id="{{ subcategory.subid }}" class="tab-pane">
+                                                                                                                    <div class="card-content">{{ subcategory.description}}</div>
+                                                                                                                </div>
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
