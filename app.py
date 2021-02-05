@@ -17,7 +17,14 @@ def configure():
 
 
 def register_blueprints():
-    from views import home_views, account_views, dashboard_views, vendors_views, product_views, framework_views, usr_admin_views
+    from views import home_views, \
+        account_views, \
+        dashboard_views, \
+        vendors_views, \
+        product_views, \
+        framework_views, \
+        usr_admin_views, \
+        assessment_views
     app.register_blueprint(home_views.blueprint)
     app.register_blueprint(account_views.blueprint)
     app.register_blueprint(dashboard_views.blueprint)
@@ -25,6 +32,7 @@ def register_blueprints():
     app.register_blueprint(product_views.blueprint)
     app.register_blueprint(framework_views.blueprint)
     app.register_blueprint(usr_admin_views.blueprint)
+    app.register_blueprint(assessment_views.blueprint)
 
 
 if __name__ == '__main__':

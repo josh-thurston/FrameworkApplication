@@ -1,0 +1,190 @@
+{% extends "shared/_dashboard.html" %}
+{% block title %} CSF Mapping {% endblock %}
+
+{% block main_content %}
+    <div class="content">
+	    <div class="container">
+	        <div class="row">
+		        <div class="col-lg-12 col-sm-offset-2">
+		            <!--      Wizard container        -->
+		            <div class="wizard-container">
+		                <div class="card wizard-card" data-color="purple" id="wizard">
+			                <form action="" method="">
+		                    	<div class="wizard-header">
+		                        	<h3 class="wizard-title">
+		                        		NIST CSF Maturity Assessment
+		                        	</h3>
+									<h5>Placeholder</h5>
+		                    	</div>
+								<div class="wizard-navigation">
+									<ul>
+			                            <li><a href="#identify" data-toggle="tab">Identify</a></li>
+			                            <li><a href="#type" data-toggle="tab">Protect</a></li>
+			                            <li><a href="#facilities" data-toggle="tab">Detect</a></li>
+			                            <li><a href="#description" data-toggle="tab">Respond</a></li>
+			                            <li><a href="#description" data-toggle="tab">Recover</a></li>
+			                        </ul>
+								</div>
+
+		                        <div class="tab-content">
+		                            <div class="tab-pane" id="identify">
+		                            	<div class="row">
+		                                	<div class="col-sm-12">
+		                                    	<h4 class="info-text"> Identify</h4>
+		                                	</div>
+		                                	<div class="col-sm-5 col-sm-offset-1">
+		                                    	<div class="form-group label-floating">
+		                                        	<label class="control-label">City</label>
+		                                        	<input type="text" class="form-control" id="exampleInputEmail1">
+		                                    	</div>
+		                                	</div>
+		                                	<div class="col-sm-5">
+		                                    	<div class="form-group label-floating">
+		                                            <label class="control-label">Country</label>
+	                                            	<select name="country" class="form-control">
+	                                                	<option disabled="" selected=""></option>
+	                                                	<option value="Afghanistan"> Afghanistan </option>
+	                                                	<option value="Albania"> Albania </option>
+	                                                	<option value="Algeria"> Algeria </option>
+	                                                	<option value="American Samoa"> American Samoa </option>
+	                                                	<option value="Andorra"> Andorra </option>
+	                                                	<option value="Angola"> Angola </option>
+	                                                	<option value="Anguilla"> Anguilla </option>
+	                                                	<option value="Antarctica"> Antarctica </option>
+	                                                	<option value="...">...</option>
+	                                            	</select>
+	                                        	</div>
+		                                	</div>
+		                                	<div class="col-sm-5 col-sm-offset-1">
+		                                    	<div class="form-group label-floating">
+		                                        	<label class="control-label">Accommodates</label>
+		                                        	<select class="form-control">
+		                                            	<option disabled="" selected=""></option>
+		                                            	<option>1 Person</option>
+		                                            	<option>2 Persons </option>
+		                                            	<option>3 Persons</option>
+		                                            	<option>4 Persons</option>
+		                                            	<option>5 Persons</option>
+		                                            	<option>6+ Persons</option>
+		                                        	</select>
+		                                    	</div>
+		                                	</div>
+		                                	<div class="col-sm-5">
+		                                    	<div class="form-group label-floating">
+		                                        	<label class="control-label">Rent price</label>
+		                                        	<div class="input-group">
+		                                            	<input type="text" class="form-control">
+		                                            	<span class="input-group-addon">$</span>
+		                                        	</div>
+		                                    	</div>
+		                                	</div>
+		                            	</div>
+		                            </div>
+		                            <div class="tab-pane" id="type">
+		                                <h4 class="info-text">What type of location do you have? </h4>
+		                                <div class="row">
+		                                    <div class="col-sm-10 col-sm-offset-1">
+		                                        <div class="col-sm-4 col-sm-offset-2">
+		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have a house.">
+		                                                <input type="radio" name="type" value="House">
+		                                                <div class="icon">
+		                                                    <i class="material-icons">home</i>
+		                                                </div>
+		                                                <h6>House</h6>
+		                                            </div>
+		                                        </div>
+		                                        <div class="col-sm-4">
+		                                            <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you have an appartment">
+		                                                <input type="radio" name="type" value="Appartment">
+		                                                <div class="icon">
+		                                                    <i class="material-icons">hotel</i>
+		                                                </div>
+		                                                <h6>Appartment</h6>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                            <div class="tab-pane" id="facilities">
+		                                <h4 class="info-text">Tell us more about facilities. </h4>
+		                                <div class="row">
+		                                    <div class="col-sm-5 col-sm-offset-1">
+		                                      <div class="form-group label-floating">
+		                                        	<label class="control-label">Your place is good for</label>
+		                                        	<select class="form-control">
+		                                            	<option disabled="" selected=""></option>
+		                                            	<option>Business</option>
+		                                            	<option>Vacation </option>
+		                                            	<option>Work</option>
+		                                        	</select>
+		                                    	</div>
+		                                    </div>
+		                                    <div class="col-sm-5">
+		                                    	<div class="form-group label-floating">
+		                                        	<label class="control-label">Is air conditioning included ?</label>
+		                                        	<select class="form-control">
+		                                            	<option disabled="" selected=""></option>
+		                                            	<option>Yes</option>
+		                                            	<option>No </option>
+		                                        	</select>
+		                                    	</div>
+		                                    </div>
+		                                    <div class="col-sm-5 col-sm-offset-1">
+		                                    	<div class="form-group label-floating">
+		                                        	<label class="control-label">Does your place have wi-fi?</label>
+		                                        	<select class="form-control">
+		                                    			<option disabled="" selected=""></option>
+		                                            	<option>Yes</option>
+		                                            	<option>No </option>
+		                                        	</select>
+		                                    	</div>
+		                                    </div>
+		                                    <div class="col-sm-5">
+		                                    	<div class="form-group label-floating">
+		                                        	<label class="control-label">Is breakfast included?</label>
+		                                        	<select class="form-control">
+		                                            	<option disabled="" selected=""></option>
+		                                            	<option>Yes</option>
+		                                            	<option>No </option>
+		                                        	</select>
+		                                    	</div>
+	                                    	</div>
+		                                </div>
+		                            </div>
+		                            <div class="tab-pane" id="description">
+		                                <div class="row">
+		                                    <h4 class="info-text"> Drop us a small description. </h4>
+		                                    <div class="col-sm-6 col-sm-offset-1">
+		                                        <div class="form-group label-floating">
+		                                            <label class="control-label">Place description</label>
+		                                            <textarea class="form-control" placeholder="" rows="9"></textarea>
+		                                        </div>
+		                                    </div>
+		                                    <div class="col-sm-4">
+		                                    	<div class="form-group label-floating">
+		                                            <label class="control-label">Example</label>
+		                                            <p class="description">"The place is really nice. We use it every sunday when we go fishing. It is so awesome."</p>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                        </div>
+		                        <div class="wizard-footer">
+	                            	<div class="pull-right">
+	                                    <input type='button' class='btn btn-next btn-fill btn-primary btn-wd' name='next' value='Next' />
+	                                    <input type='button' class='btn btn-finish btn-fill btn-primary btn-wd' name='finish' value='Finish' />
+	                                </div>
+	                                <div class="pull-left">
+	                                    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' />
+	                                </div>
+		                            <div class="clearfix"></div>
+		                        </div>
+			                </form>
+		                </div>
+		            </div> <!-- wizard container -->
+		        </div>
+	        </div> <!-- row -->
+	    </div> <!--  big container -->
+	</div>
+{% endblock %}
+{% block additional_js %}{% endblock %}
