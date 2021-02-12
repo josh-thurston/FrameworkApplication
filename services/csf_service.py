@@ -8,36 +8,6 @@ graph = db_auth()
 
 
 
-# def get_function_count() -> int:
-#     function_count = graph.run("MATCH (n:function)
-#     RETURN count(*) as count").data()
-#     return function_count
-#
-#
-# def get_category_count() -> int:
-#     category_count = graph.run("MATCH (n:category)
-#     RETURN count(*) as count").data()
-#     return category_count
-#
-#
-# def get_subcategory_count() -> int:
-#     subcategory_count = graph.run("MATCH (n:subcategory) RETURN count(*) as count").data()
-#     return subcategory_count
-#
-#
-
-
-
-def get_solution_info():
-    solution_info = graph.run(
-        "MATCH (a:SubCategory)-[r:Solution]-(b:Product) "
-        "RETURN a.name as subcategory, "
-        "a.subid as sid, "
-        "b.vendor as vendor, "
-        "b.name as product").data()
-    return solution_info
-
-
 def get_product_list():
     product_list = graph.run(
         "MATCH (a:Product) "
