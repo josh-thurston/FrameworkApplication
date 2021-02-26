@@ -10,9 +10,12 @@ blueprint = Blueprint('accounts', __name__, template_folder='templates')
 
 graph = db_auth()
 
-######################################################
-#                 User Registration                  #
-######################################################
+
+"""
+User Registration Section
+"""
+
+
 @blueprint.route('/register', methods=['GET'])
 @response(template_file='accounts/register.html')
 def register_get():
@@ -70,9 +73,12 @@ def register_post():
 
     return redirect(url_for('accounts.login_get'))
 
-######################################################
-#                 User Login                         #
-######################################################
+
+"""
+User Login Section                         
+"""
+
+
 @blueprint.route('/login', methods=['GET'])
 @response(template_file='accounts/login-page.html')
 def login_get():
@@ -110,9 +116,12 @@ def login_post():
     session["usr"] = usr
     return redirect(url_for("dashboard.dash"))
 
-######################################################
-#                 View User Profile                  #
-######################################################
+
+"""
+View User Profile
+"""
+
+
 @blueprint.route('/profile', methods=['GET'])
 @response(template_file='accounts/user-profile.html')
 def profile_get():
@@ -163,9 +172,12 @@ def profile_post():
     else:
         return redirect(url_for("accounts.login_get"))
 
-######################################################
-#                 User Logout                        #
-######################################################
+
+"""
+User Logout
+"""
+
+
 @blueprint.route('/logout')
 # @response(template_file='accounts/logout.html')
 def logout():

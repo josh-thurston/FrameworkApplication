@@ -5335,7 +5335,7 @@ tbody.collapse.show {
 
 .progress {
   display: flex;
-  height: 1rem;
+  height: .5rem;
   overflow: hidden;
   font-size: 0.75rem;
   background-color: #e9ecef;
@@ -5349,8 +5349,8 @@ tbody.collapse.show {
   justify-content: center;
   color: #ffffff;
   text-align: center;
-  background-color: #2196f3;
-  transition: width 0.6s ease;
+  background-color: Gray;
+  transition: width 0.3s ease;
 }
 
 .progress-bar-striped {
@@ -19704,4 +19704,26 @@ table, th, td {
 
 .card-content {
   margin-top: 20px;
+}
+
+.progress-row {
+  margin: 0 auto;
+  max-width: 50%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.card-nav-button-row {
+  width: 100%;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.card-nav-button-previous {
+  display: inline-block;
+  margin-left: 42%;
+}
+
+.card-nav-button-next {
+  display: inline-block;
 }

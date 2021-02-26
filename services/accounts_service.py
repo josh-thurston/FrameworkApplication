@@ -81,11 +81,19 @@ def create_tenant(company, email):
 
 
 def finalize_admin(email: str):
-    graph.run(f"MATCH (x:User) WHERE x.email='{email}' SET x.status='Active', x.permission='Editor', x.role='Administrator'")
+    graph.run(
+        f"MATCH (x:User) WHERE x.email='{email}' "
+        f"SET x.status='Active', "
+        f"x.permission='Editor', "
+        f"x.role='Administrator'"
+    )
 
 
 def set_admin_relationship(email: str, company: str):
-    graph.run(f"MATCH (x:User), (y:Tenant) WHERE x.email='{email}' AND y.name='{company}' MERGE (y)-[r:Administrator]->(x)")
+    graph.run(
+        f"MATCH (x:User), (y:Tenant) WHERE x.email='{email}' AND y.name='{company}' "
+        f"MERGE (y)-[r:Administrator]->(x)"
+    )
 
 
 def login_user(email: str, password: str) -> Optional[User]:

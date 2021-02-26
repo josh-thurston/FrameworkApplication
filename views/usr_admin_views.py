@@ -58,8 +58,10 @@ def user_mgmt_get(user_id):
         usr = session["usr"]
         session["usr"] = usr
         accounts = check_user_role(usr)
+
         encoded = urllib.parse.quote(user_id)
         user_info = get_user_info(encoded)
+
         return{
             'accounts': accounts,
             'user_info': user_info

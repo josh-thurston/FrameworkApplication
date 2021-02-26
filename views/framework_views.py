@@ -5,7 +5,6 @@ from services.frameworks_service import get_frameworks, get_csf_model, get_csf_c
 from services.admin_user_service import check_user_role
 
 
-
 blueprint = Blueprint('frameworks', __name__, template_folder='templates')
 
 

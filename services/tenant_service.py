@@ -1,7 +1,8 @@
 from datetime import datetime
 from data.db_session import db_auth
 from typing import Optional
-from data.classes import Tenant
+from data.classes import Tenant, Question
+from services.assessments_service import get_subcats
 
 graph = db_auth()
 

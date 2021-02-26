@@ -1,15 +1,72 @@
 {% extends "shared/_dashboard.html" %}
-{% block title %} Framework Info {% endblock %}
+{% block title %} Assessments Main {% endblock %}
 
 {% block main_content %}
+
     <div class="content">
-	    <div class="container">
-            <p>Assessments Landing Page</p>
-            <a href="/assessments/csf">CSF Assessment</a>
-            <p>Under Construction</p>
-            <a href="/assessments/cdm">CDM Assessment</a>
+    <div class="container-fluid">
+        <div class="content">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-chart">
+                        <div class="card-header card-header-warning">
+                            <div class="ct-chart" id="dailySalesChart"><h4><strong>CDM Assessment</strong></h4></div>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Current Score: </h4>
+                            <p class="card-category">
+                                <span class="text-success">
+                                    <i class="fa fa-long-arrow-up"></i>
+                                    55%
+                                </span> increase in today sales.
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">access_time</i> updated 4 minutes ago
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-warning btn-sm" onclick="window.location.href='/assessments/cdm';">
+                                Start Assessment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-chart">
+                        <div class="card-header card-header-warning">
+                            <div class="ct-chart" id="dailySalesChart"><h4><strong>CSF Assessment</strong></h4></div>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Current Score: </h4>
+                            <p class="card-category">
+                                <span class="text-success">
+                                    <i class="fa fa-long-arrow-up"></i>
+                                    55%
+                                </span> increase in today sales.
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons">access_time</i> updated 4 minutes ago
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-warning btn-sm" onclick="window.location.href='/assessments/ID.AM-1';">
+                                Start Assessment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            </div>
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block additional_js %}

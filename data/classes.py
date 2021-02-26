@@ -218,3 +218,14 @@ class Notification(GraphObject):
 
     def __init__(self):
         self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+
+class Question(GraphObject):
+    __primarykey__ = "date"
+    __primarylabel = "name"
+
+    name = Property()
+    prompt = Property()
+    score = Property()
+    target = Property()
+    date = Property()
