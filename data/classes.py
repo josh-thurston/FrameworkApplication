@@ -220,6 +220,34 @@ class Notification(GraphObject):
         self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
+class Answer(GraphObject):
+    __primarykey__ = "name"
+
+    name = Property()
+    current = Property()
+    target = Property()
+    date = Property()
+
+
+class Assessment(GraphObject):
+    __primarykey__ = "name"
+
+    name = Property()
+    created_date = Property()
+    created_by = Property()
+    last_update = Property()
+    updated_by = Property()
+    cumulative_avg = Property()
+    id_avg = Property()
+    pr_avg = Property()
+    de_avg = Property()
+    rs_avg = Property()
+    rc_avg = Property()
+
+    def __init__(self):
+        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+
 class Question(GraphObject):
     __primarykey__ = "date"
     __primarylabel = "name"

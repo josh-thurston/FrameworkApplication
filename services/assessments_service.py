@@ -2,7 +2,8 @@ import urllib
 import urllib.parse
 from data.db_session import db_auth
 from datetime import datetime
-from data.classes import Question
+from data.classes import Question, Assessment
+from py2neo.ogm import RelatedFrom, RelatedTo, Related, RelatedObjects
 
 graph = db_auth()
 
@@ -57,6 +58,8 @@ The two functions below might need to be deleted.  Not sure if they are used 2/2
 
 def get_subcats():
     """
+    Linked to provision_tenant_assessments.
+
     Pull the CSF SubCategories (Name, Description) and put them into a list.  That list will be used to iterate through
     and present the questions.
     """
@@ -72,6 +75,28 @@ def get_subcats():
     for sub in subcat_list:
         subcats.append(sub)
     return subcats
+
+
+def create_tenant_assessment(name, usr, tenant):
+    # TODO: Create an assessment object with Assessment Name/ Type and the date of completion. Link to Tenant object.
+    assessment = Assessment()
+    assessment.name = name
+    assessment.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    assessment.created_by = usr
+
+    tenant = RelatedFrom("Tenant", "Completed_Assessment")
+
+    pass
+
+
+def update_tenant_assessment():
+    # TODO: Update an existing assessment object filter by Assessment Name/ Type and the date of completion. Link to Tenant object.
+    pass
+
+
+def get_tenant_assessment_list():
+    # TODO: Get a list of completed assessments sort by Assessment Name/ Type and the date of completion. Link to Tenant object.
+    pass
 
 
 def provision_tenant_assessments(name):
