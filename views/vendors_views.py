@@ -2,7 +2,7 @@ import urllib.parse
 from flask import Flask, Blueprint, request, session, redirect, url_for, render_template, flash
 from infrastructure.view_modifiers import response
 from services.vendors_service import get_vendor_products, get_vendor_info, vendor_directory
-from services.admin_user_service import check_user_role
+from services.user_service import check_user_role
 
 
 blueprint = Blueprint('vendors', __name__, template_folder='templates')

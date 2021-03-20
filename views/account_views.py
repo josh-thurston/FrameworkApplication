@@ -1,19 +1,17 @@
 from flask import Blueprint, request, session, redirect, url_for, render_template, flash
 from infrastructure.view_modifiers import response
 from data.db_session import db_auth
-from services.accounts_service import create_user, login_user, get_profile, \
-    update_title, update_industry, update_city, update_country, update_postal, \
-    create_tenant, get_company_info, update_state, update_website, get_company_name, check_status
-from services.admin_user_service import check_user_role
+
+from services.user_service import create_user, login_user, check_status, get_profile, check_user_role,\
+    update_title
+
+from services.tenant_service import create_tenant, get_company_info, update_industry, update_city, update_country, \
+    update_postal, update_state, update_website
+
 
 blueprint = Blueprint('accounts', __name__, template_folder='templates')
 
 graph = db_auth()
-
-
-"""
-User Registration Section
-"""
 
 
 @blueprint.route('/register', methods=['GET'])
@@ -38,7 +36,7 @@ def register_post():
             'company': company,
             'password': password,
             'confirm': confirm,
-            'error':"Please populate all the registration fields."
+            'error': "Please populate all the registration fields."
         }
 
     if password != confirm:
@@ -50,7 +48,7 @@ def register_post():
         }
 
     user = create_user(name, email, company, password)
-
+    print(user)
     if not user:
         return {
             'name': name,
@@ -65,18 +63,13 @@ def register_post():
             'name': name,
             'email': email,
             'company': company,
-            'info': f"An account for {company} already exists.  An email was sent to the account admin for approval."
+            'info': f"An account for {company} was found.  An email was sent to the account admin for access approval.."
         }
 
     usr = request.form["email"]
     session["usr"] = usr
 
     return redirect(url_for('accounts.login_get'))
-
-
-"""
-User Login Section                         
-"""
 
 
 @blueprint.route('/login', methods=['GET'])
@@ -100,6 +93,12 @@ def login_post():
         }
 
     user = login_user(email, password)
+    # get_status = check_status(email)
+    # print(get_status)
+    # status = (get_status[0]['status'])
+    # print(status)
+    # if status != "Active":
+    #     return {'info': f"Account {status} "}
     if not user:
         return {
             'email': email,
@@ -107,19 +106,13 @@ def login_post():
             'error': "No account for that email address or the password is incorrect."
         }
 
-    get_status = check_status(email)
-    status = (get_status[0]['status'])
-    if status != "Active":
-        return {'info': f"Account {status} "}
+
+    # else:
+    #     return {'alert': "Account Disabled"}
 
     usr = request.form["email"]
     session["usr"] = usr
     return redirect(url_for("dashboard.dash"))
-
-
-"""
-View User Profile
-"""
 
 
 @blueprint.route('/profile', methods=['GET'])
@@ -130,7 +123,6 @@ def profile_get():
         session["usr"] = usr
         user_profile = get_profile(usr)
         company_info = get_company_info(usr)
-        company = get_company_name(usr)
         accounts = check_user_role(usr)
         return {"user_profile": user_profile,
                 "company_info": company_info,
@@ -171,11 +163,6 @@ def profile_post():
         return redirect(url_for("accounts.profile_get"))
     else:
         return redirect(url_for("accounts.login_get"))
-
-
-"""
-User Logout
-"""
 
 
 @blueprint.route('/logout')

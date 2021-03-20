@@ -2,7 +2,7 @@ import urllib.parse
 from flask import Flask, Blueprint, request, session, redirect, url_for, render_template, flash
 from infrastructure.view_modifiers import response
 from services.product_service import get_products_index, get_product_info, add_product
-from services.admin_user_service import check_user_role
+from services.user_service import check_user_role
 
 
 blueprint = Blueprint('products', __name__, template_folder='templates')

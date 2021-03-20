@@ -40,7 +40,7 @@
                                             </tr>
                                         {% for user in users %}
                                             <tr>
-                                                <td><a href="/admin/{{ user.user_id }}">Edit</a></td>
+                                                <td><a href="/admin/{{ user.guid }}">Edit</a></td>
                                                 <td>{{ user.name }}</td>
                                                 <td>{{ user.role }} </td>
                                                 <td>{{ user.status }}</td>

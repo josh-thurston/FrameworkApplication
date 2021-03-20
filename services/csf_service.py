@@ -5,9 +5,6 @@ from data.db_session import db_auth
 graph = db_auth()
 
 
-
-
-
 def get_product_list():
     product_list = graph.run(
         "MATCH (a:Product) "
@@ -57,20 +54,4 @@ def get_solution(function_id):
         f"b.vendor as vendor, "
         f"b.name as product").data()
     return solution_info
-#
-#
-# def get_product_mapping():
-#     map_info = graph.run("MATCH (x:matrix)-[r:Solution]-(y:product) RETURN x.name as cdm, y.name as name, "
-#                            "y.product_url as url, y.aws_url as aws, y.desc as description, y.vendor as vendor").data()
-#     return map_info
-#
-#
-# def get_full_csf(encoded):
-#     product_name = urllib.parse.unquote(encoded)
-#     csf_map = graph.run(f"MATCH (a:function)-[b:CSF_Category]-(c:category)-[d:CSF_SubCategory]-(e:subcategory)-["
-#                           f"f:Solution]-(g:product)-[h:Develops]-(i:vendor) WHERE g.name='{product_name}'RETURN "
-#                           f"a.name as function, a.fid as fid, a.order as order, c.name as category, c.cid as cid, "
-#                           f"c.desc as catdesc, c.order as order, e.name as subcategory, e.sid as sid, "
-#                           f"e.desc as subdesc, e.id as sorder, g.name as product, i.name as vendor").data()
-#     return csf_map
 

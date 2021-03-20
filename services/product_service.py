@@ -121,11 +121,7 @@ def add_product(name: str, vendor: str, category: str, homepage: str, descriptio
 #     product = Product.match(graph, f"{name}").first()
 #     return product
 #
-# # Used For:
-# # - products/directory
 
-#
-#
 # def prod_data():
 #     prod = graph.run(
 #         "MATCH (x:Product) RETURN x.name as name, x.homepage as homepage, x.description as description").data()

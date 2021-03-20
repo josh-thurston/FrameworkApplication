@@ -1,6 +1,6 @@
 from flask import Blueprint, request, session, redirect, url_for, render_template, flash
 from infrastructure.view_modifiers import response
-from services.admin_user_service import check_user_role
+from services.user_service import check_user_role
 
 blueprint = Blueprint('dashboard', __name__, template_folder='templates')
 

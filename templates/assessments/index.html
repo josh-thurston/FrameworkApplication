@@ -3,70 +3,91 @@
 
 {% block main_content %}
 
-    <div class="content">
+<div class="content">
     <div class="container-fluid">
         <div class="content">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card card-chart">
-                        <div class="card-header card-header-warning">
-                            <div class="ct-chart" id="dailySalesChart"><h4><strong>CDM Assessment</strong></h4></div>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="card-title">Current Score: </h4>
-                            <p class="card-category">
-                                <span class="text-success">
-                                    <i class="fa fa-long-arrow-up"></i>
-                                    55%
-                                </span> increase in today sales.
-                            </p>
-                        </div>
-                        <div class="card-footer">
-                            <div class="stats">
-                                <i class="material-icons">access_time</i> updated 4 minutes ago
+            <form class="form" method="POST" action="">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-chart">
+                            <div class="card-header card-header-warning">
+                                <div class="ct-chart" id="dailySalesChart"><h4><strong>CDM Assessment</strong></h4></div>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Current Score: 3</h4>
+                                <p class="card-category">
+                                    <span class="text-success">
+                                        <i class="fa fa-long-arrow-up"></i>
+                                        5%
+                                    </span> increase in today sales.
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    <i class="material-icons">access_time</i> updated 4 minutes ago
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <input class="btn btn-warning btn-sm" type="submit" name="start" id="start" value="Start CDM Assessment">
                             </div>
                         </div>
-                        <div class="card-footer">
-                            <button class="btn btn-warning btn-sm" onclick="window.location.href='/assessments/cdm';">
-                                Start New Assessment
-                            </button>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card-chart">
+                            <div class="card-header card-header-warning">
+                                <div class="ct-chart" id="dailySalesChart"><h4><strong>CSF Assessment</strong></h4></div>
+                            </div>
+                            <div class="card-body">
+                            {# TODO: Work on calculating the percent change in score from previous to current.  use len and len - 1 #}
+{#                                <h4 class="card-title">Current Score: </h4>#}
+{#                                <p class="card-category">#}
+{#                                    <span class="text-success">#}
+{#                                        <i class="fa fa-long-arrow-up"></i>#}
+{#                                        55%#}
+{#                                    </span> increase in today sales.#}
+{#                                </p>#}
+                                <h4 class="card-title">Assessments: </h4>
+                                <table style="width: 100%">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>% Complete</th>
+                                        <th>Created</th>
+                                        <th></th>
+                                    </tr>
+                                    {% for assessment in assessments|sort(attribute="created_date") %}
+                                    <tr>
+                                        <td>{{ assessment.name }}</td>
+                                        <td>{{ assessment.completed }}</td>
+                                        <td>{{ assessment.created_date }}</td>
+
+                                        {% if assessment.completed == '0%' %}
+{#                                            <td> <input class=" btn btn-warning btn-sm" type="submit" name="action" value="Start" onclick="window.location.href='/assessments/{{ assessment.guid }}';"></td>#}
+                                            <td><a href="/assessments/{{ assessment.guid }}/ID.AM-1"><btn class="btn btn-warning btn-sm">Start</btn></a></td>
+                                        {% else %}
+                                            <td> Edit BTN Placeholder</td>
+                                        {% endif %}
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                            <div class="card-footer">
+                                {# TODO: work on pulling the last timestamp that the assessment list was updated #}
+{#                                <div class="stats">#}
+{#                                    <i class="material-icons">access_time</i> updated 4 minutes ago#}
+{#                                </div>#}
+                            </div>
+                            <div class="card-footer">
+{#                                <input class="btn btn-warning btn-sm" type="submit" name="start" value="Prepare New CSF Assessment" onclick="window.location.href='/assessments/prep';">#}
+                                <a href="/assessments/prep"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/assessments/prep';">Prepare New CSF Assessment</btn></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card card-chart">
-                        <div class="card-header card-header-warning">
-                            <div class="ct-chart" id="dailySalesChart"><h4><strong>CSF Assessment</strong></h4></div>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="card-title">Current Score: </h4>
-                            <p class="card-category">
-                                <span class="text-success">
-                                    <i class="fa fa-long-arrow-up"></i>
-                                    55%
-                                </span> increase in today sales.
-                            </p>
-                        </div>
-                        <div class="card-footer">
-                            <div class="stats">
-                                <i class="material-icons">access_time</i> updated 4 minutes ago
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn-warning btn-sm" onclick="window.location.href='/assessments/ID.AM-1';">
-                                Start New Assessment
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-
-            </div>
+            </form>
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 {% block additional_js %}

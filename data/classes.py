@@ -1,34 +1,9 @@
+import uuid
 from py2neo.ogm import GraphObject, Property
 from datetime import datetime
 from data.db_session import db_auth
 
 graph = db_auth()
-
-
-class User(GraphObject):
-    __primarykey__ = "email"
-
-    name = Property()
-    email = Property()
-    company = Property()
-    industry = Property()
-    title = Property()
-    country = Property()
-    city = Property()
-    postal = Property()
-    password = Property()
-    hashed_password = Property()
-    created_on = Property()
-    last_logon = Property()
-    current_logon = Property()
-    created_date = Property()
-    user_id = Property()
-    role = Property()
-    permission = Property()
-    status = Property()
-
-    def __init__(self):
-        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class Vendor(GraphObject):
@@ -40,7 +15,7 @@ class Vendor(GraphObject):
     created_date = Property()
 
     def __init__(self):
-        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class Product(GraphObject):
@@ -53,10 +28,10 @@ class Product(GraphObject):
     vendor = Property()
     category = Property()
     subcategory = Property()
-    created_on = Property()
+    created_date = Property()
 
     def __init__(self):
-        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class ProductCategory(GraphObject):
@@ -64,30 +39,12 @@ class ProductCategory(GraphObject):
 
     name = Property()
     description = Property()
-    created_on = Property()
+    created_date = Property()
 
     def __init__(self):
-        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
-class Tenant(GraphObject):
-    __primarykey__ = "name"
-
-    name = Property()
-    industry = Property()
-    country = Property()
-    city = Property()
-    state = Property()
-    postal = Property()
-    website = Property()
-    created_on = Property()
-    account_status = Property()
-    start_date = Property()
-    expiration_date = Property()
-    subscription_type = Property()
-
-    def __init__(self):
-        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class Framework(GraphObject):
@@ -103,7 +60,7 @@ class Framework(GraphObject):
     framework_id = Property()
 
     def __init__(self):
-        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class Organization(GraphObject):
@@ -112,10 +69,10 @@ class Organization(GraphObject):
     name = Property()
     shortname = Property()
     homepage = Property()
-    created_on = Property()
+    created_date = Property()
 
     def __init__(self):
-        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class Element(GraphObject):
@@ -123,10 +80,10 @@ class Element(GraphObject):
 
     name = Property()
     order = Property()
-    created_on = Property()
+    created_date = Property()
 
     def __init__(self):
-        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class Function(GraphObject):
@@ -138,7 +95,7 @@ class Function(GraphObject):
     created_date = Property()
 
     def __init__(self):
-        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class Category(GraphObject):
@@ -151,7 +108,7 @@ class Category(GraphObject):
     created_date = Property()
 
     def __init__(self):
-        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class SubCategory(GraphObject):
@@ -164,7 +121,7 @@ class SubCategory(GraphObject):
     created_date = Property()
 
     def __init__(self):
-        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class Control(GraphObject):
@@ -176,7 +133,7 @@ class Control(GraphObject):
     created_date = Property()
 
     def __init__(self):
-        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class SubControl(GraphObject):
@@ -188,7 +145,7 @@ class SubControl(GraphObject):
     created_date = Property()
 
     def __init__(self):
-        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class AssetType(GraphObject):
@@ -198,7 +155,7 @@ class AssetType(GraphObject):
     description = Property()
 
     def __init__(self):
-        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class Industry(GraphObject):
@@ -217,13 +174,17 @@ class Notification(GraphObject):
     created_date = Property()
 
     def __init__(self):
-        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class Answer(GraphObject):
-    __primarykey__ = "name"
+    # __primarykey__ = "name"
+    # __primarylabel__ = "subid"
 
     name = Property()
+    prompt = Property()
+    subid = Property()
+    guid = Property()
     current = Property()
     target = Property()
     date = Property()
@@ -233,19 +194,19 @@ class Assessment(GraphObject):
     __primarykey__ = "name"
 
     name = Property()
+    guid = Property()
+    status = Property()
+    focal = Property()
+    completed = Property()
     created_date = Property()
     created_by = Property()
     last_update = Property()
     updated_by = Property()
-    cumulative_avg = Property()
-    id_avg = Property()
-    pr_avg = Property()
-    de_avg = Property()
-    rs_avg = Property()
-    rc_avg = Property()
+    current_avg = Property()
+    target_avg = Property()
 
     def __init__(self):
-        self.created_on = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 class Question(GraphObject):
@@ -257,3 +218,48 @@ class Question(GraphObject):
     score = Property()
     target = Property()
     date = Property()
+
+
+# Classes moved to new service files
+# class User(GraphObject):
+#     __primarykey__ = "email"
+#
+#     name = Property()
+#     email = Property()
+#     guid = Property()
+#     company = Property()
+#     title = Property()
+#     password = Property()
+#     hashed_password = Property()
+#     created_date = Property()
+#     last_logon = Property()
+#     current_logon = Property()
+#     role = Property()
+#     permission = Property()
+#     status = Property()
+#
+#     def __init__(self):
+#         self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+#         self.guid = str(uuid.uuid4())
+#
+#
+# class Tenant(GraphObject):
+#     __primarykey__ = "name"
+#
+#     name = Property()
+#     guid = Property()
+#     industry = Property()
+#     country = Property()
+#     city = Property()
+#     state = Property()
+#     postal = Property()
+#     website = Property()
+#     created_date = Property()
+#     account_status = Property()
+#     start_date = Property()
+#     expiration_date = Property()
+#     subscription_type = Property()
+#
+#     def __init__(self):
+#         self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+#         self.guid = str(uuid.uuid4())

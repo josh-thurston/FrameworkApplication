@@ -2,9 +2,10 @@ import urllib.parse
 from flask import Blueprint, request, session, redirect, url_for, render_template, flash
 from infrastructure.view_modifiers import response
 from data.db_session import db_auth
-from services.accounts_service import get_profile, get_company_info, get_company_name, get_pending_users, update_title
-from services.admin_user_service import get_users, check_user_role, get_user_info, update_role, update_status, \
-    update_permission, decline_access
+from services.user_service import get_profile, get_pending_users, update_title, get_company_name, get_users, \
+    check_user_role,  get_user_info, update_role, update_status, update_permission, decline_access
+from services.tenant_service import get_company_info
+
 
 blueprint = Blueprint('usr_admin', __name__, template_folder='templates')
 
