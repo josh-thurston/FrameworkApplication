@@ -46,8 +46,15 @@ class Answer(GraphObject):
     date = Property()
 
 
-# When the user clicks 'Start CSF Assessent' a new assessment object is created.
-def create_tenant_assessment(usr, name, focal, description, tenant):
+def create_new_assessment(usr, name, focal, description, tenant):
+    prepare_assessment(usr, name, focal, description)
+    assessment_for(name, tenant)
+    guid = get_assessment_guid(name)
+    create_answers_placeholders(guid)
+    answer_for(guid)
+
+
+def prepare_assessment(usr, name, focal, description):
     assessment = Assessment()
     assessment.name = name
     assessment.focal = focal
@@ -55,18 +62,14 @@ def create_tenant_assessment(usr, name, focal, description, tenant):
     assessment.description = description
     assessment.created_by = usr
     graph.create(assessment)
-    assessment_for(name, tenant)
 
 
 def assessment_for(name, tenant):
     relate = (f"MATCH (x:Assessment), (y:Tenant) WHERE x.name='{name}' AND y.name='{tenant}' "
               f"MERGE (x)-[r:assessment_for]->(y)")
     graph.run(relate)
-    guid = get_assessment_guid(name)
-    print(guid)
-    build_tenant_assessment(guid)
 
-# TODO:  This is where I left off.
+
 def get_assessment_guid(name):
     assessment_guid = graph.run(f"MATCH (x:Assessment) WHERE x.name='{name}' RETURN x.guid as guid").data()
     for g in assessment_guid:
@@ -74,7 +77,7 @@ def get_assessment_guid(name):
         return guid
 
 
-def build_tenant_assessment(guid):
+def create_answers_placeholders(guid):
     with open('data/csf_subcategories.json') as fin:
         data = json.load(fin)
         for i in data['subcategory']:
@@ -85,47 +88,25 @@ def build_tenant_assessment(guid):
             answer.description = i['description']
             answer.guid = guid
             graph.create(answer)
-        answer_for(guid)
 
 
 def answer_for(guid):
-    graph.run(f"MATCH (x:Answer), (y:Assessment) WHERE x.guid='{guid}' AND y.guid='{guid}'")
+    graph.run(f"MATCH (x:Answer), (y:Assessment) WHERE x.guid='{guid}' AND y.guid='{guid}'"
+              f"MERGE (x)-[r:answer_for]->(y)")
 
 
-def provision_tenant_assessments(name):
-    prompts = get_subcats()
-    for q in prompts:
-        subid = q['subid']
-        description = q['description']
-        order = q['order']
-
-        question = Question()
-        question.name = subid
-        question.prompt = description
-        question.order = order
-        question.date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        question.score = int(0)
-        question.target = int(0)
-        graph.create(question)
-        update_account = (
-            f"Match (x:Tenant), (y:Question) WHERE x.name='{name}' AND y.name = '{subid}' "
-            f"MERGE (x)-[r:CSF_Assessment]->(y)"
-        )
-        graph.run(update_account)
-
-
-def get_cats():
-    cats = graph.run(
-        "MATCH (x:Function)-[r:CSF_Category]-(y:Category)-[s:CSF_SubCategory]-(z:SubCategory) RETURN "
-        "x.name as function, "
-        "x.order as funorder, "
-        "y.name as category, "
-        "y.description as catdesc, "
-        "z.subid as subid, "
-        "z.description as subdesc, "
-        "z.order as order"
-    ).data()
-    return cats
+# def get_cats():
+#     cats = graph.run(
+#         "MATCH (x:Function)-[r:CSF_Category]-(y:Category)-[s:CSF_SubCategory]-(z:SubCategory) RETURN "
+#         "x.name as function, "
+#         "x.order as funorder, "
+#         "y.name as category, "
+#         "y.description as catdesc, "
+#         "z.subid as subid, "
+#         "z.description as subdesc, "
+#         "z.order as order"
+#     ).data()
+#     return cats
 
 
 def get_question(subid):
@@ -170,98 +151,31 @@ def get_subcats():
     return subcats
 
 
-# When the user answeres ID.AM-1 it will lookup the asid with status 'Active' and has their usr name as the creator.
-def get_active_assessment_asid(tenant, usr):
-    asid_number = graph.run(f"MATCH (x:Tenant), (y:Assessment) WHERE x.name='{tenant}' AND y.status='Active' AND y.created_by='{usr}' RETURN y.asid as asid").data()
-    for i in asid_number:
-        asid = i['asid']
-        return asid
-
-
-# When the asid is pulled up, the answer for the question is created and the answer is attached to the assessment using the asid
-def answer_assessment(current_question, asid, current, target, tenant, pct, subid):
-    answer = Answer()
-    answer.name = datetime.now().strftime(f'{current_question}-%m%d%Y%H%M%S')
-    answer.subid = subid
-    # answer.description = description
-    answer.asid = asid
-    answer.current = int(current)
-    if current > target:
-        answer.target = int(current)
+def post_answer(subid, guid, current, target):
+    current_int = int(current)
+    target_int = int(target)
+    if current_int > target_int:
+        tgt = current_int
     else:
-        answer.target = int(target)
-    answer.target = int(target)
-    answer.date = datetime.now().strftime('%Y-%m-%d')
-    graph.create(answer)
-    if current_question == 'RC.CO-3':
-        finalize = (
-            f"MATCH (x:Assessment), (y:Answer) WHERE "
-            f"x.asid='{asid}' AND "
-            # f"y.name='{current_question}' AND "
-            f"y.asid='{asid}' MERGE "
-            f"(x)-[r:Answered]->(y)"
-        )
-        graph.run(finalize)
-        finalize_assessment_status(tenant, asid)
-    else:
-        update = (
-            f"MATCH (x:Assessment), (y:Answer) WHERE "
-            f"x.asid='{asid}' AND "
-            # f"y.name='{current_question}' AND "
-            f"y.asid='{asid}' MERGE "
-            f"(x)-[r:Answered]->(y)"
-        )
-        graph.run(update)
-        calc_avg_scores(asid)
-        update_assessment_status(tenant, asid, pct)
+        tgt = target_int
+    timestamp = datetime.now().strftime('%Y-%m-%d')
+    answer = (f"MATCH (x:Answer) WHERE x.subid='{subid}' AND x.guid='{guid}'"
+              f"SET x.current='{current_int}'"
+              f"SET x.target='{tgt}'"
+              f"SET x.date='{timestamp}'")
+    graph.run(answer)
 
 
-def calc_avg_scores(asid):
-    avg_scores = graph.run(
-        f"MATCH (x:Assessment), (y:Answer) WHERE "
-        f"x.asid='{asid}' and "
-        f"y.asid='{asid}' RETURN "
-        f"avg(y.current) as current, "
-        f"avg(y.target) as target"
-    ).data()
-    for avg in avg_scores:
-        print(f"Current: {float(format(avg['current'], '.2f'))}\nTarget: {float(format(avg['target'], '.1f'))}")
-        current_avg = float(format(avg['current'], '.1f'))
-        target_avg = float(format(avg['target'], '.1f'))
-        update_assessment_scores(current_avg, target_avg, asid)
-    return avg_scores
-
-
-def update_assessment_scores(current_avg, target_avg, asid):
+def update_assessment_status(guid, pct):
     update = (
-        f"MATCH (x:Assessment) WHERE x.asid='{asid}' SET "
-        f"x.current_avg='{current_avg}', "
-        f"x.target_avg='{target_avg}'"
-    )
-    graph.run(update)
-
-
-# After each answer is submitted, calculate the percentage of the answers have been submitted and update the assessment.
-def update_assessment_status(tenant, asid, pct):
-    update = (
-        f"MATCH (x:Tenant), (y:Assessment) WHERE "
-        f"x.name='{tenant}' and "
-        f"y.asid='{asid}' "
+        f"MATCH (y:Assessment) WHERE "
+        f"y.guid='{guid}' "
         f"SET y.completed='{pct}%'"
     )
     graph.run(update)
 
 
-# After each answer is submitted, calculate the percentage of the answers have been submitted and update the assessment.
-def finalize_assessment_status(tenant, asid):
-    update = (f"MATCH (x:Tenant), (y:Assessment) WHERE x.name='{tenant}' and y.asid='{asid}'"
-              f"SET y.completed='100 %', "
-              f"SET y.status='Complete' ")
-    graph.run(update)
-
-
 def get_assessments(tenant):
-    # TODO: build this out to return a list of all assessments with name, status, asid.  This will be for the assessment landing page
     assessments = graph.run(
         f"MATCH (x:Tenant), (y:Assessment) WHERE x.name='{tenant}' RETURN "
         f"y.name as name, "
@@ -276,48 +190,48 @@ def get_assessments(tenant):
     return assessments
 
 
+def get_current_answer(guid, subid):
+    current_answer = graph.run(f"MATCH (x:Answer) WHERE x.guid='{guid}' AND x.subid='{subid}' return x.current as current").data()
+    for x in current_answer:
+        current = x['current']
+        return current
 
 
+def get_target_answer(guid, subid):
+    target_answer = graph.run(f"MATCH (x:Answer) WHERE x.guid='{guid}' AND x.subid='{subid}' return x.target as target").data()
+    for x in target_answer:
+        target = x['target']
+        return target
+
+# TODO:  Finalize functionality for below
 
 
-"""
-Currently stuck on how to create a new assessment object when clicking "Start New Assessment" and returning the asid.
-Then begin answering questions and connect the answers to the current asid.
-
-"""
-
-
-
-
-
-def update_tenant_assessment():
-    # TODO: Update an existing assessment object filter by Assessment Name/ Type and the date of completion. Link to Tenant object.
-    pass
-
-
-def get_tenant_assessment_list():
-    # TODO: Get a list of completed assessments sort by Assessment Name/ Type and the date of completion. Link to Tenant object.
-    pass
+def calc_avg_scores(guid):
+    avg_scores = graph.run(
+        f"MATCH (y:Answer) WHERE "
+        f"y.asid='{guid}' RETURN "
+        f"avg(y.current) as current, "
+        f"avg(y.target) as target"
+    ).data()
+    for avg in avg_scores:
+        print(f"Current: {float(format(avg['current'], '.2f'))}\nTarget: {float(format(avg['target'], '.1f'))}")
+        current_avg = float(format(avg['current'], '.1f'))
+        target_avg = float(format(avg['target'], '.1f'))
+        update_assessment_scores(current_avg, target_avg, guid)
+    return avg_scores
 
 
-# def provision_tenant_assessments(name):
-#     prompts = get_subcats()
-#     for q in prompts:
-#         subid = q['subid']
-#         description = q['description']
-#         order = q['order']
-#
-#         question = Question()
-#         question.name = subid
-#         question.prompt = description
-#         question.order = order
-#         question.date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-#         question.score = int(0)
-#         question.target = int(0)
-#         graph.create(question)
-#         update_account = (
-#             f"Match (x:Tenant), (y:Question) WHERE x.name='{name}' AND y.name = '{subid}' "
-#             f"MERGE (x)-[r:CSF_Assessment]->(y)"
-#         )
-#         graph.run(update_account)
+def update_assessment_scores(current_avg, target_avg, guid):
+    update = (
+        f"MATCH (x:Assessment) WHERE x.asid='{guid}' SET "
+        f"x.current_avg='{current_avg}', "
+        f"x.target_avg='{target_avg}'"
+    )
+    graph.run(update)
 
+# After each answer is submitted, calculate the percentage of the answers have been submitted and update the assessment.
+def finalize_assessment_status(tenant, asid):
+    update = (f"MATCH (x:Tenant), (y:Assessment) WHERE x.name='{tenant}' and y.asid='{asid}'"
+              f"SET y.completed='100 %', "
+              f"SET y.status='Complete' ")
+    graph.run(update)

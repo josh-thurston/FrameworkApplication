@@ -124,7 +124,23 @@
                                                                                 <h4 class="title">Current Score</h4>
                                                                                 <div class="form-check">
                                                                                     <label class="form-check-label">
-                                                                                        <input class="form-check-input" type="radio" name="current" id="current" value="0" >
+                                                                                        {# TODO: copy the setup of the below text to populate a user score in an assessment #}
+{#                                                                                        {% if user.role == 'Administrator' %}#}
+{#                                                                                            <input class="form-check-input" type="radio" name="role" id="role" value="Administrator" checked>#}
+{#                                                                                            Administrator#}
+{#                                                                                            <span class="circle">#}
+{#                                                                                                <span class="check"></span>#}
+{#                                                                                            </span>#}
+{#                                                                                        {% else %}#}
+{#                                                                                            <input class="form-check-input" type="radio" name="role" id="role" value="Administrator">#}
+{#                                                                                            Administrator#}
+{#                                                                                            <span class="circle">#}
+{#                                                                                                <span class="check"></span>#}
+{#                                                                                            </span>#}
+{#                                                                                        {% endif %}#}
+
+
+                                                                                        <input class="form-check-input" type="radio" name="current" id="current" value="0" checked >
                                                                                         0 - Not Implemented
                                                                                         <span class="circle">
                                                                                             <span class="check"></span>
@@ -173,7 +189,7 @@
                                                                                 <h4 class="title">Target Score</h4>
                                                                                 <div class="form-check">
                                                                                     <label class="form-check-label">
-                                                                                        <input class="form-check-input" type="radio" name="target" id="target" value="0" >
+                                                                                        <input class="form-check-input" type="radio" name="target" id="target" value="0" checked >
                                                                                         0 - Not Implemented
                                                                                         <span class="circle">
                                                                                             <span class="check"></span>
@@ -256,7 +272,7 @@
                                         </div>
                                     {% endif %}
                                     <div class="clearfix"></div>
-                                    <p>Assessment ID: {{ asid }}</p>
+                                    <p>Assessment ID: {{ guid }}</p>
                                 </div>
                             </form>
                             </div>
