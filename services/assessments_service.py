@@ -54,6 +54,50 @@ def create_new_assessment(usr, name, focal, description, tenant):
     answer_for(guid)
 
 
+def get_assessment_details(guid):
+    details = graph.run(f"MATCH (x:Assessment) WHERE x.guid='{guid}' RETURN "
+                     f"x.name as name, "
+                     f"x.guid as guid, "
+                     f"x.status as status, "
+                     f"x.focal as focal, "
+                     f"x.completed as completed, "
+                     f"x.created_by as created_by, "
+                     f"x.current_avg as current_avg, "
+                     f"x.created_date as created_date, "
+                     f"x.target_avg as target_avg").data()
+    return details
+
+
+def delete_assessment(guid):
+    delete_answer_for(guid)
+    delete_created_by(guid)
+    delete_assessment_for(guid)
+    delete_answers(guid)
+    delete_tenant_assessment(guid)
+    pass
+
+
+def delete_created_by(guid):
+    graph.run(f"MATCH (x:Assessment)-[r:created_by]-(y:User) WHERE x.guid='{guid}' DELETE r")
+
+
+def delete_assessment_for(guid):
+    graph.run(f"MATCH (x:Assessment)-[r:assessment_for]-(y:Tenant) WHERE x.guid='{guid}' DELETE r")
+
+
+def delete_answer_for(guid):
+    graph.run(f"MATCH (x:Answer)-[r:answer_for]-(y:Assessment) WHERE x.guid='{guid}' DELETE r")
+
+
+def delete_answers(guid):
+    graph.run(f"MATCH (x:Answer) WHERE x.guid='{guid}' DELETE x")
+
+
+def delete_tenant_assessment(guid):
+    graph.run(f"MATCH (x:Assessment) WHERE x.guid='{guid}' DELETE x")
+    pass
+
+
 def prepare_assessment(usr, name, focal, description):
     assessment = Assessment()
     assessment.name = name
@@ -65,9 +109,13 @@ def prepare_assessment(usr, name, focal, description):
 
 
 def assessment_for(name, tenant):
-    relate = (f"MATCH (x:Assessment), (y:Tenant) WHERE x.name='{name}' AND y.name='{tenant}' "
+    graph.run(f"MATCH (x:Assessment), (y:Tenant) WHERE x.name='{name}' AND y.name='{tenant}' "
               f"MERGE (x)-[r:assessment_for]->(y)")
-    graph.run(relate)
+
+
+def created_by(name, usr):
+    graph.run(f"MATCH (x:Assessmewnt), (y:User) WHERE x.name='{name}' AND y.email='{usr}' "
+              f"MERGE (x)-[r:created_by]->(y)")
 
 
 def get_assessment_guid(name):
@@ -202,6 +250,8 @@ def get_target_answer(guid, subid):
     for x in target_answer:
         target = x['target']
         return target
+
+
 
 # TODO:  Finalize functionality for below
 

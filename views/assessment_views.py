@@ -7,7 +7,8 @@ from services.frameworks_service import get_frameworks, get_csf_functions
 from services.user_service import check_user_role
 from services.tenant_service import get_tenant
 from services.assessments_service import create_new_assessment, get_assessments, get_question, subcat_array, \
-    post_answer, update_assessment_status, get_current_answer, get_target_answer
+    post_answer, update_assessment_status, get_current_answer, get_target_answer, get_assessment_details, \
+    delete_assessment
 
 
 blueprint = Blueprint('assessments', __name__, template_folder='templates')
@@ -135,5 +136,30 @@ def csf_questions_post(guid, subid):
             post_answer(subid, guid, current, target)
             return redirect(url_for('assessments.landing_get'))
 
+    else:
+        return redirect(url_for('accounts.login_get'))
+
+
+@blueprint.route('/assessments/delete/<guid>', methods=['GET'])
+@response(template_file='assessments/confirm_delete.html')
+def delete_get(guid):
+    if "usr" in session:
+        usr = session["usr"]
+        session["usr"] = usr
+        details = get_assessment_details(guid)
+        return {'details': details}
+    else:
+        return redirect(url_for('accounts.login_get'))
+
+
+@blueprint.route('/assessments/delete/<guid>', methods=['POST'])
+def delete_post(guid):
+    if "usr" in session:
+        usr = session["usr"]
+        session["usr"] = usr
+
+
+        delete_assessment(guid)
+        return redirect(url_for('assessments.landing_get'))
     else:
         return redirect(url_for('accounts.login_get'))

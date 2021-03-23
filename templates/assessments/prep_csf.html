@@ -15,20 +15,25 @@
                                 <h4 class="card-title">Assessment Setup</h4>
                             </div>
                             <div class="card-body">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="name" placeholder="Name Your Assessment:  (ex.  Q1 Assessment...)" required value="{{ name }}">
+                                 <div class="row">
+                                     <div class="col-md-10">
+                                         <div class="form-group">
+                                            <label class="bmd-label-floating">Name of Assessment: (ex. Q1 Assessment...)</label>
+                                            <input name="name" type="text" class="form-control" required value="{{ name }}">
+                                         </div>
+                                         <div class="form-group">
+                                            <label class="bmd-label-floating">Scope: (ex. Full Environment, BU, Segment, Region...)</label>
+                                            <input name="focal" type="text" class="form-control" required value="{{ focal }}">
+                                         </div>
+                                         <div class="form-group">
+                                             <textarea rows="4" cols="35" name="description" class="form-control" placeholder="Notes: (optional)"></textarea>
+                                         </div>
+                                    </div>
                                 </div>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="focal" placeholder="Scope:  (ex. Full Environment, BU, Segment, Region...)" required value="{{ focal }}">
-                                </div>
-                                <div class="input-group">
-                                    <textarea rows="4" cols="35" name="description" class="form-control" placeholder="Notes: (optional)"></textarea>
-                                </div>
-                                <br>
-
                             </div>
                             <div class="card-body">
-                                <button type="submit" class="btn btn-warning pull-right">Save</button>
+                                <a href="/assessments/main"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/assessments/main';">Cancel</btn></a>
+                                <button type="submit" class="btn btn-warning btn-sm pull-right">Save</button>
                                 <div class="clearfix"></div>
                             </div>
                             <div style="clear: both;"></div>

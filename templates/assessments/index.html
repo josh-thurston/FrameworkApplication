@@ -52,6 +52,7 @@
                                         <th>Name</th>
                                         <th>% Complete</th>
                                         <th>Created</th>
+                                        <th>Action</th>
                                         <th></th>
                                     </tr>
                                     {% for assessment in assessments|sort(attribute="created_date") %}
@@ -64,6 +65,7 @@
                                         {% else %}
                                             <td><a href="/assessments/{{ assessment.guid }}/ID.AM-1"><btn class="btn btn-warning btn-sm">Edit</btn></a></td>
                                         {% endif %}
+                                        <td><td><a href="/assessments/delete/{{ assessment.guid }}"><btn class="btn btn-warning btn-sm">Delete</btn></a></td></td>
                                     </tr>
                                     {% endfor %}
                                 </table>
