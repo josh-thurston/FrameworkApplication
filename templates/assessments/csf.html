@@ -17,7 +17,8 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                            <form class="form" method="POST" action="">
+
+                                <form class="form" method="POST" action="">
                                 <div class="tab-content">
                                     <div id="csf" class="tab-pane active show">
                                         <div class="container">
@@ -122,118 +123,162 @@
                                                                             <div class="col-sm-3"></div> {# This is a filler to help center the next two divs #}
                                                                             <div class="col-sm-3">
                                                                                 <h4 class="title">Current Score</h4>
+
                                                                                 <div class="form-check">
                                                                                     <label class="form-check-label">
-                                                                                        {# TODO: copy the setup of the below text to populate a user score in an assessment #}
-{#                                                                                        {% if user.role == 'Administrator' %}#}
-{#                                                                                            <input class="form-check-input" type="radio" name="role" id="role" value="Administrator" checked>#}
-{#                                                                                            Administrator#}
-{#                                                                                            <span class="circle">#}
-{#                                                                                                <span class="check"></span>#}
-{#                                                                                            </span>#}
-{#                                                                                        {% else %}#}
-{#                                                                                            <input class="form-check-input" type="radio" name="role" id="role" value="Administrator">#}
-{#                                                                                            Administrator#}
-{#                                                                                            <span class="circle">#}
-{#                                                                                                <span class="check"></span>#}
-{#                                                                                            </span>#}
-{#                                                                                        {% endif %}#}
-
-
-                                                                                        <input class="form-check-input" type="radio" name="current" id="current" value="0" checked >
+                                                                                        {% if current == "1" %}
+                                                                                            <input class="form-check-input" type="radio" name="current" id="current" value="0" >
+                                                                                        {% elif current == "2" %}
+                                                                                            <input class="form-check-input" type="radio" name="current" id="current" value="0" >
+                                                                                        {% elif current == "3" %}
+                                                                                            <input class="form-check-input" type="radio" name="current" id="current" value="0" >
+                                                                                        {% elif current == "4" %}
+                                                                                            <input class="form-check-input" type="radio" name="current" id="current" value="0" >
+                                                                                        {% else %}
+                                                                                            <input class="form-check-input" type="radio" name="current" id="current" value="0" checked>
+                                                                                        {% endif %}
                                                                                         0 - Not Implemented
                                                                                         <span class="circle">
                                                                                             <span class="check"></span>
                                                                                         </span>
                                                                                     </label>
-                                                                                </div> {# Close form-check #}
+                                                                                </div>
+
                                                                                 <div class="form-check">
                                                                                     <label class="form-check-label">
-                                                                                        <input class="form-check-input" type="radio" name="current" id="current" value="1" >
+                                                                                        {% if current == "1" %}
+                                                                                            <input class="form-check-input" type="radio" name="current" id="current" value="1" checked>
+                                                                                        {% else %}
+                                                                                            <input class="form-check-input" type="radio" name="current" id="current" value="1" >
+                                                                                        {% endif %}
                                                                                         1 - Partial
                                                                                         <span class="circle">
                                                                                             <span class="check"></span>
                                                                                         </span>
                                                                                     </label>
-                                                                                </div> {# Close form-check #}
+                                                                                </div>
+
                                                                                 <div class="form-check">
                                                                                     <label class="form-check-label">
-                                                                                        <input class="form-check-input" type="radio" name="current" id="current" value="2" >
+                                                                                        {% if current == "2" %}
+                                                                                            <input class="form-check-input" type="radio" name="current" id="current" value="2" checked>
+                                                                                        {% else %}
+                                                                                            <input class="form-check-input" type="radio" name="current" id="current" value="2" >
+                                                                                        {% endif %}
                                                                                         2 - Partial Informed
                                                                                         <span class="circle">
                                                                                             <span class="check"></span>
                                                                                         </span>
                                                                                     </label>
-                                                                                </div> {# Close form-check #}
+                                                                                </div>
+
                                                                                 <div class="form-check">
                                                                                     <label class="form-check-label">
-                                                                                        <input class="form-check-input" type="radio" name="current" id="current" value="3" >
+                                                                                        {% if current == "3" %}
+                                                                                            <input class="form-check-input" type="radio" name="current" id="current" value="31" checked>
+                                                                                        {% else %}
+                                                                                            <input class="form-check-input" type="radio" name="current" id="current" value="3" >
+                                                                                        {% endif %}
                                                                                         3 - Full Repeatable
                                                                                         <span class="circle">
                                                                                             <span class="check"></span>
                                                                                         </span>
                                                                                     </label>
-                                                                                </div> {# Close form-check #}
+                                                                                </div>
+
                                                                                 <div class="form-check">
                                                                                     <label class="form-check-label">
-                                                                                        <input class="form-check-input" type="radio" name="current" id="current" value="4" >
+                                                                                        {% if current == "4" %}
+                                                                                            <input class="form-check-input" type="radio" name="current" id="current" value="4" checked>
+                                                                                        {% else %}
+                                                                                            <input class="form-check-input" type="radio" name="current" id="current" value="4" >
+                                                                                        {% endif %}
                                                                                         4 - Measured Adaptive
                                                                                         <span class="circle">
                                                                                             <span class="check"></span>
                                                                                         </span>
                                                                                     </label>
-                                                                                </div> {# Close form-check #}
-                                                                            </div> {# Close col-lg-3 col-md-4 col-sm-6 #}
+                                                                                </div>
+                                                                            </div>
 
                                                                             <div class="col-sm-3">
                                                                                 <h4 class="title">Target Score</h4>
                                                                                 <div class="form-check">
                                                                                     <label class="form-check-label">
-                                                                                        <input class="form-check-input" type="radio" name="target" id="target" value="0" checked >
+                                                                                        {% if target == "1" %}
+                                                                                            <input class="form-check-input" type="radio" name="target" id="target" value="0" >
+                                                                                        {% elif target == "2" %}
+                                                                                            <input class="form-check-input" type="radio" name="target" id="target" value="0" >
+                                                                                        {% elif target == "3" %}
+                                                                                            <input class="form-check-input" type="radio" name="target" id="target" value="0" >
+                                                                                        {% elif target == "4" %}
+                                                                                            <input class="form-check-input" type="radio" name="target" id="target" value="0" >
+                                                                                        {% else %}
+                                                                                            <input class="form-check-input" type="radio" name="target" id="target" value="0" checked>
+                                                                                        {% endif %}
                                                                                         0 - Not Implemented
                                                                                         <span class="circle">
                                                                                             <span class="check"></span>
                                                                                         </span>
                                                                                     </label>
-                                                                                </div> {# Close form-check #}
+                                                                                </div>
+
                                                                                 <div class="form-check">
                                                                                     <label class="form-check-label">
-                                                                                        <input class="form-check-input" type="radio" name="target" id="target" value="1" >
+                                                                                        {% if target == "1" %}
+                                                                                            <input class="form-check-input" type="radio" name="target" id="target" value="1" checked>
+                                                                                        {% else %}
+                                                                                            <input class="form-check-input" type="radio" name="target" id="target" value="1" >
+                                                                                        {% endif %}
                                                                                         1 - Partial
                                                                                         <span class="circle">
                                                                                             <span class="check"></span>
                                                                                         </span>
                                                                                     </label>
-                                                                                </div> {# Close form-check #}
+
                                                                                 <div class="form-check">
                                                                                     <label class="form-check-label">
-                                                                                        <input class="form-check-input" type="radio" name="target" id="target" value="2" >
+                                                                                        {% if target == "2" %}
+                                                                                            <input class="form-check-input" type="radio" name="target" id="target" value="2" checked>
+                                                                                        {% else %}
+                                                                                            <input class="form-check-input" type="radio" name="target" id="target" value="2" >
+                                                                                        {% endif %}
                                                                                         2 - Partial Informed
                                                                                         <span class="circle">
                                                                                             <span class="check"></span>
                                                                                         </span>
                                                                                     </label>
-                                                                                </div> {# Close form-check #}
+                                                                                </div>
+
                                                                                 <div class="form-check">
                                                                                     <label class="form-check-label">
-                                                                                        <input class="form-check-input" type="radio" name="target" id="target" value="3" >
+                                                                                        {% if target == "3" %}
+                                                                                            <input class="form-check-input" type="radio" name="target" id="target" value="3" checked>
+                                                                                        {% else %}
+                                                                                            <input class="form-check-input" type="radio" name="target" id="target" value="3" >
+                                                                                        {% endif %}
                                                                                         3 - Full Repeatable
                                                                                         <span class="circle">
                                                                                             <span class="check"></span>
                                                                                         </span>
                                                                                     </label>
-                                                                                </div> {# Close form-check #}
+                                                                                </div>
+
                                                                                 <div class="form-check">
                                                                                     <label class="form-check-label">
-                                                                                        <input class="form-check-input" type="radio" name="target" id="target" value="4" >
+                                                                                        {% if target == "4" %}
+                                                                                            <input class="form-check-input" type="radio" name="target" id="target" value="4" checked>
+                                                                                        {% else %}
+                                                                                            <input class="form-check-input" type="radio" name="target" id="target" value="4" >
+                                                                                        {% endif %}
                                                                                         4 - Measured Adaptive
                                                                                         <span class="circle">
                                                                                             <span class="check"></span>
                                                                                         </span>
                                                                                     </label>
-                                                                                </div> {# Close form-check #}
+                                                                                </div>
                                                                             </div>
-                                                                            <div class="col-sm-3"></div> {# This is a filler to help center the two previous divs #}
+                                                                            <div class="col-sm-3"></div>
                                                                         </div>
                                                                     </div>
                                                                 {% endfor %}
@@ -253,28 +298,39 @@
                                         </div>
                                     </div>
                                     </div>
+
                                     {% if current_index == 0 %}
                                         <div class="card-nav-button-previous"></div>
                                     {% else %}
                                         <div class="card-nav-button-previous">
-                                            <input class="btn btn-warning btn-md" type="submit" name="navigate" id="navigate" value="previous">
+                                            <input class="btn btn-warning btn-sm" type="submit" name="navigate" id="navigate" value="previous">
                                         </div>
                                     {% endif %}
 
 
                                     {% if current_index == 107 %}
                                         <div class="card-nav-button-next">
-                                            <input class="btn btn-warning btn-md" type="submit" name="navigate" id="navigate" value="finish">
+                                            <input class="btn btn-warning btn-sm" type="submit" name="navigate" id="navigate" value="finish">
                                         </div>
                                     {% else %}
                                         <div class="card-nav-button-next">
-                                            <input class="btn btn-warning btn-md" type="submit" name="navigate" id="navigate" value="next">
+                                            <input class="btn btn-warning btn-sm" type="submit" name="navigate" id="navigate" value="next">
                                         </div>
                                     {% endif %}
+{#                                        <div class="card-nav-button-next">#}
+{#                                            <a href="/assessments/main"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/assessments/main';">Save & Exit</btn></a>#}
+{#                                        </div>#}
                                     <div class="clearfix"></div>
-                                    <p>Assessment ID: {{ guid }}</p>
                                 </div>
                             </form>
+                            </div>
+                            <div class="card-footer">
+                            {% for i in assessment %}
+                                <p>Assessment: {{ i.name }}</p>
+                            {% endfor %}
+                            {% if current_index != 107 %}
+                                <a href="/assessments/main"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/assessments/main';">Save & Resume Later</btn></a>
+                            {% endif %}
                             </div>
                         </div>
                     </div>

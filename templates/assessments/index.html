@@ -37,54 +37,41 @@
                             <div class="card-header card-header-warning">
                                 <div class="ct-chart" id="dailySalesChart"><h4><strong>CSF Assessments</strong></h4></div>
                             </div>
-                            <div class="card-body">
-                                <h4 class="card-title">Assessments: </h4>
-                                <table style="width: 100%">
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>% Complete</th>
-                                        <th>Created</th>
-                                        <th>Action</th>
-                                        <th></th>
-                                    </tr>
-                                    {% for assessment in assessments|sort(attribute="created_date") %}
-                                    <tr>
-                                        <td>{{ assessment.name }}</td>
-                                        <td>{{ assessment.completed }}</td>
-                                        <td>{{ assessment.created_date }}</td>
-                                        {% if assessment.completed == '0%' %}
-                                            <td><a href="/assessments/{{ assessment.guid }}/ID.AM-1"><btn class="btn btn-warning btn-sm">Start</btn></a></td>
-                                        {% else %}
-                                            <td><a href="/assessments/{{ assessment.guid }}/ID.AM-1"><btn class="btn btn-warning btn-sm">Edit</btn></a></td>
-                                        {% endif %}
-                                        <td><td><a href="/assessments/delete/{{ assessment.guid }}"><btn class="btn btn-warning btn-sm">Delete</btn></a></td></td>
-                                    </tr>
-                                    {% endfor %}
-
-                                </table>
-                            </div>
-                            <div class="card-footer">
-                                {# TODO: work on pulling the last timestamp that the assessment list was updated #}
-{#                                <div class="stats">#}
-{#                                    <i class="material-icons">access_time</i> updated 4 minutes ago#}
-{#                                </div>#}
-                            </div>
-                            <div class="card-footer">
-                                <a href="/assessments/prep"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/assessments/prep';">Prepare New CSF Assessment</btn></a>
-                            </div>
                             <div class="card-body table-responsive">
                                 <table class="table table-hover">
                                     <thead class="text-warning">
                                         <tr>
                                             <th>Name</th>
                                             <th>Progress</th>
-                                            <th>Created</th>
-                                            <th>Action</th>
+                                            <th>Created Date</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
-                                    {%  %}
+                                    <tbody>
+                                    {% for assessment in assessments|sort(attribute="created_date") %}
+                                        <tr>
+                                            <th>{{ assessment.name }}</th>
+                                            <th>{{ assessment.completed }}</th>
+                                            <th>{{ assessment.created_date }}</th>
+                                            {% if assessment.completed == '0%' %}
+                                                <td><a href="/assessments/{{ assessment.guid }}/ID.AM-1"><btn class="btn btn-warning btn-sm">Start</btn></a></td>
+                                            {% elif assessment.completed =='100%' %}
+                                                <td><a href="/assessments/{{ assessment.guid }}/ID.AM-1"><btn class="btn btn-warning btn-sm">View/Edit</btn></a></td>
+                                            {% else %}
+                                                <td><a href="/assessments/{{ assessment.guid }}/{{ assessment.last_update }}"><btn class="btn btn-warning btn-sm">Continue</btn></a></td>
+                                            {% endif %}
+                                            <td><td><a href="/assessments/delete/{{ assessment.guid }}"><btn class="btn btn-warning btn-sm">Delete</btn></a></td></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
                                 </table>
                             </div>
+                            <div class="card-footer">
+                                <a href="/assessments/prep"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/assessments/prep';">Prepare New CSF Assessment</btn></a>
+                            </div>
+
                         </div>
                     </div>
                 </div>

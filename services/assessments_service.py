@@ -29,7 +29,7 @@ class Assessment(GraphObject):
     target_avg = Property()
 
     def __init__(self):
-        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.created_date = datetime.now().strftime('%m-%d-%Y')
         self.guid = str(uuid.uuid4())
 
 
@@ -56,15 +56,15 @@ def create_new_assessment(usr, name, focal, description, tenant):
 
 def get_assessment_details(guid):
     details = graph.run(f"MATCH (x:Assessment) WHERE x.guid='{guid}' RETURN "
-                     f"x.name as name, "
-                     f"x.guid as guid, "
-                     f"x.status as status, "
-                     f"x.focal as focal, "
-                     f"x.completed as completed, "
-                     f"x.created_by as created_by, "
-                     f"x.current_avg as current_avg, "
-                     f"x.created_date as created_date, "
-                     f"x.target_avg as target_avg").data()
+                        f"x.name as name, "
+                        f"x.guid as guid, "
+                        f"x.status as status, "
+                        f"x.focal as focal, "
+                        f"x.completed as completed, "
+                        f"x.created_by as created_by, "
+                        f"x.current_avg as current_avg, "
+                        f"x.created_date as created_date, "
+                        f"x.target_avg as target_avg").data()
     return details
 
 
@@ -214,12 +214,8 @@ def post_answer(subid, guid, current, target):
     graph.run(answer)
 
 
-def update_assessment_status(guid, pct):
-    update = (
-        f"MATCH (y:Assessment) WHERE "
-        f"y.guid='{guid}' "
-        f"SET y.completed='{pct}%'"
-    )
+def update_assessment_status(guid, pct, subid, usr, status):
+    update = (f"MATCH (x:Assessment) WHERE x.guid='{guid}' SET x.completed='{pct}%' SET x.last_update='{subid}' SET x.updated_by='{usr}' SET x.status='{status}'")
     graph.run(update)
 
 
@@ -233,24 +229,26 @@ def get_assessments(tenant):
         f"y.status as status, "
         f"y.completed as completed, "
         f"y.current_avg as current_avg, "
-        f"y.target_avg as target_avg"
+        f"y.target_avg as target_avg, "
+        f"y.last_update as last_update"
     ).data()
     return assessments
 
 
 def get_current_answer(guid, subid):
-    current_answer = graph.run(f"MATCH (x:Answer) WHERE x.guid='{guid}' AND x.subid='{subid}' return x.current as current").data()
+    current_answer = graph.run(
+        f"MATCH (x:Answer) WHERE x.guid='{guid}' AND x.subid='{subid}' return x.current as current").data()
     for x in current_answer:
         current = x['current']
         return current
 
 
 def get_target_answer(guid, subid):
-    target_answer = graph.run(f"MATCH (x:Answer) WHERE x.guid='{guid}' AND x.subid='{subid}' return x.target as target").data()
+    target_answer = graph.run(
+        f"MATCH (x:Answer) WHERE x.guid='{guid}' AND x.subid='{subid}' return x.target as target").data()
     for x in target_answer:
         target = x['target']
         return target
-
 
 
 # TODO:  Finalize functionality for below
@@ -278,6 +276,7 @@ def update_assessment_scores(current_avg, target_avg, guid):
         f"x.target_avg='{target_avg}'"
     )
     graph.run(update)
+
 
 # After each answer is submitted, calculate the percentage of the answers have been submitted and update the assessment.
 def finalize_assessment_status(tenant, asid):

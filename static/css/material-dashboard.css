@@ -19717,13 +19717,27 @@ table, th, td {
   width: 100%;
   padding-top: 25px;
   padding-bottom: 25px;
+  text-align: center;
 }
 
 .card-nav-button-previous {
   display: inline-block;
-  margin-left: 42%;
+  margin-left: 5px;
+  margin-right: 5px;
+
 }
 
 .card-nav-button-next {
   display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.hide {
+  display: none;
+}
+
+.info-message:hover + .hide {
+  display: block;
+  color: red;
 }

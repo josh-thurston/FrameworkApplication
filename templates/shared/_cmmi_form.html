@@ -1,0 +1,150 @@
+{% block form_content %}
+<form class="form" method="POST" action="">
+    <div class="col-sm-3">
+        <h4 class="title">Current Score</h4>
+        <div class="form-check">
+            <label class="form-check-label">
+                {% if current > 0 %}
+                    <input class="form-check-input" type="radio" name="current" id="current" value="0">
+                {% else %}
+                    <input class="form-check-input" type="radio" name="current" id="current" value="0" checked >
+                {% endif %}
+                0 - Not Implemented
+                <span class="circle">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
+        
+        <div class="form-check">
+            <label class="form-check-label">
+                {% if current == 1 %}
+                    <input class="form-check-input" type="radio" name="current" id="current" value="1" checked>
+                {% else %}
+                    <input class="form-check-input" type="radio" name="current" id="current" value="1">
+                {% endif %}
+                1 - Partial
+                <span class="circle">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div> 
+
+        <div class="form-check">
+            <label class="form-check-label">
+                {% if current == 2 %}
+                    <input class="form-check-input" type="radio" name="current" id="current" value="2" checked>
+                {% else %}
+                    <input class="form-check-input" type="radio" name="current" id="current" value="2">
+                {% endif %}
+                2 - Partial Informed
+                <span class="circle">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
+
+        <div class="form-check">
+            <label class="form-check-label">
+                {% if current == 3 %}
+                    <input class="form-check-input" type="radio" name="current" id="current" value="3" checked>
+                {% else %}
+                    <input class="form-check-input" type="radio" name="current" id="current" value="3">
+                {% endif %}
+                3 - Full Repeatable
+                <span class="circle">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
+
+        <div class="form-check">
+            <label class="form-check-label">
+                {% if current == 4 %}
+                    <input class="form-check-input" type="radio" name="current" id="current" value="4" checked>
+                {% else %}
+                    <input class="form-check-input" type="radio" name="current" id="current" value="4">
+                {% endif %}
+                4 - Measured Adaptive
+                <span class="circle">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
+    </div> 
+
+    <div class="col-sm-3">
+        <h4 class="title">Target Score</h4>
+        <div class="form-check">
+            <label class="form-check-label">
+                {% if target > 0 %}
+                    <input class="form-check-input" type="radio" name="target" id="target" value="0">
+                {% else %}
+                    <input class="form-check-input" type="radio" name="target" id="target" value="0" checked >
+                {% endif %}
+                0 - Not Implemented
+                <span class="circle">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
+
+        <div class="form-check">
+            <label class="form-check-label">
+                {% if target == 1 %}
+                    <input class="form-check-input" type="radio" name="target" id="target" value="1" checked>
+                {% else %}
+                    <input class="form-check-input" type="radio" name="target" id="target" value="1" >
+                {% endif %}
+                1 - Partial
+                <span class="circle">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
+
+        <div class="form-check">
+            <label class="form-check-label">
+                {% if target == 2 %}
+                    <input class="form-check-input" type="radio" name="target" id="target" value="2" checked>
+                {% else %}
+                    <input class="form-check-input" type="radio" name="target" id="target" value="2" >
+                {% endif %}
+                2 - Partial Informed
+                <span class="circle">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
+
+        <div class="form-check">
+            <label class="form-check-label">
+                {% if target == 3 %}
+                    <input class="form-check-input" type="radio" name="target" id="target" value="3" checked>
+                {% else %}
+                    <input class="form-check-input" type="radio" name="target" id="target" value="3" >
+                {% endif %}
+                3 - Full Repeatable
+                <span class="circle">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
+
+        <div class="form-check">
+            <label class="form-check-label">
+                {% if target == 4 %}
+                    <input class="form-check-input" type="radio" name="target" id="target" value="4" checked>
+                {% else %}
+                    <input class="form-check-input" type="radio" name="target" id="target" value="4" >
+                {% endif %}
+                4 - Measured Adaptive
+                <span class="circle">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-3"></div>
+</form>
+{% endblock %}
