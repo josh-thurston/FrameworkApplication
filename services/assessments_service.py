@@ -78,23 +78,33 @@ def delete_assessment(guid):
 
 
 def delete_created_by(guid):
-    graph.run(f"MATCH (x:Assessment)-[r:created_by]-(y:User) WHERE x.guid='{guid}' DELETE r")
+    graph.run(f"MATCH (x:Assessment)-[r:created_by]-(y:User) "
+              f"WHERE x.guid='{guid}' "
+              f"DELETE r")
 
 
 def delete_assessment_for(guid):
-    graph.run(f"MATCH (x:Assessment)-[r:assessment_for]-(y:Tenant) WHERE x.guid='{guid}' DELETE r")
+    graph.run(f"MATCH (x:Assessment)-[r:assessment_for]-(y:Tenant) "
+              f"WHERE x.guid='{guid}' "
+              f"DELETE r")
 
 
 def delete_answer_for(guid):
-    graph.run(f"MATCH (x:Answer)-[r:answer_for]-(y:Assessment) WHERE x.guid='{guid}' DELETE r")
+    graph.run(f"MATCH (x:Answer)-[r:answer_for]-(y:Assessment) "
+              f"WHERE x.guid='{guid}' "
+              f"DELETE r")
 
 
 def delete_answers(guid):
-    graph.run(f"MATCH (x:Answer) WHERE x.guid='{guid}' DELETE x")
+    graph.run(f"MATCH (x:Answer) "
+              f"WHERE x.guid='{guid}' "
+              f"DELETE x")
 
 
 def delete_tenant_assessment(guid):
-    graph.run(f"MATCH (x:Assessment) WHERE x.guid='{guid}' DELETE x")
+    graph.run(f"MATCH (x:Assessment) "
+              f"WHERE x.guid='{guid}' "
+              f"DELETE x")
     pass
 
 
@@ -109,17 +119,23 @@ def prepare_assessment(usr, name, focal, description):
 
 
 def assessment_for(name, tenant):
-    graph.run(f"MATCH (x:Assessment), (y:Tenant) WHERE x.name='{name}' AND y.name='{tenant}' "
+    graph.run(f"MATCH (x:Assessment), (y:Tenant) "
+              f"WHERE x.name='{name}' "
+              f"AND y.name='{tenant}' "
               f"MERGE (x)-[r:assessment_for]->(y)")
 
 
 def created_by(name, usr):
-    graph.run(f"MATCH (x:Assessmewnt), (y:User) WHERE x.name='{name}' AND y.email='{usr}' "
+    graph.run(f"MATCH (x:Assessmewnt), (y:User) "
+              f"WHERE x.name='{name}' "
+              f"AND y.email='{usr}' "
               f"MERGE (x)-[r:created_by]->(y)")
 
 
 def get_assessment_guid(name):
-    assessment_guid = graph.run(f"MATCH (x:Assessment) WHERE x.name='{name}' RETURN x.guid as guid").data()
+    assessment_guid = graph.run(f"MATCH (x:Assessment) "
+                                f"WHERE x.name='{name}' "
+                                f"RETURN x.guid as guid").data()
     for g in assessment_guid:
         guid = g['guid']
         return guid
@@ -139,7 +155,9 @@ def create_answers_placeholders(guid):
 
 
 def answer_for(guid):
-    graph.run(f"MATCH (x:Answer), (y:Assessment) WHERE x.guid='{guid}' AND y.guid='{guid}'"
+    graph.run(f"MATCH (x:Answer), (y:Assessment) "
+              f"WHERE x.guid='{guid}' "
+              f"AND y.guid='{guid}' "
               f"MERGE (x)-[r:answer_for]->(y)")
 
 
@@ -179,7 +197,9 @@ def get_question(subid):
 
 def subcat_array():
     subcats = []
-    get_subs = graph.run(f"Match (x:SubCategory) RETURN x.name as name ORDER by x.order").data()
+    get_subs = graph.run(f"Match (x:SubCategory) "
+                         f"RETURN x.name as name "
+                         f"ORDER by x.order").data()
     for sub in get_subs:
         subcats.append(sub['name'])
     return subcats
@@ -215,13 +235,19 @@ def post_answer(subid, guid, current, target):
 
 
 def update_assessment_status(guid, pct, subid, usr, status):
-    update = (f"MATCH (x:Assessment) WHERE x.guid='{guid}' SET x.completed='{pct}%' SET x.last_update='{subid}' SET x.updated_by='{usr}' SET x.status='{status}'")
+    update = (f"MATCH (x:Assessment) "
+              f"WHERE x.guid='{guid}' "
+              f"SET x.completed='{pct}%' "
+              f"SET x.last_update='{subid}' "
+              f"SET x.updated_by='{usr}' "
+              f"SET x.status='{status}'")
     graph.run(update)
 
 
 def get_assessments(tenant):
     assessments = graph.run(
-        f"MATCH (x:Tenant), (y:Assessment) WHERE x.name='{tenant}' RETURN "
+        f"MATCH (x:Tenant), (y:Assessment) "
+        f"WHERE x.name='{tenant}' RETURN "
         f"y.name as name, "
         f"y.created_date as created_date, "
         f"y.guid as guid, "
@@ -236,16 +262,20 @@ def get_assessments(tenant):
 
 
 def get_current_answer(guid, subid):
-    current_answer = graph.run(
-        f"MATCH (x:Answer) WHERE x.guid='{guid}' AND x.subid='{subid}' return x.current as current").data()
+    current_answer = graph.run(f"MATCH (x:Answer) "
+                               f"WHERE x.guid='{guid}' "
+                               f"AND x.subid='{subid}' "
+                               f"RETURN x.current as current").data()
     for x in current_answer:
         current = x['current']
         return current
 
 
 def get_target_answer(guid, subid):
-    target_answer = graph.run(
-        f"MATCH (x:Answer) WHERE x.guid='{guid}' AND x.subid='{subid}' return x.target as target").data()
+    target_answer = graph.run(f"MATCH (x:Answer) "
+                              f"WHERE x.guid='{guid}' "
+                              f"AND x.subid='{subid}' "
+                              f"RETURN x.target as target").data()
     for x in target_answer:
         target = x['target']
         return target
