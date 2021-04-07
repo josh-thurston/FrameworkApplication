@@ -1,15 +1,17 @@
 import urllib
 import urllib.parse
-
+import uuid
+import string
+import random
 from flask import Flask, Blueprint, request, session, redirect, url_for, render_template, flash
-from wtforms import Form
 from infrastructure.view_modifiers import response
-from services.frameworks_service import get_frameworks, get_csf_functions
+from services.frameworks_service import get_frameworks
+from services.csf_service import get_csf_functions
 from services.user_service import check_user_role
 from services.tenant_service import get_tenant
-from services.assessments_service import create_new_assessment, get_assessments, get_question, subcat_array, \
+from services.assessments_service import create_assessment, get_assessments, get_question, subcat_array, \
     post_answer, update_assessment_status, get_current_answer, get_target_answer, get_assessment_details, \
-    delete_assessment
+    delete_assessment, find_assessment
 
 
 blueprint = Blueprint('assessments', __name__, template_folder='templates')
@@ -55,6 +57,7 @@ def prep_get():
 
 
 @blueprint.route('/assessments/prep', methods=['POST'])
+@response(template_file='assessments/prep_csf.html')
 def prep_post():
     if "usr" in session:
         usr = session["usr"]
@@ -63,7 +66,14 @@ def prep_post():
         focal = request.form['focal']
         description = request.form['description']
         tenant = get_tenant(usr)
-        create_new_assessment(usr, name, focal, description, tenant)
+        if find_assessment(name):
+            return {
+                'name': name,
+                'focal': focal,
+                'error': "An assessment with that name already exists."
+            }
+        else:
+            create_assessment(usr, name, focal, description, tenant)
         return redirect(url_for('assessments.landing_get'))
     else:
         return redirect(url_for('accounts.login_get'))
@@ -120,7 +130,6 @@ def csf_questions_post(guid, subid):
         usr = session["usr"]
         session["usr"] = usr
         q_array = subcat_array()
-
         current_index = q_array.index(subid)
         if current_index == 0:
             previous_question = q_array[0]
@@ -131,12 +140,8 @@ def csf_questions_post(guid, subid):
         else:
             previous_question = q_array[current_index - 1]
             next_question = q_array[current_index + 1]
-        # next_question = q_array[current_index + 1]
-        # previous_question = q_array[current_index - 1]
-
         total_questions = len(q_array)
         pct = float(format(current_index / total_questions, '.2f')) * 100
-
         current = request.form['current']
         target = request.form['target']
         navigate = request.form['navigate']
@@ -153,7 +158,6 @@ def csf_questions_post(guid, subid):
             pct = "100"
             update_assessment_status(guid, pct, subid, usr, status)
             return redirect(url_for('assessments.landing_get'))
-
     else:
         return redirect(url_for('accounts.login_get'))
 
@@ -175,8 +179,6 @@ def delete_post(guid):
     if "usr" in session:
         usr = session["usr"]
         session["usr"] = usr
-
-
         delete_assessment(guid)
         return redirect(url_for('assessments.landing_get'))
     else:

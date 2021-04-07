@@ -29,8 +29,6 @@ class User(GraphObject):
     created_date = Property()
     guid = Property()
 
-    # administrator_of = RelatedTo(Tenant)
-
     def __init__(self):
         self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         self.guid = str(uuid.uuid4())
@@ -66,19 +64,18 @@ def verify_hash(hashed_text: str, plain_text: str) -> bool:
 
 
 def set_admin(email: str):
-    graph.run(
-        f"MATCH (x:User) WHERE x.email='{email}' "
-        f"SET x.status='Active', "
-        f"x.permission='Editor', "
-        f"x.role='Administrator'"
-    )
+    graph.run(f"MATCH (x:User) "
+              f"WHERE x.email='{email}' "
+              f"SET x.status='Active', "
+              f"x.permission='Editor', "
+              f"x.role='Administrator'")
 
 
 def administrator_of(email: str, company: str):
-    graph.run(
-        f"MATCH (x:User), (y:Tenant) WHERE x.email='{email}' AND y.name='{company}' "
-        f"MERGE (x)-[r:administrator_of]->(y)"
-    )
+    graph.run(f"MATCH (x:User), (y:Tenant) "
+              f"WHERE x.email='{email}' "
+              f"AND y.name='{company}' "
+              f"MERGE (x)-[r:administrator_of]->(y)")
 
 
 def login_user(email: str, password: str) -> Optional[User]:
@@ -100,57 +97,67 @@ def login_user(email: str, password: str) -> Optional[User]:
 
 
 def check_status(email: str):
-    status = graph.run(f"MATCH (x:User) WHERE x.email='{email}' return x.status as status").data()
+    status = graph.run(f"MATCH (x:User) "
+                       f"WHERE x.email='{email}' "
+                       f"RETURN x.status as status").data()
     return status
 
 
 def set_current_login(email, login):
-    current_logon = f"MATCH (x:User) WHERE x.email='{email}' SET x.current_logon='{login}'"
-    graph.run(current_logon)
+    graph.run(f"MATCH (x:User) "
+              f"WHERE x.email='{email}' "
+              f"SET x.current_logon='{login}'")
 
 
-def update_previous_logon(email: str) -> Optional[User]:
-    previous = graph.run(f"MATCH (x:User) WHERE x.email='{email}' SET x.last_logon=x.current_logon").data()
-    return previous
+def update_previous_logon(email):
+    graph.run(f"MATCH (x:User) "
+              f"WHERE x.email='{email}' "
+              f"SET x.last_logon=x.current_logon")
 
 
 def get_profile(usr: str) -> Optional[User]:
     user_profile = graph.run(
-        f"MATCH (x:User) WHERE x.email='{usr}' "
-        f"RETURN x.company as company, "
-        f"x.title as title, "
-        f"x.industry as industry,"
-        f"x.name as name, "
+        f"MATCH (x:User) "
+        f"WHERE x.email='{usr}' "
+        f"RETURN x.name as name, "
         f"x.email as email, "
-        f"x.type as type,"
-        f"x.created_date as created_date, "
-        f"x.last_logon as last_logon, "
-        f"x.guid as guid, "
-        f"x.status as status,"
+        f"x.company as company, "
+        f"x.title as title, "
         f"x.role as role,"
         f"x.permission as permission,"
-        f"x.current_logon").data()
+        f"x.status as status,"
+        f"x.last_logon as last_logon, "
+        f"x.current_logon as current_logon, "
+        f"x.created_date as created_date, "       
+        f"x.guid as guid, "
+        ).data()
     return user_profile
 
 
 def get_user_info(encoded):
     guid = urllib.parse.unquote(encoded)
-    user_info = graph.run(f"MATCH (x:User) WHERE x.guid='{guid}' RETURN x.name as name,"
-                          f"x.company as company, "
-                          f"x.title as title, "
-                          f"x.email as email, "
-                          f"x.created_date as created_date, "
-                          f"x.last_logon as last_logon, "
-                          f"x.guid as guid, "
-                          f"x.status as status, "
-                          f"x.role as role, "
-                          f"x.permission as permission, "
-                          f"x.current_logon").data()
+    user_info = graph.run(
+        f"MATCH (x:User) "
+        f"WHERE x.guid='{guid}' "
+        f"RETURN x.name as name,"
+        f"x.email as email, "
+        f"x.company as company, "
+        f"x.title as title, "
+        f"x.role as role, "
+        f"x.permission as permission, "
+        f"x.status as status, "
+        f"x.last_logon as last_logon, "
+        f"x.current_logon as current_logon"
+        f"x.created_date as created_date, "
+        f"x.guid as guid, "
+        ).data()
     return user_info
 
 
 def check_user_role(usr: str):
-    user_role = graph.run(f"MATCH (x:User) WHERE x.email='{usr}' return x.role as role").data()
+    user_role = graph.run(f"MATCH (x:User) "
+                          f"WHERE x.email='{usr}' "
+                          f"RETURN x.role as role").data()
     return user_role
 
 
@@ -158,33 +165,37 @@ def update_title(usr: str, title: str):
     if not title:
         pass
     else:
-        new_title = graph.run(f"MATCH (x:User) WHERE x.email='{usr}' SET x.title='{title}'").data()
-        return new_title
-    return title
+        graph.run(f"MATCH (x:User) "
+                  f"WHERE x.email='{usr}' "
+                  f"SET x.title='{title}'")
 
 
 def get_users(company: str):
-    users = graph.run(f"MATCH (y:User) WHERE y.company='{company}' RETURN y.name as name,"
-                      f"y.email as email,"
-                      f"y.last_logon as last_logon,"
-                      f"y.guid as guid,"
-                      f"y.role as role,"
-                      f"y.permission as permission,"
-                      f"y.status as status").data()
+    users = graph.run(
+        f"MATCH (y:User) "
+        f"WHERE y.company='{company}' "
+        f"RETURN y.name as name,"
+        f"y.email as email,"
+        f"y.last_logon as last_logon,"
+        f"y.guid as guid,"
+        f"y.role as role,"
+        f"y.permission as permission,"
+        f"y.status as status").data()
     return users
 
 
 def get_pending_users(usr: str, company: str):
-    check = graph.run(f"MATCH (x:User)-[r]-(y:Tenant) WHERE x.email='{usr}' RETURN TYPE (r) ").data()
+    check = graph.run(f"MATCH (x:User)-[r]-(y:Tenant) "
+                      f"WHERE x.email='{usr}' "
+                      f"RETURN TYPE (r) ").data()
     account_type = (check[0]['TYPE (r)'])
     if account_type == 'Administrator':
         pending = graph.run(
-            f"MATCH (x:User)-[r:Pending]-(y:Tenant) WHERE "
-            f"x.company='{company}' AND "
-            f"y.name='Pending' RETURN "
-            f"x.name as name, "
-            f"x.email as email"
-        ).data()
+            f"MATCH (x:User)-[r:Pending]-(y:Tenant) "
+            f"WHERE x.company='{company}' "
+            f"AND y.name='Pending' "
+            f"RETURN x.name as name, "
+            f"x.email as email").data()
         return pending
     else:
         pending = [{'name': '', 'email': ''}]
@@ -192,7 +203,9 @@ def get_pending_users(usr: str, company: str):
 
 
 def get_company_name(usr: str):
-    get_company = graph.run(f"MATCH (x:User) WHERE x.email='{usr}' return x.company as company")
+    get_company = graph.run(f"MATCH (x:User) "
+                            f"WHERE x.email='{usr}' "
+                            f"RETURN x.company as company")
     for name in get_company:
         company = name['company']
         return company
@@ -200,28 +213,38 @@ def get_company_name(usr: str):
 
 def update_role(guid: str, role: str, company: str):
     drop_user_to_tenant(guid)
-    graph.run(f"MATCH (x:User) WHERE x.guid='{guid}' SET x.role='{role}'")
+    graph.run(f"MATCH (x:User) "
+              f"WHERE x.guid='{guid}' "
+              f"SET x.role='{role}'")
     update_user_to_tenant(guid, role, company)
 
 
 def drop_user_to_tenant(guid: str):
-    graph.run(f"MATCH (x:User)-[r]-(y:Tenant) WHERE x.guid='{guid}' delete r")
+    graph.run(f"MATCH (x:User)-[r]-(y:Tenant) "
+              f"WHERE x.guid='{guid}' "
+              f"DELETE r")
 
 
 def update_user_to_tenant(guid: str, role: str, company: str):
-    graph.run(f"MATCH (x:User), (y:Tenant) WHERE x.guid='{guid}' AND y.name='{company}' Merge (x)-[r:{role}_of]->(y)")
+    graph.run(f"MATCH (x:User), (y:Tenant) "
+              f"WHERE x.guid='{guid}' "
+              f"AND y.name='{company}' "
+              f"MERGE (x)-[r:{role}_of]->(y)")
 
 
 def update_permission(guid: str, permission: str):
-    graph.run(f"MATCH (x:User) WHERE x.guid='{guid}' SET x.permission='{permission}'")
+    graph.run(f"MATCH (x:User) "
+              f"WHERE x.guid='{guid}' "
+              f"SET x.permission='{permission}'")
 
 
 def update_status(guid: str, status: str):
     if status == 'Disable':
         drop_user_to_tenant(guid)
         create_lockout_password(guid)
-    graph.run(
-        f"MATCH (x:User) WHERE x.guid='{guid}' SET x.status='{status}'")
+    graph.run(f"MATCH (x:User) "
+              f"WHERE x.guid='{guid}' "
+              f"SET x.status='{status}'")
 
 
 def create_lockout_password(guid: str):
@@ -234,8 +257,9 @@ def create_lockout_password(guid: str):
     randomize = random.sample(mixer, length)
     text = "".join(randomize)
     hashed_password = hash_text(text)
-    graph.run(f"MATCH (x:User) WHERE x.guid='{guid} SET x.hashed_password='{hashed_password}'")
-    print("Created Lockout Password", hashed_password)
+    graph.run(f"MATCH (x:User) "
+              f"WHERE x.guid='{guid} "
+              f"SET x.hashed_password='{hashed_password}'")
 
 
 def decline_access(guid: str, denied: str):
@@ -246,4 +270,6 @@ def decline_access(guid: str, denied: str):
 
 
 def delete_user(guid: str):
-    graph.run(f"MATCH (x:User) WHERE x.guid='{guid}' delete x")
+    graph.run(f"MATCH (x:User) "
+              f"WHERE x.guid='{guid}' "
+              f"DELETE x")

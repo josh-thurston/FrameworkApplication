@@ -19741,3 +19741,10 @@ table, th, td {
   display: block;
   color: red;
 }
+
+
+ul.no-bullets {
+  list-style-type: none;
+  margin-left: 15px;
+  padding: 0;
+}

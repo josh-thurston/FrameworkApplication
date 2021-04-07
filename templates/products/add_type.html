@@ -1,0 +1,43 @@
+{% extends "shared/_dashboard.html" %}
+{% block title %} Add Product {% endblock %}
+
+{% block main_content %}
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-md-6 ml-auto mr-auto">
+                    <div class="card card-login">
+                        <div class="card-header card-header-warning text-center">
+                            <h4 class="card-title">Add Product</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-header text-center"><h3>Select Product Type</h3></div>
+                            <div class="card-nav-button-row">
+                                <div class="card-nav-button-next">
+                                    <input class="btn btn-warning btn-sm" type="submit" name="type" id="type" value="Commercial">
+                                </div>
+                                <div class="card-nav-button-next">
+                                    <input class="btn btn-warning btn-sm" type="submit" name="type" id="type" value="FOSS">
+                                </div>
+                                <div class="card-nav-button-next">
+                                    <input class="btn btn-warning btn-sm" type="submit" name="type" id="type" value="In-House">
+                                </div>
+
+                            </div>
+                            <br>
+                            <p><strong>Commercial</strong> - Adds the the product to the global product index for
+                                all users on the platform.</p>
+                            <p><strong>FOSS</strong> - Free and Open-Source Software will be added to the global product
+                                index for all users on the platform.</p>
+                            <p><strong>In-House</strong> - Makes the product private. Only your company can use your
+                                product in all of the frameworks and maturity models.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_js %}
+{% endblock %}

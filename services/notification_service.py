@@ -1,3 +1,6 @@
+import urllib.parse
+import uuid
+from py2neo.ogm import GraphObject, Property
 from datetime import datetime, timedelta
 from data.db_session import db_auth
 from typing import Optional
@@ -5,6 +8,21 @@ from passlib.handlers.sha2_crypt import sha512_crypt as crypto
 from data.classes import User, Tenant
 
 graph = db_auth()
+
+
+class Notification(GraphObject):
+    __primarykey__ = "code"
+
+    code = Property()
+    title = Property()
+    text = Property()
+    status = Property()
+    created_date = Property()
+    guid = Property()
+
+    def __init__(self):
+        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.guid = str(uuid.uuid4())
 
 
 # User Management Codes

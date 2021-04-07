@@ -6,46 +6,58 @@
 {% endblock %}
 {% block main_content %}
 <div class="content">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-8 ml-auto mr-auto">
-                    <div class="card card-login">
-                        <form class="form" method="POST" action="">
-                            <div class="card-header card-header-warning text-center">
-                                <h4 class="card-title">Assessment Setup</h4>
-                            </div>
-                            <div class="card-body">
-                                 <div class="row">
-                                     <div class="col-md-10">
-                                         <div class="form-group">
-                                            <label class="bmd-label-floating">Name of Assessment: (ex. Q1 Assessment...)</label>
-                                            <input name="name" type="text" class="form-control" required value="{{ name }}">
-                                         </div>
-                                         <div class="form-group">
-                                            <label class="bmd-label-floating">Scope: (ex. Full Environment, BU, Segment, Region...)</label>
-                                            <input name="focal" type="text" class="form-control" required value="{{ focal }}">
-                                         </div>
-                                         <div class="form-group">
-                                             <textarea rows="4" cols="35" name="description" class="form-control" placeholder="Notes: (optional)"></textarea>
-                                         </div>
-                                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 ml-auto mr-auto">
+                <div class="card card-login">
+                    <form class="form" method="POST" action="">
+                        <div class="card-header card-header-warning text-center">
+                            <h4 class="card-title">Assessment Setup</h4>
+                        </div>
+                        <div class="card-body">
+                             <div class="row">
+                                 <div class="col-md-10">
+                                     <div class="form-group">
+                                        <label class="bmd-label-floating">Name of Assessment: (ex. Q1 Assessment...)</label>
+                                        <input name="name" type="text" class="form-control" required value="{{ name }}">
+                                     </div>
+                                     <div class="form-group">
+                                        <label class="bmd-label-floating">Scope: (ex. Full Environment, BU, Segment, Region...)</label>
+                                        <input name="focal" type="text" class="form-control" required value="{{ focal }}">
+                                     </div>
+                                     <div class="form-group">
+                                         <textarea rows="4" cols="35" name="description" class="form-control" placeholder="Notes: (optional)"></textarea>
+                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <a href="/assessments/main"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/assessments/main';">Cancel</btn></a>
-                                <button type="submit" class="btn btn-warning btn-sm pull-right">Save</button>
-                                <div class="clearfix"></div>
-                            </div>
+                        </div>
+                        <div class="card-body">
+                            <a href="/assessments/main"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/assessments/main';">Cancel</btn></a>
+                            <button type="submit" class="btn btn-warning btn-sm pull-right">Save</button>
                             <div style="clear: both;"></div>
-                            {% if error %}
-                                <div class="error-msg">{{ error }}</div>
-                            {% endif %}
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
+                {% if error %}
+                    <div id="notifications" class="section cd-section section-notifications">
+                        <div class="alert alert-danger">
+                            <div class="container">
+                                <div class="alert-icon">
+                                    <i class="material-icons">error_outline</i>
+                                </div>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                                </button>
+                                <b>Error:</b> {{ error }}
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
 {% block additional_js %}
 <!--   Core JS Files   -->

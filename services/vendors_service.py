@@ -1,19 +1,34 @@
 import urllib.parse
+import uuid
+from datetime import datetime
 from data.db_session import db_auth
+from py2neo.ogm import GraphObject, Property
 
 graph = db_auth()
 
 
+class Vendor(GraphObject):
+    __primarykey__ = "name"
+
+    name = Property()
+    shortname = Property()
+    homepage = Property()
+    created_date = Property()
+    guid = Property()
+
+    def __init__(self):
+        self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        self.guid = str(uuid.uuid4())
+
+
 def get_vendor_list():
+    vendors = []
     vendor_list = graph.run(
-        "MATCH (a:Vendor)-[b:Makes]-(c:Product) "
-        "RETURN a.name as organization, "
-        "c.name as product, "
-        "c.homepage as homepage, "
-        "c.github as github, "
-        "c.license as license, "
-        "c.description as description").data()
-    return vendor_list
+        "MATCH (x:Vendor)"
+        "RETURN x.name as name").data()
+    for vendor in vendor_list:
+        vendors.append(vendor)
+    return vendors
 
 
 def get_vendor_products(encoded):

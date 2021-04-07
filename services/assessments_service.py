@@ -1,13 +1,8 @@
-import urllib
 import uuid
 import json
-import urllib.parse
-import random
-from data.classes import SubCategory
+from typing import Optional
 from data.db_session import db_auth
 from datetime import datetime
-from data.classes import Question
-from py2neo.ogm import RelatedFrom, RelatedTo, Related, RelatedObjects
 from py2neo.ogm import GraphObject, Property
 
 graph = db_auth()
@@ -32,6 +27,22 @@ class Assessment(GraphObject):
         self.created_date = datetime.now().strftime('%m-%d-%Y')
         self.guid = str(uuid.uuid4())
 
+# TODO: Make sure that Question is not used anywhere.  Delete if possible.
+# class Question(GraphObject):
+#     __primarykey__ = "date"
+#     __primarylabel = "name"
+#
+#     name = Property()
+#     prompt = Property()
+#     score = Property()
+#     target = Property()
+#     created_date = Property()
+#     guid = Property()
+#
+#     def __init__(self):
+#         self.created_date = datetime.now().strftime('%m-%d-%Y')
+#         self.guid = str(uuid.uuid4())
+
 
 class Answer(GraphObject):
     # __primarykey__ = "name"
@@ -46,17 +57,10 @@ class Answer(GraphObject):
     date = Property()
 
 
-def create_new_assessment(usr, name, focal, description, tenant):
-    prepare_assessment(usr, name, focal, description)
-    assessment_for(name, tenant)
-    guid = get_assessment_guid(name)
-    create_answers_placeholders(guid)
-    answer_for(guid)
-
-
 def get_assessment_details(guid):
-    details = graph.run(f"MATCH (x:Assessment) WHERE x.guid='{guid}' RETURN "
-                        f"x.name as name, "
+    details = graph.run(f"MATCH (x:Assessment) "
+                        f"WHERE x.guid='{guid}' "
+                        f"RETURN x.name as name, "
                         f"x.guid as guid, "
                         f"x.status as status, "
                         f"x.focal as focal, "
@@ -68,47 +72,17 @@ def get_assessment_details(guid):
     return details
 
 
-def delete_assessment(guid):
-    delete_answer_for(guid)
-    delete_created_by(guid)
-    delete_assessment_for(guid)
-    delete_answers(guid)
-    delete_tenant_assessment(guid)
-    pass
+def create_assessment(usr, name, focal, description, tenant):
+    prepare_assessment(usr, name, focal, description)
+    guid = get_assessment_guid(name)
+    created_by(usr, guid)
+    assessment_for(guid, tenant)
+    create_answers_placeholders(guid)
+    answer_for(guid)
 
 
-def delete_created_by(guid):
-    graph.run(f"MATCH (x:Assessment)-[r:created_by]-(y:User) "
-              f"WHERE x.guid='{guid}' "
-              f"DELETE r")
+def prepare_assessment(usr: str, name: str, focal: str, description: str) -> Optional[Assessment]:
 
-
-def delete_assessment_for(guid):
-    graph.run(f"MATCH (x:Assessment)-[r:assessment_for]-(y:Tenant) "
-              f"WHERE x.guid='{guid}' "
-              f"DELETE r")
-
-
-def delete_answer_for(guid):
-    graph.run(f"MATCH (x:Answer)-[r:answer_for]-(y:Assessment) "
-              f"WHERE x.guid='{guid}' "
-              f"DELETE r")
-
-
-def delete_answers(guid):
-    graph.run(f"MATCH (x:Answer) "
-              f"WHERE x.guid='{guid}' "
-              f"DELETE x")
-
-
-def delete_tenant_assessment(guid):
-    graph.run(f"MATCH (x:Assessment) "
-              f"WHERE x.guid='{guid}' "
-              f"DELETE x")
-    pass
-
-
-def prepare_assessment(usr, name, focal, description):
     assessment = Assessment()
     assessment.name = name
     assessment.focal = focal
@@ -116,18 +90,24 @@ def prepare_assessment(usr, name, focal, description):
     assessment.description = description
     assessment.created_by = usr
     graph.create(assessment)
+    return assessment
 
 
-def assessment_for(name, tenant):
+def find_assessment(name: str):
+    assessment = Assessment.match(graph, f"{name}").first()
+    return assessment
+
+
+def assessment_for(guid, tenant):
     graph.run(f"MATCH (x:Assessment), (y:Tenant) "
-              f"WHERE x.name='{name}' "
+              f"WHERE x.guid='{guid}' "
               f"AND y.name='{tenant}' "
               f"MERGE (x)-[r:assessment_for]->(y)")
 
 
-def created_by(name, usr):
-    graph.run(f"MATCH (x:Assessmewnt), (y:User) "
-              f"WHERE x.name='{name}' "
+def created_by(usr, guid):
+    graph.run(f"MATCH (x:Assessment), (y:User) "
+              f"WHERE x.guid='{guid}' "
               f"AND y.email='{usr}' "
               f"MERGE (x)-[r:created_by]->(y)")
 
@@ -161,26 +141,11 @@ def answer_for(guid):
               f"MERGE (x)-[r:answer_for]->(y)")
 
 
-# def get_cats():
-#     cats = graph.run(
-#         "MATCH (x:Function)-[r:CSF_Category]-(y:Category)-[s:CSF_SubCategory]-(z:SubCategory) RETURN "
-#         "x.name as function, "
-#         "x.order as funorder, "
-#         "y.name as category, "
-#         "y.description as catdesc, "
-#         "z.subid as subid, "
-#         "z.description as subdesc, "
-#         "z.order as order"
-#     ).data()
-#     return cats
-
-
 def get_question(subid):
     subid_info = graph.run(
         f"MATCH (x:Function)-[r:CSF_Category]-(y:Category)-[s:CSF_SubCategory]-(z:SubCategory) "
         f"WHERE z.subid='{subid}'"
-        f"RETURN "
-        "x.name as function, "
+        f"RETURN x.name as function, "
         "x.fid as fid, "
         "x.order as funorder, "
         "y.name as category, "
@@ -227,7 +192,8 @@ def post_answer(subid, guid, current, target):
     else:
         tgt = target_int
     timestamp = datetime.now().strftime('%Y-%m-%d')
-    answer = (f"MATCH (x:Answer) WHERE x.subid='{subid}' AND x.guid='{guid}'"
+    answer = (f"MATCH (x:Answer) "
+              f"WHERE x.subid='{subid}' AND x.guid='{guid}'"
               f"SET x.current='{current_int}'"
               f"SET x.target='{tgt}'"
               f"SET x.date='{timestamp}'")
@@ -281,14 +247,52 @@ def get_target_answer(guid, subid):
         return target
 
 
+def delete_assessment(guid):
+    delete_answer_for(guid)
+    delete_created_by(guid)
+    delete_assessment_for(guid)
+    delete_answers(guid)
+    delete_tenant_assessment(guid)
+
+
+def delete_created_by(guid):
+    graph.run(f"MATCH (x:Assessment)-[r:created_by]-(y:User) "
+              f"WHERE x.guid='{guid}' "
+              f"DELETE r")
+
+
+def delete_assessment_for(guid):
+    graph.run(f"MATCH (x:Assessment)-[r:assessment_for]-(y:Tenant) "
+              f"WHERE x.guid='{guid}' "
+              f"DELETE r")
+
+
+def delete_answer_for(guid):
+    graph.run(f"MATCH (x:Answer)-[r:answer_for]-(y:Assessment) "
+              f"WHERE x.guid='{guid}' "
+              f"DELETE r")
+
+
+def delete_answers(guid):
+    graph.run(f"MATCH (x:Answer) "
+              f"WHERE x.guid='{guid}' "
+              f"DELETE x")
+
+
+def delete_tenant_assessment(guid):
+    graph.run(f"MATCH (x:Assessment) "
+              f"WHERE x.guid='{guid}' "
+              f"DELETE x")
+
+
 # TODO:  Finalize functionality for below
 
 
 def calc_avg_scores(guid):
     avg_scores = graph.run(
-        f"MATCH (y:Answer) WHERE "
-        f"y.asid='{guid}' RETURN "
-        f"avg(y.current) as current, "
+        f"MATCH (y:Answer) "
+        f"WHERE y.asid='{guid}' "
+        f"RETURN avg(y.current) as current, "
         f"avg(y.target) as target"
     ).data()
     for avg in avg_scores:
@@ -300,17 +304,16 @@ def calc_avg_scores(guid):
 
 
 def update_assessment_scores(current_avg, target_avg, guid):
-    update = (
-        f"MATCH (x:Assessment) WHERE x.asid='{guid}' SET "
-        f"x.current_avg='{current_avg}', "
-        f"x.target_avg='{target_avg}'"
-    )
-    graph.run(update)
+    graph.run(f"MATCH (x:Assessment) "
+              f"WHERE x.asid='{guid}' "
+              f"SET x.current_avg='{current_avg}', "
+              f"x.target_avg='{target_avg}'")
 
 
 # After each answer is submitted, calculate the percentage of the answers have been submitted and update the assessment.
 def finalize_assessment_status(tenant, asid):
-    update = (f"MATCH (x:Tenant), (y:Assessment) WHERE x.name='{tenant}' and y.asid='{asid}'"
+    graph.run(f"MATCH (x:Tenant), (y:Assessment) "
+              f"WHERE x.name='{tenant}' "
+              f"AND y.asid='{asid}'"
               f"SET y.completed='100 %', "
               f"SET y.status='Complete' ")
-    graph.run(update)

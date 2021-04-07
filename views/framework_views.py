@@ -1,7 +1,8 @@
 import urllib.parse
 from flask import Flask, Blueprint, request, session, redirect, url_for, render_template, flash
 from infrastructure.view_modifiers import response
-from services.frameworks_service import get_frameworks, get_csf_model, get_csf_categories, get_csf_functions, get_csf_subcategories
+from services.frameworks_service import get_frameworks
+from services.csf_service import get_csf_model, get_csf_categories, get_csf_functions, get_csf_subcategories
 from services.user_service import check_user_role
 
 

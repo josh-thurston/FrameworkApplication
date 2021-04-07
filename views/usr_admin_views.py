@@ -20,7 +20,6 @@ def toolbox():
         session["usr"] = usr
         accounts = check_user_role(usr)
         user_profile = get_profile(usr)
-
         return {"user_profile": user_profile,
                 "accounts": accounts,
                 "usr": usr
@@ -59,10 +58,8 @@ def user_mgmt_get(user_id):
         usr = session["usr"]
         session["usr"] = usr
         accounts = check_user_role(usr)
-
         encoded = urllib.parse.quote(user_id)
         user_info = get_user_info(encoded)
-
         return{
             'accounts': accounts,
             'user_info': user_info
@@ -82,7 +79,6 @@ def profile_post(user_id):
         status = request.form.get('status')
         permission = request.form.get('permission')
         denied = request.form.get('denied')
-
         update_role(user_id, role, company)
         update_status(user_id, status)
         update_permission(user_id, permission)

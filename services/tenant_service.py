@@ -1,12 +1,8 @@
 import uuid
 from datetime import datetime
 from data.db_session import db_auth
-from typing import Optional
-from data.classes import Question
 from py2neo.ogm import GraphObject, Property
-
 from services.user_service import set_admin, administrator_of
-from services.assessments_service import get_subcats
 
 graph = db_auth()
 
@@ -38,6 +34,12 @@ def find_tenant(company: str):
     return tenant
 
 
+# def create_tenant(company, email):
+#     new_tenant(company, email)
+#     set_admin(email)
+#     administrator_of(email, company)
+
+
 def create_tenant(company, email):
     if find_tenant(company):
         return None
@@ -46,12 +48,12 @@ def create_tenant(company, email):
     graph.create(tenant)
     set_admin(email)
     administrator_of(email, company)
-    return tenant
 
 
 def get_tenant(usr):
     tenant_lookup = graph.run(
-        f"MATCH (x:User)-[r]-(y:Tenant) WHERE x.email='{usr}'"
+        f"MATCH (x:User)-[r]-(y:Tenant) "
+        f"WHERE x.email='{usr}'"
         f"RETURN y.name as name"
     ).data()
     for t in tenant_lookup:
@@ -61,7 +63,8 @@ def get_tenant(usr):
 
 def get_company_info(usr: str):
     company_info = graph.run(
-        f"Match (x:Tenant)-[r]->(y:User) WHERE y.email='{usr}' "
+        f"Match (x:Tenant)-[r]->(y:User) "
+        f"WHERE y.email='{usr}' "
         f"RETURN x.name as name,"
         f"x.guid as guid,"
         f"x.industry as industry,"
@@ -83,55 +86,52 @@ def update_industry(usr: str, industry: str):
     if not industry:
         pass
     else:
-        new_industry = graph.run(
-            f"MATCH (x:User)-[r]-(y:Tenant) WHERE "
-            f"x.email='{usr}' SET "
-            f"y.industry='{industry}'"
-        ).data()
-        return new_industry
-    return industry
+        graph.run(f"MATCH (x:User)-[r]-(y:Tenant) "
+                  f"WHERE x.email='{usr}' "
+                  f"SET y.industry='{industry}'")
 
 
 def update_city(usr: str, city: str):
     if not city:
         pass
     else:
-        new_city = graph.run(f"MATCH (x:User)-[r]-(y:Tenant) WHERE x.email='{usr}' SET y.city='{city}'").data()
-        return new_city
-    return city
+        graph.run(f"MATCH (x:User)-[r]-(y:Tenant) "
+                  f"WHERE x.email='{usr}' "
+                  f"SET y.city='{city}'")
 
 
 def update_country(usr: str, country: str):
     if not country:
         pass
     else:
-        new_country = graph.run(f"MATCH (x:User)-[r]-(y:Tenant) WHERE x.email='{usr}' SET y.country='{country}'").data()
-        return new_country
-    return country
+        graph.run(f"MATCH (x:User)-[r]-(y:Tenant) "
+                  f"WHERE x.email='{usr}' "
+                  f"SET y.country='{country}'")
 
 
 def update_postal(usr: str, postal: str):
     if not postal:
         pass
     else:
-        new_postal = graph.run(f"MATCH (x:User)-[r]-(y:Tenant) WHERE x.email='{usr}' SET y.postal='{postal}'").data()
-        return new_postal
-    return postal
+        graph.run(f"MATCH (x:User)-[r]-(y:Tenant) "
+                  f"WHERE x.email='{usr}' "
+                  f"SET y.postal='{postal}'")
 
 
 def update_state(usr: str, state: str):
     if not state:
         pass
     else:
-        new_state = graph.run(f"MATCH (x:User)-[r]-(y:Tenant) WHERE x.email='{usr}' SET y.state='{state}'").data()
-        return new_state
-    return state
+        graph.run(f"MATCH (x:User)-[r]-(y:Tenant) "
+                  f"WHERE x.email='{usr}' "
+                  f"SET y.state='{state}'")
 
 
 def update_website(usr: str, website: str):
     if not website:
         pass
     else:
-        new_website = graph.run(f"MATCH (x:User)-[r]-(y:Tenant) WHERE x.email='{usr}' SET y.website='{website}'").data()
-        return new_website
-    return website
+        graph.run(f"MATCH (x:User)-[r]-(y:Tenant) "
+                  f"WHERE x.email='{usr}' "
+                  f"SET y.website='{website}'")
+

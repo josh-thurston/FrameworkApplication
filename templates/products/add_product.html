@@ -1,0 +1,55 @@
+{% extends "shared/_dashboard.html" %}
+{% block title %} Add Product {% endblock %}
+{% block additional_css %}
+{% endblock %}
+{% block main_content %}
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 ml-auto mr-auto">
+                <div class="card card-login">
+                    <div class="card-header card-header-warning text-center">
+                        <h4 class="card-title">Add Product</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-header text-center"><h3>Product Info</h3></div>
+                        <form class="form" method="POST" action="">
+                            <div class="col-sm-12 text-center">
+                                <div class="form-check">
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label">Product Name</label>
+                                        <input class="form-control" name="name" type="text" required value="{{ name }}">
+                                    </div>
+                                    <div class="form-group label-floating is-empty">
+                                        <label class="control-label">Product Shortname</label>
+                                        <input class="form-control" name="shortname" type="text" placeholder="(ex. EPP)" value="{{ shortname }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12" style="margin-top: 20px;">
+                                <dif class="form-group label-floating is-empty">
+                                    <div class="input-group">
+                                        <label class="control-label">Description
+                                            <textarea rows="6" cols="60" name="description" class="form-control" placeholder="(Optional)"></textarea>
+                                        </label>
+                                    </div>
+                                </dif>
+                            </div>
+                            <div class="card-nav-button-row">
+                                <div class="card-nav-button-next">
+                                    <a href="/dashboard"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/dashboard';">Cancel</btn></a>
+                                    <input class="btn btn-warning btn-sm" type="submit" value="Next">
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block additional_js %}
+{% endblock %}

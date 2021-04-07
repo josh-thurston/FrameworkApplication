@@ -1,0 +1,88 @@
+{% extends "shared/_dashboard.html" %}
+{% block title %} Add Vendor {% endblock %}
+{% block additional_css %}
+{% endblock %}
+{% block main_content %}
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-6 ml-auto mr-auto">
+                <div class="card card-login">
+                    <div class="card-header card-header-warning text-center">
+                        <h4 class="card-title">Add Product</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-header text-center"><h3>Vendor</h3></div>
+                        {% if software_type == "Commercial" %}
+                            <form class="form" method="POST" action="">
+                                <div class="col-sm-12">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <select class="form-control" name="vendor">
+                                                <option value="" selected>Add Vendor</option>
+                                                {% for vendor in vendors|sort(attribute="name") %}
+                                                    <option value="{{ vendor.name }}">{{ vendor.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label">Product Homepage / URL</label>
+                                            <input class="form-control" name="homepage" type="text" required value="{{ homepage }}">
+                                        </div>
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label">Product Github</label>
+                                            <input class="form-control" name="github" type="text" placeholder="(optional)" value="{{ github }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-nav-button-row">
+                                    <div class="card-nav-button-next">
+                                        <input class="btn btn-warning btn-sm" type="submit" name="navigate" id="navigate" value="next">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </form>
+                        {% elif software_type == 'FOSS' %}
+                            <form class="form" method="POST" action="">
+                                <div class="col-sm-12">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <select class="form-control" name="vendor">
+                                                <option value="" selected>Add Creator</option>
+                                                {% for vendor in vendors|sort(attribute="name") %}
+                                                    <option value="{{ vendor.name }}">{{ vendor.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label">Product Homepage / URL</label>
+                                            <input class="form-control" name="homepage" type="text" required value="{{ homepage }}">
+                                        </div>
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label">Product Github</label>
+                                            <input class="form-control" name="github" type="text" placeholder="(optional)" value="{{ github }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-nav-button-row">
+                                    <div class="card-nav-button-next">
+                                        <input class="btn btn-warning btn-sm" type="submit" name="navigate" id="navigate" value="next">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block additional_js %}
+{% endblock %}
