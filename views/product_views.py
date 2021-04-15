@@ -1,10 +1,9 @@
 import urllib.parse
 from flask import Flask, Blueprint, request, session, redirect, url_for, render_template, flash
 from infrastructure.view_modifiers import response
-from services.vendors_service import get_vendor_list
-from services.product_service import product_index, get_product_info, add_product, find_product, get_product_guid, get_product_name, made_by, set_product_type
+from services.product_service import product_index, add_product, find_product, get_product_guid, made_by, get_product_type
 from services.user_service import check_user_role, get_company_name
-from services.productcategory_service import get_product_categories, product_categories, belongs_to
+from services.vendors_service import find_vendor, add_vendor
 
 
 blueprint = Blueprint('products', __name__, template_folder='templates')
@@ -24,33 +23,13 @@ def get_directory():
         return redirect(url_for('accounts.login_get'))
 
 
-@blueprint.route('/products/<product_name>')
-@response(template_file='products/product-detailed.html')
-def detail(product_name):
-    if "usr" in session:
-        usr = session["usr"]
-        session["usr"] = usr
-        accounts = check_user_role(usr)
-        encoded = urllib.parse.quote(product_name)
-        product_info = get_product_info(encoded)
-        return{
-            'product_info': product_info,
-            'product_name': product_name,
-            'accounts': accounts
-        }
-    else:
-        return redirect(url_for('accounts.login_get'))
-
-
 @blueprint.route('/products/add', methods=['GET'])
 @response(template_file='products/add_product.html')
 def get_add_product():
     if "usr" in session:
         usr = session["usr"]
         session["usr"] = usr
-        accounts = check_user_role(usr)
-
-        return {"accounts": accounts}
+        return {}
     else:
         return redirect(url_for('accounts.login_get'))
 
@@ -61,98 +40,55 @@ def post_add_product():
     if "usr" in session:
         usr = session["usr"]
         session["usr"] = usr
-
         name = request.form.get('name')
         shortname = request.form.get('shortname')
         description = request.form.get('description')
+        prod_type = request.form.get('type')
         if find_product(name):
             return {"error": "A product with that name already exists."}
         else:
-            add_product(name, shortname, description)
+            add_product(name, shortname, description, prod_type)
             guid = get_product_guid(name)
-        return redirect(url_for("products.get_vendor", guid=guid))
+            return redirect(url_for("products.get_vendor", guid=guid))
     else:
         return redirect(url_for('accounts.login_get'))
 
 
 @blueprint.route('/products/add/<guid>', methods=['GET'])
-@response(template_file='products/add_type.html')
-def get_type(guid):
-    if "usr" in session:
-        usr = session["usr"]
-        session["usr"] = usr
-        accounts = check_user_role(usr)
-
-        return {"accounts": accounts}
-    else:
-        return redirect(url_for('accounts.login_get'))
-
-
-@blueprint.route('/products/add/<guid>', methods=['POST'])
-@response(template_file='products/add_type.html')
-def post_type(guid):
-    if "usr" in session:
-        usr = session["usr"]
-        session["usr"] = usr
-        type = request.form.get('type')
-        return redirect(url_for('products.get_vendor', guid=guid, software_type=type))
-    else:
-        return redirect(url_for('accounts.login_get'))
-
-
-@blueprint.route('/products/add/<software_type>/<guid>', methods=['GET'])
-@response(template_file='products/select_vendor.html')
-def get_vendor(guid, software_type):
+@response(template_file='products/add_vendor.html')
+def get_vendor(guid):
     if "usr" in session:
         usr = session["usr"]
         session["usr"] = usr
         company = get_company_name(usr)
-        vendors = get_vendor_list()
+        prod_type = get_product_type(guid)
+        if prod_type == 'In-House':
+            made_by(guid, company)
+            return redirect(url_for('dashboard.dash'))
         return {
                 "comany": company,
-                "vendors": vendors
-                }
-    else:
-        return redirect(url_for('accounts.login_get'))
-
-
-@blueprint.route('/products/add/<software_type>/<guid>', methods=['POST'])
-@response(template_file='products/select_vendor.html')
-def post_vendor(guid, software_type):
-    if "usr" in session:
-        usr = session["usr"]
-        session["usr"] = usr
-        vendor = request.form.get('vendor')
-        made_by(guid, vendor)
-        return redirect(url_for('products.get_vendor', guid=guid))
-    else:
-        return redirect(url_for('accounts.login_get'))
-
-
-@blueprint.route('/products/add/<guid>', methods=['GET'])
-@response(template_file='products/select_vendor.html')
-def get_add_vendor(guid):
-    if "usr" in session:
-        usr = session["usr"]
-        session["usr"] = usr
-        company = get_company_name(usr)
-
-        return {
-                "comany": company,
-
+                "prod_type": prod_type,
                 }
     else:
         return redirect(url_for('accounts.login_get'))
 
 
 @blueprint.route('/products/add/<guid>', methods=['POST'])
-@response(template_file='products/select_vendor.html')
-def post_add_vendor(guid):
+@response(template_file='products/add_vendor.html')
+def post_vendor(guid):
     if "usr" in session:
         usr = session["usr"]
         session["usr"] = usr
-        vendor = request.form.get('vendor')
-        made_by(guid, vendor)
-        return redirect(url_for('products.get_vendor', guid=guid))
+        name = request.form.get('name')
+        shortname = request.form.get('shortname')
+        homepage = request.form.get('homepage')
+        github = request.form.get('github')
+        if find_vendor(name):
+            made_by(guid, name)
+            return redirect(url_for('dashboard.dash'))
+        else:
+            add_vendor(name, shortname, homepage, github)
+            made_by(guid, name)
+            return redirect(url_for('dashboard.dash'))
     else:
         return redirect(url_for('accounts.login_get'))

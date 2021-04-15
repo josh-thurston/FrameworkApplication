@@ -35,11 +35,12 @@ def get_product_category(encoded):
     return product_category
 
 
-def add_product(name: str, shortname: str, description: str):
+def add_product(name: str, shortname: str, description: str, prod_type: str):
     product = Product()
     product.name = name
     product.shortname = shortname
     product.description = description
+    product.software_type = prod_type
     graph.create(product)
 
 
@@ -64,16 +65,19 @@ def get_product_guid(name):
         return guid
 
 
-def set_product_type(guid, type):
-    graph.run(f"MATCH (x:Product) "
-              f"WHERE x.guid='{guid}' "
-              f"SET x.software_type='{type}'")
+def get_product_type(guid):
+    type_dict = graph.run(f"MATCH (x:Product) "
+                          f"WHERE x.guid='{guid}' "
+                          f"RETURN x.software_type as software_type").data()
+    for t in type_dict:
+        prod_type = t['software_type']
+        return prod_type
 
 
-def made_by(guid, vendor):
+def made_by(guid, name):
     graph.run(f"MATCH (x:Product), (y:Vendor)"
               f"WHERE x.guid='{guid}'"
-              f"AND y.name='{vendor}'"
+              f"AND y.name='{name}'"
               f"MERGE (x)-[r:made_by]->(y)")
 
 
@@ -92,14 +96,5 @@ def count_products() -> int:
         "RETURN count(*) as count").data()
     return product_count
 
-
-def get_product_info(encoded):
-    name = urllib.parse.unquote(encoded)
-    product_info = graph.run(
-        f"MATCH (c:Product) WHERE c.name='{name}'"
-        f"RETURN c.name as name, "
-        f"c.description as description, "
-        f"c.vendor as vendor").data()
-    return product_info
 
 

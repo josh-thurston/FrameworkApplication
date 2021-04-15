@@ -2,33 +2,81 @@
 {% block title %} Product Index {% endblock %}
 
 {% block main_content %}
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="section text-center">
-                    <h2 class="title">Products</h2>
-                    <div class="row">
-                        {% for product in index|sort(attribute='name') %}
-                            <div class="col-md-4">
-                                <div class="card card-profile">
-{#                                    <div class="card-avatar">#}
-{#                                        <img alt="{{ product.vendor }} icon" src="/static/img/products/{{ product.vendor.lower() }}_thumbnail.png"/>#}
-{#                                    </div>#}
-                                    <div class="card-body">
-
-                                        <h6 class="card-category"></h6>
-                                        <h4 class="card-title">{{ product.name }}</h4>
-                                        <p class="card-description">{{ product.description }}</p>
-                                        <a href="/products/{{ product.name }}" class="btn btn-warning btn-round">View Details</a>
-                                    </div>
-                                </div>
+<div class="content">
+    <div class="container-fluid">
+        <div class="content">
+            <form class="form" method="POST" action="">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card card-chart">
+                            <div class="card-header card-header-warning">
+                                <h4><strong>Browse Products</strong></h4>
                             </div>
-                        {% endfor %}
+                            <div class="card-body">
+                                <h4 class="card-title">Count of Products: Commercial # | FOSS #</h4>
+                                <p class="card-category">
+                                    Browse all of the products & solutions in our platform.  The list can grow daily through various
+                                    contributurs, so check back often.
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="/products/index"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/prducts/index';">Browse</btn></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card card-chart">
+                            <div class="card-header card-header-warning">
+                                <h4><strong>Add A New Product</strong></h4>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Community & Private</h4>
+                                <p class="card-category">
+                                    Add a new product for everyone to use in their toolkit and selection in assessments. Or make it private for only you to see.
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="/products/add"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/products/add';">Add</btn></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card card-chart">
+                            <div class="card-header card-header-warning">
+                                <h4><strong>Categorize and Map</strong></h4>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Did you add a product?</h4>
+                                <p class="card-category">Choose a product you added and answer some questions. The product will be mapped to product
+                                categories, product capabilities, and frameworks. It makes a lot of the guesswork go away.</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="/assessments/prep"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/assessments/prep';">Map</btn></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card card-chart">
+                            <div class="card-header card-header-warning">
+                                <h4><strong>Delete A Private Product</strong></h4>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Private Product Not Needed?</h4>
+                                <p class="card-category">
+                                    You can delete your private product from the platform. Removing your private product will remove it from
+                                    your toolkit and all of you assessments.  This may affect your assessment scores, so proceed with caution.
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="/products/add"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/products/add';">Delete</btn></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block additional_js %}

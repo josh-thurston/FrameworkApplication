@@ -17,13 +17,24 @@
                             <div class="col-sm-12 text-center">
                                 <div class="form-check">
                                     <div class="form-group label-floating is-empty">
-                                        <label class="control-label">Product Name</label>
+                                        <label class="control-label">Name</label>
                                         <input class="form-control" name="name" type="text" required value="{{ name }}">
                                     </div>
                                     <div class="form-group label-floating is-empty">
-                                        <label class="control-label">Product Shortname</label>
+                                        <label class="control-label">Shortname</label>
                                         <input class="form-control" name="shortname" type="text" placeholder="(ex. EPP)" value="{{ shortname }}">
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-check label-floating">
+                                    <label class="control-label">Select Product Type</label>
+                                    <select class="form-control" name="vendor">
+                                        <option value="" selected>---</option>
+                                        <option value="Commercial">Commercial</option>
+                                        <option value="FOSS">Free Open Source</option>
+                                        <option value="In-House">In-House</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-sm-12" style="margin-top: 20px;">

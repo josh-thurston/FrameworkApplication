@@ -13,6 +13,7 @@ class Vendor(GraphObject):
     name = Property()
     shortname = Property()
     homepage = Property()
+    github = Property()
     created_date = Property()
     guid = Property()
 
@@ -21,14 +22,18 @@ class Vendor(GraphObject):
         self.guid = str(uuid.uuid4())
 
 
-def get_vendor_list():
-    vendors = []
-    vendor_list = graph.run(
-        "MATCH (x:Vendor)"
-        "RETURN x.name as name").data()
-    for vendor in vendor_list:
-        vendors.append(vendor)
-    return vendors
+def find_vendor(name):
+    vendor = Vendor.match(graph, f"{name}").first()
+    return vendor
+
+
+def add_vendor(name, shortname, homepage, github):
+    vendor = Vendor()
+    vendor.name = name
+    vendor.shortname = shortname
+    vendor.homepage = homepage
+    vendor.github = github
+    graph.create(vendor)
 
 
 def get_vendor_products(encoded):
