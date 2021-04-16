@@ -1,8 +1,10 @@
-import urllib
-import uuid
+import json
+from typing import Optional
 from py2neo.ogm import GraphObject, Property
 from datetime import datetime
 from data.db_session import db_auth
+from services.assessments_service import Answer, Assessment, get_assessment_guid, created_by, assessment_for, \
+    answer_for
 
 graph = db_auth()
 
@@ -31,3 +33,49 @@ class SubControl(GraphObject):
 
     def __init__(self):
         self.created_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+
+def create_csc_assessment(usr, name, focal, description, tenant):
+    prepare_csc_assessment(usr, name, focal, description)
+    guid = get_assessment_guid(name)
+    created_by(usr, guid)
+    assessment_for(guid, tenant)
+    csc_template(guid)
+    answer_for(guid)
+
+
+def prepare_csc_assessment(usr: str, name: str, focal: str, description: str) -> Optional[Assessment]:
+    assessment = Assessment()
+    assessment.name = name
+    assessment.framework_base = "CSC"
+    assessment.focal = focal
+    assessment.completed = '0%'
+    assessment.description = description
+    assessment.created_by = usr
+    graph.create(assessment)
+    return assessment
+
+
+def csc_template(guid):
+    with open('data/csc_subcontrols.json') as fin:
+        data = json.load(fin)
+        for i in data['subcontrols']:
+            answer = Answer()
+            answer.name = i['name'].strip()
+            answer.subcontrol = i['subcontrol']
+            answer.description = i['description']
+            answer.guid = guid
+            graph.create(answer)
+
+
+def get_csc_assessments(tenant):
+    assessments = graph.run(
+        f"MATCH (x:Tenant), (y:Assessment) "
+        f"WHERE x.name='{tenant}' AND y.framework_base='CSC' "
+        f"RETURN y.name as name, "
+        f"y.created_date as created_date, "
+        f"y.guid as guid, "
+        f"y.completed as completed, "
+        f"y.last_update as last_update"
+    ).data()
+    return assessments

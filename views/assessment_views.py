@@ -1,17 +1,19 @@
-import urllib
-import urllib.parse
-import uuid
-import string
-import random
-from flask import Flask, Blueprint, request, session, redirect, url_for, render_template, flash
+from flask import Blueprint, request, session, redirect, url_for
 from infrastructure.view_modifiers import response
-from services.frameworks_service import get_frameworks
-from services.csf_service import get_csf_functions
-from services.user_service import check_user_role
 from services.tenant_service import get_tenant
-from services.assessments_service import create_assessment, get_assessments, get_question, subcat_array, \
-    post_answer, update_assessment_status, get_current_answer, get_target_answer, get_assessment_details, \
-    delete_assessment, find_assessment
+from services.assessments_service import update_assessment_status, \
+    get_assessment_details, \
+    delete_assessment, \
+    find_assessment
+from services.csf_service import get_csf_assessments, \
+    get_current_answer, \
+    get_target_answer, \
+    create_csf_assessment, \
+    get_question, \
+    subcat_array, \
+    post_answer
+from services.csc_service import create_csc_assessment, \
+    get_csc_assessments
 
 
 blueprint = Blueprint('assessments', __name__, template_folder='templates')
@@ -23,13 +25,13 @@ def landing_get():
     if "usr" in session:
         usr = session["usr"]
         session["usr"] = usr
-        accounts = check_user_role(usr)
-        frame = get_frameworks()
+
         tenant = get_tenant(usr)
-        assessments = get_assessments(tenant)
-        return {'frame': frame,
-                'accounts': accounts,
-                'assessments': assessments
+        csc_assessments = get_csc_assessments(tenant)
+        csf_assessments = get_csf_assessments(tenant)
+        return {
+                'csc_assessments': csc_assessments,
+                'csf_assessments': csf_assessments
                 }
     else:
         return redirect(url_for('accounts.login_get'))
@@ -45,9 +47,9 @@ def landing_post():
         return redirect(url_for('accounts.login_get'))
 
 
-@blueprint.route('/assessments/prep', methods=['GET'])
-@response(template_file='assessments/prep_csf.html')
-def prep_get():
+@blueprint.route('/assessments/prep/csc', methods=['GET'])
+@response(template_file='assessments/prep.html')
+def prep_csc_get():
     if "usr" in session:
         usr = session["usr"]
         session["usr"] = usr
@@ -56,9 +58,9 @@ def prep_get():
         return redirect(url_for('accounts.login_get'))
 
 
-@blueprint.route('/assessments/prep', methods=['POST'])
-@response(template_file='assessments/prep_csf.html')
-def prep_post():
+@blueprint.route('/assessments/prep/csc', methods=['POST'])
+@response(template_file='assessments/prep.html')
+def prep_csc_post():
     if "usr" in session:
         usr = session["usr"]
         session["usr"] = usr
@@ -73,7 +75,41 @@ def prep_post():
                 'error': "An assessment with that name already exists."
             }
         else:
-            create_assessment(usr, name, focal, description, tenant)
+            create_csc_assessment(usr, name, focal, description, tenant)
+        return redirect(url_for('assessments.landing_get'))
+    else:
+        return redirect(url_for('accounts.login_get'))
+
+
+@blueprint.route('/assessments/prep/csf', methods=['GET'])
+@response(template_file='assessments/prep.html')
+def prep_csf_get():
+    if "usr" in session:
+        usr = session["usr"]
+        session["usr"] = usr
+        return {}
+    else:
+        return redirect(url_for('accounts.login_get'))
+
+
+@blueprint.route('/assessments/prep/csf', methods=['POST'])
+@response(template_file='assessments/prep.html')
+def prep_csf_post():
+    if "usr" in session:
+        usr = session["usr"]
+        session["usr"] = usr
+        name = request.form['name']
+        focal = request.form['focal']
+        description = request.form['description']
+        tenant = get_tenant(usr)
+        if find_assessment(name):
+            return {
+                'name': name,
+                'focal': focal,
+                'error': "An assessment with that name already exists."
+            }
+        else:
+            create_csf_assessment(usr, name, focal, description, tenant)
         return redirect(url_for('assessments.landing_get'))
     else:
         return redirect(url_for('accounts.login_get'))

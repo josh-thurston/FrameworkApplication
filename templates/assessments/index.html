@@ -11,24 +11,42 @@
                     <div class="col-md-6">
                         <div class="card card-chart">
                             <div class="card-header card-header-warning">
-                                <h4><strong>CDM Assessments</strong></h4>
+                                <h4><strong>CSC Assessments</strong></h4>
                             </div>
-                            <div class="card-body">
-                                <h4 class="card-title">Current Score: 3</h4>
-                                <p class="card-category">
-                                    <span class="text-success">
-                                        <i class="fa fa-long-arrow-up"></i>
-                                        5%
-                                    </span> increase in today sales.
-                                </p>
+                            <div class="card-body table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="text-warning">
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Progress</th>
+                                            <th>Created Date</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for assessment in csc_assessments|sort(attribute="created_date") %}
+                                        <tr>
+                                            <th>{{ assessment.name }}</th>
+                                            <th>{{ assessment.completed }}</th>
+                                            <th>{{ assessment.created_date }}</th>
+                                            {% if assessment.completed == '0%' %}
+                                                <td><a href="/assessments/{{ assessment.guid }}/ID.AM-1"><btn class="btn btn-warning btn-sm">Start</btn></a></td>
+                                            {% elif assessment.completed =='100%' %}
+                                                <td><a href="/assessments/{{ assessment.guid }}/ID.AM-1"><btn class="btn btn-warning btn-sm">View/Edit</btn></a></td>
+                                            {% else %}
+                                                <td><a href="/assessments/{{ assessment.guid }}/{{ assessment.last_update }}"><btn class="btn btn-warning btn-sm">Continue</btn></a></td>
+                                            {% endif %}
+                                            <td><td><a href="/assessments/delete/{{ assessment.guid }}"><btn class="btn btn-warning btn-sm">Delete</btn></a></td></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="card-footer">
-                                <div class="stats">
-                                    <i class="material-icons">access_time</i> updated 4 minutes ago
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <input class="btn btn-warning btn-sm" type="submit" name="start" id="start" value="Start CDM Assessment">
+{#                                <input class="btn btn-warning btn-sm" type="submit" name="start" id="start" value="Prepare New CSC Assessment">#}
+                                <a href="/assessments/prep/csc"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/assessments/prep/csc';">Prepare New CSC Assessment</btn></a>
                             </div>
                         </div>
                     </div>
@@ -50,7 +68,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {% for assessment in assessments|sort(attribute="created_date") %}
+                                    {% for assessment in csf_assessments|sort(attribute="created_date") %}
                                         <tr>
                                             <th>{{ assessment.name }}</th>
                                             <th>{{ assessment.completed }}</th>
@@ -69,7 +87,7 @@
                                 </table>
                             </div>
                             <div class="card-footer">
-                                <a href="/assessments/prep"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/assessments/prep';">Prepare New CSF Assessment</btn></a>
+                                <a href="/assessments/prep/csf"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/assessments/prep/csf';">Prepare New CSF Assessment</btn></a>
                             </div>
                         </div>
                     </div>
@@ -83,13 +101,13 @@
 
 {% block additional_js %}
     <!--   Core JS Files   -->
-	<script src="/static/js/jquery-2.2.4.min.js" type="text/javascript"></script>
-	<script src="/static/js/bootstrap.min.js" type="text/javascript"></script>
-	<script src="/static/js/jquery.bootstrap.js" type="text/javascript"></script>
+{#	<script src="/static/js/jquery-2.2.4.min.js" type="text/javascript"></script>#}
+{#	<script src="/static/js/bootstrap.min.js" type="text/javascript"></script>#}
+{#	<script src="/static/js/jquery.bootstrap.js" type="text/javascript"></script>#}
 
 	<!--  Plugin for the Wizard -->
-	<script src="/static/js/material-bootstrap-wizard.js"></script>
+{#	<script src="/static/js/material-bootstrap-wizard.js"></script>#}
 
 	<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
-	<script src="/static/js/jquery.validate.min.js"></script>
+{#	<script src="/static/js/jquery.validate.min.js"></script>#}
 {% endblock %}

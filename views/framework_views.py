@@ -1,5 +1,4 @@
-import urllib.parse
-from flask import Flask, Blueprint, request, session, redirect, url_for, render_template, flash
+from flask import Blueprint, session, redirect, url_for
 from infrastructure.view_modifiers import response
 from services.frameworks_service import get_frameworks
 from services.csf_service import get_csf_model, get_csf_categories, get_csf_functions, get_csf_subcategories
@@ -17,7 +16,6 @@ def frmwrk_index():
         session["usr"] = usr
         accounts = check_user_role(usr)
         frame = get_frameworks()
-
         return {'frame': frame,
                 'accounts': accounts}
     else:
@@ -32,7 +30,6 @@ def map_landing():
         session["usr"] = usr
         accounts = check_user_role(usr)
         frame = get_frameworks()
-
         return {'frame': frame,
                 'accounts': accounts}
     else:
@@ -46,9 +43,7 @@ def cdm_get():
         usr = session["usr"]
         session["usr"] = usr
         accounts = check_user_role(usr)
-
         frame = get_frameworks()
-
         return {'frame': frame,
                 'accounts': accounts
                 }
@@ -63,13 +58,11 @@ def csf_get():
         usr = session["usr"]
         session["usr"] = usr
         accounts = check_user_role(usr)
-
         frame = get_frameworks()
         csf_model = get_csf_model
         functions = get_csf_functions()
         categories = get_csf_categories()
         subcategories = get_csf_subcategories()
-
         return {'frame': frame,
                 'csf_model': csf_model,
                 'functions': functions,
