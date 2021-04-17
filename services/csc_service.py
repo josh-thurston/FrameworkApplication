@@ -1,3 +1,4 @@
+import csv
 import json
 from typing import Optional
 from py2neo.ogm import GraphObject, Property
@@ -12,6 +13,7 @@ graph = db_auth()
 class Control(GraphObject):
     __primarykey__ = "name"
 
+    cis_control = Property()
     name = Property()
     description = Property()
     order = Property()
@@ -25,6 +27,10 @@ class Control(GraphObject):
 class SubControl(GraphObject):
     __primarykey__ = "name"
 
+    cis_control = Property()
+    cis_subcontrol = Property()
+    asset_type = Property()
+    security_function = Property()
     name = Property()
     description = Property()
     order = Property()
@@ -57,13 +63,15 @@ def prepare_csc_assessment(usr: str, name: str, focal: str, description: str) ->
 
 
 def csc_template(guid):
-    with open('data/csc_subcontrols.json') as fin:
-        data = json.load(fin)
-        for i in data['subcontrols']:
+    with open('data/csc_subcontrols7.1.csv') as fin:
+        reader = csv.reader(fin)
+        header_row = next(reader)
+        for i in reader:
             answer = Answer()
-            answer.name = i['name'].strip()
-            answer.subcontrol = i['subcontrol']
-            answer.description = i['description']
+            answer.order = i[0].strip()
+            answer.subcontrol = i[2].strip()
+            answer.name = i[5].strip()
+            answer.prompt = i[6].strip()
             answer.guid = guid
             graph.create(answer)
 

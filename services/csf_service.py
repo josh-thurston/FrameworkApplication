@@ -180,7 +180,7 @@ def csf_template(guid):
             answer.name = i['name'].strip()
             answer.subid = i['subid'].upper().strip()
             answer.order = int(i['order'])
-            answer.description = i['description']
+            answer.prompt = i['description']
             answer.guid = guid
             graph.create(answer)
 

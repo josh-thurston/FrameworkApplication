@@ -34,6 +34,7 @@ class Answer(GraphObject):
 
     name = Property()
     prompt = Property()
+    order = Property()
     subid = Property()
     subcontrol = Property()
     guid = Property()
