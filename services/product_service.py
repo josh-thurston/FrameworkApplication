@@ -81,6 +81,13 @@ def made_by(guid, name):
               f"MERGE (x)-[r:made_by]->(y)")
 
 
+def private_made_by(guid, tenant):
+    graph.run(f"MATCH (x:Product), (y:Tenant)"
+              f"WHERE x.guid='{guid}'"
+              f"AND y.name='{tenant}'"
+              f"MERGE (x)-[r:private_made_by]->(y)")
+
+
 def product_index():
     products = graph.run(
         "MATCH (x:Product) "
@@ -92,9 +99,18 @@ def product_index():
 
 def count_products() -> int:
     product_count = graph.run(
-        "MATCH (b:Product) "
+        "MATCH (x:Product) "
+        "WHERE x.software_type<>'In-House' "
         "RETURN count(*) as count").data()
     return product_count
+
+
+def count_usr_private_products(tenant) -> int:
+    private_count = graph.run(
+        f"MATCH (x:Product)-[r:private_made_by]-(y:Tenant) "
+        f"WHERE y.name='{tenant}' "
+        f"RETURN count(x) as count").data()
+    return private_count
 
 
 

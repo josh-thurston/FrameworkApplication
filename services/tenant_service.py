@@ -34,12 +34,6 @@ def find_tenant(company: str):
     return tenant
 
 
-# def create_tenant(company, email):
-#     new_tenant(company, email)
-#     set_admin(email)
-#     administrator_of(email, company)
-
-
 def create_tenant(company, email):
     if find_tenant(company):
         return None
@@ -59,6 +53,15 @@ def get_tenant(usr):
     for t in tenant_lookup:
         tenant = t['name']
         return tenant
+
+
+def get_tenant_guid(company):
+    guid_dict = graph.run(f"MATCH (x:Tenant) "
+                          f"WHERE x.name='{company}' "
+                          f"RETURN x.guid as guid").data()
+    for g in guid_dict:
+        guid = g['guid']
+        return guid
 
 
 def get_company_info(usr: str):

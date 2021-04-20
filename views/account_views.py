@@ -4,7 +4,8 @@ from data.db_session import db_auth
 from services.user_service import create_user, login_user, check_status, get_profile, check_user_role,\
     update_title
 from services.tenant_service import create_tenant, get_company_info, update_industry, update_city, update_country, \
-    update_postal, update_state, update_website
+    update_postal, update_state, update_website, get_tenant_guid
+from services.toolkit_service import create_toolkit
 
 
 blueprint = Blueprint('accounts', __name__, template_folder='templates')
@@ -43,7 +44,6 @@ def register_post():
             'error': "Passwords do not match."
         }
     user = create_user(name, email, company, password)
-    print(user)
     if not user:
         return {
             'name': name,
@@ -59,6 +59,8 @@ def register_post():
             'company': company,
             'info': f"An account for {company} was found.  An email was sent to the account admin for access approval.."
         }
+    guid = get_tenant_guid(company)
+    create_toolkit(guid, name)
     usr = request.form["email"]
     session["usr"] = usr
     return redirect(url_for('accounts.login_get'))

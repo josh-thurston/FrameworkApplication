@@ -10,10 +10,14 @@
                     <div class="col-sm-6">
                         <div class="card card-chart">
                             <div class="card-header card-header-warning">
-                                <h4><strong>Browse Products</strong></h4>
+                                {% for public in pub_count %}
+                                    {% for private in priv_count %}
+                                        <h4><strong>Browse Products - Public: {{ public.count }} | Private: {{ private.count }}</strong></h4>
+                                    {% endfor %}
+                                {% endfor %}
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title">Count of Products: Commercial # | FOSS #</h4>
+                                <h4 class="card-title">Explore</h4>
                                 <p class="card-category">
                                     Browse all of the products & solutions in our platform.  The list can grow daily through various
                                     contributurs, so check back often.
@@ -32,7 +36,8 @@
                             <div class="card-body">
                                 <h4 class="card-title">Community & Private</h4>
                                 <p class="card-category">
-                                    Add a new product for everyone to use in their toolkit and selection in assessments. Or make it private for only you to see.
+                                    Add a new product for everyone to use in their toolkit and selection in assessments. Or add a private product for only you
+                                    to see and use in assessments.
                                 </p>
                             </div>
                             <div class="card-footer">
