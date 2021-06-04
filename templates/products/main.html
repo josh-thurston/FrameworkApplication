@@ -1,0 +1,78 @@
+{% extends "shared/_dashboard.html" %}
+{% block title %} Products {% endblock %}
+
+{% block main_content %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="col-lg-10 col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active show" href="#prodindex" aria-selected="true">
+                                    <i class="material-icons">list</i>
+                                    Products
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/products/add" aria-selected="true">
+                                    <i class="material-icons">playlist_add</i>
+                                    Add Products
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#prodprofiler" aria-selected="true">
+                                    <i class="material-icons">rule</i>
+                                    Product Profiler
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/products/categories" aria-selected="true">
+                                    <i class="material-icons">category</i>
+                                    Product Categories
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <form class="form" method="POST" action="">
+                                {% for product in products|sort(attribute="name") %}
+                                    <div class="col-sm-12">
+                                        <div class="box">
+                                            <img src="{{ product.product_logo }}">
+                                        </div>
+                                    </div>
+                                    <div class="row" style="border-bottom: 1px solid lightgray; padding: 10px 10px 20px 10px; margin: 0 10px 0 10px;">
+                                        <div class="col-sm-3">
+                                            <h4><strong><a href="/products/{{ product.guid }}">{{ product.name }}</a></strong></h4>
+                                            {% if product.homepage %}
+                                                <p style="text-align: left;">{{ product.shortname }} Made by <a href="{{ product.homepage }}" target="_blank">{{ product.creator }}</a></p>
+                                            {% else %}
+                                                <p style="text-align: left;">Made by {{ product.creator }}</p>
+                                            {% endif %}
+                                            {% if product.github %}
+                                                    <p style="text-align: left;"><a href="{{ product.github }}" target="_blank"><i class="fa fa-github"></i> Github</a></p>
+                                            {% endif %}
+                                            <button class="btn btn-warning btn-xs" name="guid" type="submit" value="{{ product.guid }}">Add to Toolkit</button>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <div class="info">
+                                                <p style="text-align: justify;">{{ product.description }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2"></div>
+                                    </div>
+
+                                {% endfor %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_js %}
+{% endblock %}

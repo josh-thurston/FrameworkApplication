@@ -23,7 +23,6 @@ class ProductCategory(GraphObject):
         self.guid = str(uuid.uuid4())
 
 
-# guid = User GUID
 def create_product_category(name, shortname, description, guid):
     productcategory = ProductCategory()
     productcategory.name = name
@@ -34,12 +33,24 @@ def create_product_category(name, shortname, description, guid):
 
 
 def get_product_categories():
-    product_categories = graph.run(
+    productcategories = graph.run(
         "MATCH (x:ProductCategory) "
         "RETURN x.name as name, "
         "x.shortname as shortname, "
-        "x.description as description").data()
-    return product_categories
+        "x.description as description"
+    ).data()
+    return productcategories
+
+
+def get_category_products():
+    products = graph.run(
+        "MATCH (x:Product)-[r:BELONGS_TO]-(y:ProductCategory) "
+        "RETURN x.name as name, "
+        "x.creator as creator, "
+        "x.logo as logo, "
+        "y.name as productcategory"
+    ).data()
+    return products
 
 
 def product_categories():

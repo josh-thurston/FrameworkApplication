@@ -42,6 +42,7 @@ def create_tenant(company, email):
     graph.create(tenant)
     set_admin(email)
     administrator_of(email, company)
+    return tenant
 
 
 def get_tenant(usr):

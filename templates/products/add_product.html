@@ -3,71 +3,178 @@
 {% block additional_css %}
 {% endblock %}
 {% block main_content %}
-<div class="content">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-6 ml-auto mr-auto">
-                <div class="card card-login">
-                    <div class="card-header card-header-warning text-center">
-                        <h4 class="card-title">Add Product</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-header text-center"><h3>Product Info</h3></div>
-                        <form class="form" method="POST" action="">
-                            <div class="col-sm-12 text-center">
-                                <div class="form-check">
-                                    <div class="form-group label-floating is-empty">
-                                        <label class="control-label">Name</label>
-                                        <input class="form-control" name="name" type="text" required value="{{ name }}">
+        <div class="content">
+        <div class="container">
+            <div id="nav-tabs">
+                <h3></h3>
+                <div class="row">
+                    <div class="col-lg-12 col-md-8">
+                        <div class="card card-nav-tabs">
+                            <div class="card-header card-header-warning">
+                                <div class="nav-tabs-navigation">
+                                    <div class="nav-tabs-wrapper">
+                                        <ul class="nav nav-tabs">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/products" aria-selected="true">
+                                                    <i class="material-icons">list</i>
+                                                    Products
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active show" href="#" aria-selected="true">
+                                                    <i class="material-icons">playlist_add</i>
+                                                    Add Products
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#prodprofiler" aria-selected="true">
+                                                    <i class="material-icons">rule</i>
+                                                    Product Profiler
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div class="form-group label-floating is-empty">
-                                        <label class="control-label">Shortname</label>
-                                        <input class="form-control" name="shortname" type="text" placeholder="(ex. EPP)" value="{{ shortname }}">
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div id="#" class="tab-pane active show">
+                                                <p class="card-category">
+                                                    Add a new product for everyone to use in their toolkit and selection in assessments. Or add a private product for only you
+                                                    to see and use in assessments.
+                                                </p>
+
+                                                <div class="card-header text-center"><h3>Product Info</h3></div>
+                                                <form class="form" method="POST" action="">
+                                                    <div class="col-sm-6 text-center">
+                                                        <div class="form-check">
+                                                            <div class="form-group label-floating is-empty">
+                                                                <label class="control-label">Name</label>
+                                                                <input class="form-control" name="name" type="text" required value="{{ name }}">
+                                                            </div>
+                                                            <div class="form-group label-floating is-empty">
+                                                                <label class="control-label">Shortname</label>
+                                                                <input class="form-control" name="shortname" type="text" placeholder="(ex. EPP)" value="{{ shortname }}">
+                                                            </div>
+                                                            <div class="form-group label-floating is-empty">
+                                                                <label class="control-label">Logo</label>
+                                                                <input class="form-control" name="product_logo" type="text" placeholder="(URL for logo.png)" value="{{ product_logo }}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-check label-floating">
+                                                            <label class="control-label">Select Product Type <i class="fa fa-info-circle" aria-hidden="true"></i></label>
+                                                            <select class="form-control" name="prod_type">
+                                                                <option value="" selected>---</option>
+                                                                <option value="Commercial">Commercial</option>
+                                                                <option value="FOSS">Free Open Source</option>
+                                                                <option value="In-House">In-House</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        {% if product.guid in  %}
+                                                        <div class="togglebutton">
+                                                            <label>
+                                                                <input type="checkbox" id="toolkit" name="toolkit" value="add" checked="">
+                                                                <span class="toggle"></span>Add to your toolkit?
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12" style="margin-top: 20px;">
+                                                        <dif class="form-group label-floating is-empty">
+                                                            <div class="input-group">
+                                                                <label class="control-label">Description
+                                                                    <textarea rows="6" cols="60" name="description" class="form-control" placeholder="(Optional)"></textarea>
+                                                                </label>
+                                                            </div>
+                                                        </dif>
+                                                    </div>
+                                                    <div class="card-nav-button-row">
+                                                        <div class="card-nav-button-next">
+                                                            <a href="/dashboard"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/dashboard';">Cancel</btn></a>
+                                                            <input class="btn btn-warning btn-sm" type="submit" value="Next">
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </form>
+
+
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12">
-                                <div class="form-check label-floating">
-                                    <label class="control-label">Select Product Type</label>
-                                    <select class="form-control" name="prod_type">
-                                        <option value="" selected>---</option>
-                                        <option value="Commercial">Commercial</option>
-                                        <option value="FOSS">Free Open Source</option>
-                                        <option value="In-House">In-House</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="togglebutton">
-                                    <label>
-                                        <input type="checkbox" id="toolkit_add" name="toolkit_add" value="Yes" checked="">
-                                        <span class="toggle"></span>Add to your toolkit?
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-sm-12" style="margin-top: 20px;">
-                                <dif class="form-group label-floating is-empty">
-                                    <div class="input-group">
-                                        <label class="control-label">Description
-                                            <textarea rows="6" cols="60" name="description" class="form-control" placeholder="(Optional)"></textarea>
-                                        </label>
-                                    </div>
-                                </dif>
-                            </div>
-                            <div class="card-nav-button-row">
-                                <div class="card-nav-button-next">
-                                    <a href="/dashboard"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/dashboard';">Cancel</btn></a>
-                                    <input class="btn btn-warning btn-sm" type="submit" value="Next">
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+{#<div class="content">#}
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            <div class="col-lg-6 col-md-6 ml-auto mr-auto">#}
+{#                <div class="card card-login">#}
+{#                    <div class="card-header card-header-warning text-center">#}
+{#                        <h4 class="card-title">Add Product</h4>#}
+{#                    </div>#}
+{#                    <div class="card-body">#}
+{#                        <div class="card-header text-center"><h3>Product Info</h3></div>#}
+{#                        <form class="form" method="POST" action="">#}
+{#                            <div class="col-sm-12 text-center">#}
+{#                                <div class="form-check">#}
+{#                                    <div class="form-group label-floating is-empty">#}
+{#                                        <label class="control-label">Name</label>#}
+{#                                        <input class="form-control" name="name" type="text" required value="{{ name }}">#}
+{#                                    </div>#}
+{#                                    <div class="form-group label-floating is-empty">#}
+{#                                        <label class="control-label">Shortname</label>#}
+{#                                        <input class="form-control" name="shortname" type="text" placeholder="(ex. EPP)" value="{{ shortname }}">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="col-sm-12">#}
+{#                                <div class="form-check label-floating">#}
+{#                                    <label class="control-label">Select Product Type</label>#}
+{#                                    <select class="form-control" name="prod_type">#}
+{#                                        <option value="" selected>---</option>#}
+{#                                        <option value="Commercial">Commercial</option>#}
+{#                                        <option value="FOSS">Free Open Source</option>#}
+{#                                        <option value="In-House">In-House</option>#}
+{#                                    </select>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="col-sm-12">#}
+{#                                <div class="togglebutton">#}
+{#                                    <label>#}
+{#                                        <input type="checkbox" id="toolkit" name="toolkit" value="add" checked="">#}
+{#                                        <span class="toggle"></span>Add to your toolkit?#}
+{#                                    </label>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="col-sm-12" style="margin-top: 20px;">#}
+{#                                <dif class="form-group label-floating is-empty">#}
+{#                                    <div class="input-group">#}
+{#                                        <label class="control-label">Description#}
+{#                                            <textarea rows="6" cols="60" name="description" class="form-control" placeholder="(Optional)"></textarea>#}
+{#                                        </label>#}
+{#                                    </div>#}
+{#                                </dif>#}
+{#                            </div>#}
+{#                            <div class="card-nav-button-row">#}
+{#                                <div class="card-nav-button-next">#}
+{#                                    <a href="/dashboard"><btn class="btn btn-warning btn-sm" onclick="window.location.href='/dashboard';">Cancel</btn></a>#}
+{#                                    <input class="btn btn-warning btn-sm" type="submit" value="Next">#}
+{#                                </div>#}
+{#                                <div class="clearfix"></div>#}
+{#                            </div>#}
+{#                        </form>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
 {% endblock %}
 
 {% block additional_js %}

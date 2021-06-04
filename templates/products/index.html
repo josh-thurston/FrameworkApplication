@@ -12,7 +12,9 @@
                             <div class="card-header card-header-warning">
                                 {% for public in pub_count %}
                                     {% for private in priv_count %}
-                                        <h4><strong>Browse Products - Public: {{ public.count }} | Private: {{ private.count }}</strong></h4>
+                                        <h4><strong>Browse Products</strong></h4>
+                                        Public: {{ public.count }}
+                                        Private: {{ private.count }}
                                     {% endfor %}
                                 {% endfor %}
                             </div>

@@ -3,6 +3,7 @@ from infrastructure.view_modifiers import response
 from services.frameworks_service import get_frameworks
 from services.csf_service import get_csf_model, get_csf_categories, get_csf_functions, get_csf_subcategories
 from services.user_service import check_user_role
+from services.cdm_service import get_cdm_products
 
 
 blueprint = Blueprint('frameworks', __name__, template_folder='templates')
@@ -29,8 +30,10 @@ def map_landing():
         usr = session["usr"]
         session["usr"] = usr
         accounts = check_user_role(usr)
+        cdm_mapping = get_cdm_products()
         frame = get_frameworks()
         return {'frame': frame,
+                'cdm_mapping': cdm_mapping,
                 'accounts': accounts}
     else:
         return redirect(url_for('accounts.login_get'))
@@ -43,6 +46,7 @@ def cdm_get():
         usr = session["usr"]
         session["usr"] = usr
         accounts = check_user_role(usr)
+        cdm_mapping = get_cdm_products()
         frame = get_frameworks()
         return {'frame': frame,
                 'accounts': accounts

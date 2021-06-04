@@ -60,7 +60,7 @@ def register_post():
             'info': f"An account for {company} was found.  An email was sent to the account admin for access approval.."
         }
     guid = get_tenant_guid(company)
-    create_toolkit(guid, name)
+    create_toolkit(guid, company)
     usr = request.form["email"]
     session["usr"] = usr
     return redirect(url_for('accounts.login_get'))

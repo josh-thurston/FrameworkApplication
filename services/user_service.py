@@ -123,13 +123,13 @@ def get_profile(usr: str) -> Optional[User]:
         f"x.email as email, "
         f"x.company as company, "
         f"x.title as title, "
-        f"x.role as role,"
-        f"x.permission as permission,"
-        f"x.status as status,"
+        f"x.role as role, "
+        f"x.permission as permission, "
+        f"x.status as status, "
         f"x.last_logon as last_logon, "
         f"x.current_logon as current_logon, "
         f"x.created_date as created_date, "       
-        f"x.guid as guid, "
+        f"x.guid as guid "
         ).data()
     return user_profile
 
@@ -139,7 +139,7 @@ def get_user_info(encoded):
     user_info = graph.run(
         f"MATCH (x:User) "
         f"WHERE x.guid='{guid}' "
-        f"RETURN x.name as name,"
+        f"RETURN x.name as name, "
         f"x.email as email, "
         f"x.company as company, "
         f"x.title as title, "
@@ -147,9 +147,9 @@ def get_user_info(encoded):
         f"x.permission as permission, "
         f"x.status as status, "
         f"x.last_logon as last_logon, "
-        f"x.current_logon as current_logon"
+        f"x.current_logon as current_logon, "
         f"x.created_date as created_date, "
-        f"x.guid as guid, "
+        f"x.guid as guid "
         ).data()
     return user_info
 
@@ -273,3 +273,12 @@ def delete_user(guid: str):
     graph.run(f"MATCH (x:User) "
               f"WHERE x.guid='{guid}' "
               f"DELETE x")
+
+
+def get_usr_guid(usr):
+    guid_dict = graph.run(f"MATCH (x:User) "
+                          f"WHERE x.email='{usr}' "
+                          f"RETURN x.guid as guid").data()
+    for g in guid_dict:
+        guid = g['guid']
+        return guid

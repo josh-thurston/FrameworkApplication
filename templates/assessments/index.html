@@ -74,13 +74,13 @@
                                             <th>{{ assessment.completed }}</th>
                                             <th>{{ assessment.created_date }}</th>
                                             {% if assessment.completed == '0%' %}
-                                                <td><a href="/assessments/{{ assessment.guid }}/ID.AM-1"><btn class="btn btn-warning btn-sm">Start</btn></a></td>
+                                                <td><a href="/assessments/{{ assessment.guid }}/ID.AM-1"><btn class="btn btn-warning btn-xs">Start</btn></a></td>
                                             {% elif assessment.completed =='100%' %}
-                                                <td><a href="/assessments/{{ assessment.guid }}/ID.AM-1"><btn class="btn btn-warning btn-sm">View/Edit</btn></a></td>
+                                                <td><a href="/assessments/{{ assessment.guid }}/ID.AM-1"><btn class="btn btn-warning btn-xs">View/Edit</btn></a></td>
                                             {% else %}
-                                                <td><a href="/assessments/{{ assessment.guid }}/{{ assessment.last_update }}"><btn class="btn btn-warning btn-sm">Continue</btn></a></td>
+                                                <td><a href="/assessments/{{ assessment.guid }}/{{ assessment.last_update }}"><btn class="btn btn-warning btn-xs">Continue</btn></a></td>
                                             {% endif %}
-                                            <td><td><a href="/assessments/delete/{{ assessment.guid }}"><btn class="btn btn-warning btn-sm">Delete</btn></a></td></td>
+                                            <td><td><a href="/assessments/delete/{{ assessment.guid }}"><btn class="btn btn-warning btn-xs">Delete</btn></a></td></td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>

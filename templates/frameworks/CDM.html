@@ -25,12 +25,12 @@
                                                     CSF
                                                 </a>
                                             </li>
-{#                                            <li class="nav-item">#}
-{#                                                <a class="nav-link" href="/frameworks/csc" aria-selected="true">#}
-{#                                                    <i class="material-icons">share</i>#}
-{#                                                    CSC#}
-{#                                                </a>#}
-{#                                            </li>#}
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/frameworks/csc" aria-selected="true">
+                                                    <i class="material-icons">share</i>
+                                                    CSC
+                                                </a>
+                                            </li>
 {#                                            <li class="nav-item">#}
 {#                                                <a class="nav-link" href="/frameworks/cobit" aria-selected="true">#}
 {#                                                    <i class="material-icons">share</i>#}
@@ -46,340 +46,495 @@
                                     <div id="CDM" class="tab-pane active show">
                                         <div class="container">
                                             <div class="row">
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
+
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            <p></p>
                                                         </div>
-                                                        <h4></h4>
-                                                        <p></p>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons">fingerprint</i>
+                                                            </div>
+                                                            <h4>Identify</h4>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons">security</i>
+                                                            </div>
+                                                            <h4>Protect</h4>
+                                                            <p></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons">report</i>
+                                                            </div>
+                                                            <h4>Detect</h4>
+                                                            <p></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons">engineering</i>
+                                                            </div>
+                                                            <h4>Respond</h4>
+                                                            <p></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons">healing</i>
+                                                            </div>
+                                                            <h4>Recover</h4>
+                                                            <p></p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons">fingerprint</i>
+                                                <div class="row">
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons">devices</i>
+                                                            </div>
+                                                            <h4>Devices</h4>
+                                                            <p></p>
                                                         </div>
-                                                        <h4>Identify</h4>
                                                     </div>
 
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons">security</i>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Identify Devices' %}
+{#                                                                    <p>{{ product.name }}</p>#}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
                                                         </div>
-                                                        <h4>Protect</h4>
-                                                        <p></p>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Protect Devices' %}
+{#                                                                    <p>{{ product.name }}</p>#}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Detect Devices' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Respond Devices' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Recover Devices' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons">report</i>
+                                                <div class="row">
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons">apps</i>
+                                                            </div>
+                                                            <h4>Applications</h4>
+                                                            <p></p>
                                                         </div>
-                                                        <h4>Detect</h4>
-                                                        <p></p>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Identify Applications' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Protect Applications' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Detect Applications' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Respond Applications' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Recover Applications' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons">engineering</i>
+                                                <div class="row">
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons">device_hub</i>
+                                                            </div>
+                                                            <h4>Networks</h4>
+                                                            <p></p>
                                                         </div>
-                                                        <h4>Respond</h4>
-                                                        <p></p>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Identify Networks' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Protect Networks' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Detect Networks' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Respond Networks' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Recover Networks' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-2" style="border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons">healing</i>
+                                                <div class="row">
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons">folder_open</i>
+                                                            </div>
+                                                            <h4>Data</h4>
+                                                            <p></p>
                                                         </div>
-                                                        <h4>Recover</h4>
-                                                        <p></p>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Identify Data' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Protect Data' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Detect Data' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Respond Data' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2" style="border-bottom: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Recover Data' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons">devices</i>
+                                                <div class="row">
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons">people</i>
+                                                            </div>
+                                                            <h4>Users</h4>
+                                                            <p></p>
                                                         </div>
-                                                        <h4>Devices</h4>
-                                                        <p></p>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Identify Users' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
                                                         </div>
-                                                        <h4></h4>
-                                                        <p></p>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Protect Users' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
                                                         </div>
-                                                        <h4></h4>
-                                                        <p></p>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Detect Users' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
                                                         </div>
-                                                        <h4></h4>
-                                                        <p></p>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
+                                                    <div class="col-sm-2" style="border-right: 1px solid darkgray">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Respond Users' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
                                                         </div>
-                                                        <h4></h4>
-                                                        <p></p>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
+                                                    <div class="col-sm-2">
+                                                        <div class="info">
+                                                            <div class="icon">
+                                                                <i class="material-icons"></i>
+                                                            </div>
+                                                            <h4></h4>
+                                                            {% for product in cdm_mapping %}
+                                                                {% if product.element == 'Recover Users' %}
+                                                                    <div class="thumbnail">
+                                                                        <img src="{{ product.product_logo }}" alt="{{ product.name }}">
+                                                                    </div>
+                                                                {% endif %}
+                                                            {% endfor %}
                                                         </div>
-                                                        <h4></h4>
-                                                        <p></p>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons">apps</i>
-                                                        </div>
-                                                        <h4>Applications</h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons">device_hub</i>
-                                                        </div>
-                                                        <h4>Networks</h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons">folder_open</i>
-                                                        </div>
-                                                        <h4>Data</h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray; border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-bottom: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons">people</i>
-                                                        </div>
-                                                        <h4>Users</h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2" style="border-right: 1px solid darkgray">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <div class="info">
-                                                        <div class="icon">
-                                                            <i class="material-icons"></i>
-                                                        </div>
-                                                        <h4></h4>
-                                                        <p></p>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>

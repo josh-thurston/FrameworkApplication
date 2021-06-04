@@ -1,0 +1,54 @@
+{% extends "shared/_dashboard.html" %}
+{% block title %} My Toolkit {% endblock %}
+
+{% block main_content %}
+<div class="content">
+    <div class="container">
+        <div class="content">
+            <form class="form" method="POST" action="">
+                <div class="row">
+                    <div class="col-lg-12 col-md-8">
+                        <div class="card card-nav-tabs">
+                            <div class="card-header card-header-warning">
+                                <h4><strong>Toolkit</strong></h4>
+                                {% for qty in qty_tools %}
+                                    Total: {{ qty.count }}
+                                {% endfor %}
+                            </div>
+                            <div class="card-body table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="text-warning">
+                                        <tr>
+                                            <th style="text-align: left">Product Name</th>
+                                            <th style="text-align: left">Shortname</th>
+                                            <th style="text-align: left">Creator / Vendor</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for tool in tools|sort(attribute="name") %}
+                                        <tr>
+                                            <th style="text-align: left">{{ tool.name }}</th>
+                                            <th style="text-align: left">{{ tool.shortname }}</th>
+                                            <th style="text-align: left">{{ tool.vendor }}</th>
+                                            <th><a href="/products/{{ tool.guid }}"><button class="btn btn-primary btn-xs" onclick="window.location.href='/products/{{ tool.guid }}';">View Info</button></a></th>
+                                            <th><button class="btn btn-warning btn-xs" name="delete" type="submit" value="{{ tool.guid }}">Delete</button></th>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="card-footer"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block additional_js %}
+{% endblock %}

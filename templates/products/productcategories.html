@@ -1,0 +1,68 @@
+{% extends "shared/_dashboard.html" %}
+{% block title %} Product Categories {% endblock %}
+
+{% block main_content %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="col-lg-10 col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active show" href="#prodindex" aria-selected="true">
+                                    <i class="material-icons">list</i>
+                                    Products
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/products/add" aria-selected="true">
+                                    <i class="material-icons">playlist_add</i>
+                                    Add Products
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#prodprofiler" aria-selected="true">
+                                    <i class="material-icons">rule</i>
+                                    Product Profiler
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#productcategories" aria-selected="true">
+                                    <i class="material-icons">category</i>
+                                    Product Categories
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        {% for category in categories |sort(attribute='name') %}
+                            <div class="row" style="border-bottom: 1px solid lightgray; padding: 10px;">
+                                <div class="col-sm-4">
+                                    <h4><strong>{{ category.name }}</strong></h4>
+                                    <p>{{ category.shortname }}</p>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="info">
+                                        <p style="text-align: justify;">{{ category.description }} Category Description Placeholder</p>
+                                    </div>
+                                    <div class="row">
+                                        <ul class="no-bullets"><h4><strong>Products</strong></h4>
+                                        {% for product in products |sort(attribute='name') %}
+                                            {% if product.productcategory == category.name %}
+                                                <li><strong>{{ product.name }}</strong> by {{ product.creator }}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_js %}
+{% endblock %}

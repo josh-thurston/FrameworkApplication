@@ -12,11 +12,10 @@
                             <div class="card-icon">
                                 <i class="material-icons">content_copy</i>
                             </div>
-                            <p class="card-category">Products</p>
-{# TODO: Create a count for number of products user has in toolkit #}
-                            <h3 class="card-title">0
-{#                                <small>GB</small>#}
-                            </h3>
+                            <p class="card-category">Tools in Use</p>
+                            {% for qty in qty_tools %}
+                                <h3 class="card-title">{{ qty.count }}</h3>
+                            {% endfor %}
                         </div>
                         <div class="card-footer">
                             <div class="stats">

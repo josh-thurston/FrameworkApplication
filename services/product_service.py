@@ -16,8 +16,10 @@ class Product(GraphObject):
     homepage = Property()
     github = Property()
     description = Property()
+    logo = Property()
     software_type = Property()
     created_date = Property()
+    added_by = Property()
     guid = Property()
 
     def __init__(self):
@@ -35,12 +37,14 @@ def get_product_category(encoded):
     return product_category
 
 
-def add_product(name: str, shortname: str, description: str, prod_type: str):
+def add_product(name: str, shortname: str, description: str, prod_type: str, usr, logo: str):
     product = Product()
     product.name = name
     product.shortname = shortname
     product.description = description
     product.software_type = prod_type
+    product.added_by = usr
+    product.logo = logo
     graph.create(product)
 
 
@@ -88,11 +92,33 @@ def private_made_by(guid, tenant):
               f"MERGE (x)-[r:private_made_by]->(y)")
 
 
-def product_index():
+# def get_products():
+#     products = graph.run(
+#         "MATCH (x:Product)-[r:made_by]-(y:Vendor) "
+#         "RETURN x.name as name, "
+#         "x.shortname as shortname, "
+#         "x.software_type as software_type, "
+#         "x.description as description, "
+#         "x.logo as product_logo, "
+#         "x.guid as guid, "
+#         "y.name as vendor_name, "
+#         "y.github as github, "
+#         "y.logo as vendor_logo, "
+#         "y.homepage as homepage").data()
+#     return products
+
+def get_products():
     products = graph.run(
         "MATCH (x:Product) "
         "RETURN x.name as name, "
-        "x.vendor as vendor, "
+        "x.shortname as shortname, "
+        "x.software_type as software_type, "
+        "x.description as description, "
+        "x.logo as product_logo, "
+        "x.guid as guid, "
+        "x.creator as creator, "
+        "x.github as github, "
+        "x.logo as vendor_logo, "
         "x.homepage as homepage").data()
     return products
 
@@ -111,6 +137,3 @@ def count_usr_private_products(tenant) -> int:
         f"WHERE y.name='{tenant}' "
         f"RETURN count(x) as count").data()
     return private_count
-
-
-

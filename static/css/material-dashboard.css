@@ -3520,6 +3520,14 @@ fieldset:disabled a.btn {
   border-radius: 0.1875rem;
 }
 
+.btn-xs,
+.btn-group-xs>.btn {
+  padding: .25rem .4rem;
+  font-size: .875rem;
+  line-height: .5;
+  border-radius: .2rem;
+}
+
 .btn-block {
   display: block;
   width: 100%;
@@ -11307,6 +11315,15 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
   border-radius: 0.2rem;
 }
 
+.btn.btn-xs,
+.btn-group-xs>.btn,
+.btn-group-xs .btn {
+  padding: 8px;
+  font-size: 10px;
+  line-height: .1;
+  border-radius: 3px;
+}
+
 .btn.btn-round {
   border-radius: 30px;
 }
@@ -11341,6 +11358,19 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
   width: 30px;
 }
 
+.btn-group-xs .btn.btn-fab,
+.btn.btn-fab.btn-xs,
+.btn-group-xs>.btn.btn-fab,
+.btn.btn-fab.btn-fab-mini,
+.btn-group-xs .btn.btn-just-icon,
+.btn.btn-just-icon.btn-xs,
+.btn-group-xs>.btn.btn-just-icon,
+.btn.btn-just-icon.btn-fab-mini {
+  height: 15px;
+  min-width: 15px;
+  width: 15px;
+}
+
 .btn-group-sm .btn.btn-fab .material-icons,
 .btn-group-sm .btn.btn-fab .fa,
 .btn.btn-fab.btn-sm .material-icons,
@@ -11359,6 +11389,26 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
 .btn.btn-just-icon.btn-fab-mini .fa {
   font-size: 17px;
   line-height: 29px;
+}
+
+.btn-group-xs .btn.btn-fab .material-icons,
+.btn-group-xs .btn.btn-fab .fa,
+.btn.btn-fab.btn-xs .material-icons,
+.btn-group-xs>.btn.btn-fab .material-icons,
+.btn.btn-fab.btn-xs .fa,
+.btn-group-xs>.btn.btn-fab .fa,
+.btn.btn-fab.btn-fab-mini .material-icons,
+.btn.btn-fab.btn-fab-mini .fa,
+.btn-group-xs .btn.btn-just-icon .material-icons,
+.btn-group-xs .btn.btn-just-icon .fa,
+.btn.btn-just-icon.btn-xs .material-icons,
+.btn-group-xs>.btn.btn-just-icon .material-icons,
+.btn.btn-just-icon.btn-xs .fa,
+.btn-group-xs>.btn.btn-just-icon .fa,
+.btn.btn-just-icon.btn-fab-mini .material-icons,
+.btn.btn-just-icon.btn-fab-mini .fa {
+  font-size: .875rem;
+  line-height: .5;
 }
 
 .btn-group-lg .btn.btn-fab,
@@ -19747,4 +19797,21 @@ ul.no-bullets {
   list-style-type: none;
   margin-left: 15px;
   padding: 0;
+}
+
+.box {
+  width: 10%;
+  height: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+.thumbnail {
+  width: 60%;
+  height: 100%;
 }
